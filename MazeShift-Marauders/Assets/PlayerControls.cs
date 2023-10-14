@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControls : MonoBehaviour
 {
     public float speed = 1.5f;
+	public Text WinText;
     void Start()
     {
-        
+        WinText.enabled = false;
     }
 
     void Update()
@@ -28,6 +30,17 @@ public class PlayerControls : MonoBehaviour
 		{
 			transform.position += Vector3.back * speed * Time.deltaTime;
 		}
+	
 
+	}
+	void OnCollisionEnter(Collision collision)
+	{
+		Debug.Log("Win tIle");
+		
+		if (collision.gameObject.tag == "WinTile")
+		{
+			Debug.Log("Win tIle");
+			WinText.enabled = true;
+		}
 	}
 }
