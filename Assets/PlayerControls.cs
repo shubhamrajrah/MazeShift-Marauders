@@ -7,7 +7,7 @@ using TMPro;
 public class PlayerControls : MonoBehaviour
 {
     public float speed = 1.5f;
-	public Text WinText;
+	public TextMeshProUGUI WinText;
 	public int score;
 	public GameObject coinPrefab;
 	bool coinsSpawned = false;
@@ -19,7 +19,7 @@ public class PlayerControls : MonoBehaviour
 
 	void Start()
     {
-        WinText.enabled = false;
+        //WinText.enabled = false;
 		score = 0;
 		//Random Coin Genration
 		if (!coinsSpawned)
@@ -49,7 +49,7 @@ public class PlayerControls : MonoBehaviour
 		{
 			transform.position += Vector3.back * speed * Time.deltaTime;
 		}
-		Debug.Log("Score"+score);
+		//Debug.Log("Score"+score);
 
 		Vector3 currentBlockPosition = new Vector3(Mathf.Floor(transform.position.x), 0, Mathf.Floor(transform.position.z));
 
@@ -74,7 +74,7 @@ public class PlayerControls : MonoBehaviour
 		if (collision.gameObject.tag == "WinTile")
 		{
 			Debug.Log("Win tIle");
-			WinText.enabled = true;
+			WinText.text = "You Win!!";
 		}
 		if (collision.gameObject.tag == "Coin")
 		{
@@ -116,6 +116,6 @@ public class PlayerControls : MonoBehaviour
 	{
 		score++;
 		Debug.Log("Current Score == " + score);
-		scoreText.text = score.ToString();
+		scoreText.text = "Coins: " + score.ToString();
 	}
 }
