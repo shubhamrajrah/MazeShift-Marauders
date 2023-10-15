@@ -43,7 +43,7 @@ public class PlayerControls : MonoBehaviour
 		{
 			transform.position += Vector3.back * speed * Time.deltaTime;
 		}
-		Debug.Log("Score"+score);
+		//Debug.Log("Score"+score);
 
 	}
 
