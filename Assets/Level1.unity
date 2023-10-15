@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.332719, g: 0.43587962, b: 0.5797444, a: 1}
+  m_IndirectSpecularColor: {r: 0.332718, g: 0.43588057, b: 0.5797472, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8409,6 +8409,7 @@ MonoBehaviour:
   score: 0
   coinPrefab: {fileID: 5420048002135346800, guid: 24c03cffba3d640a2855da83a6cd4cdf, type: 3}
   scoreText: {fileID: 1302853615}
+  mazeSetup: {fileID: 1147698192}
 --- !u!54 &1619155824
 Rigidbody:
   m_ObjectHideFlags: 0
