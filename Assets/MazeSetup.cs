@@ -44,6 +44,43 @@ public class MazeSetup : MonoBehaviour
         }
     }
 
+    public void ResetMaze()
+    {
+        ShuffleMaze();
+        InitializeMaze();
+    }
+
+    void ShuffleMaze()
+    {
+        GameObject player = GameObject.Find("Player");
+        Vector3 playerBlockPosition = new Vector3(Mathf.Floor(player.transform.position.x), 0, Mathf.Floor(player.transform.position.z));
+
+        GameObject[] coins = GameObject.FindGameObjectsWithTag("CoinSpawnPoint");
+        List<Vector3> coinPositions = new List<Vector3>();
+        foreach (GameObject coin in coins)
+        {
+            coinPositions.Add(new Vector3(Mathf.Floor(coin.transform.position.x), 0, Mathf.Floor(coin.transform.position.z)));
+        }
+
+        // Shuffle the inner blocks
+        for (int i = 1; i < maze.GetLength(0) - 1; i++)
+        {
+            for (int j = 1; j < maze.GetLength(1) - 1; j++)
+            {
+                Vector3 blockPosition = new Vector3(i, 0, j);
+                if (blockPosition != playerBlockPosition && !coinPositions.Contains(blockPosition))
+                {
+                    maze[i, j] = Random.Range(0, 2);
+                }
+            }
+        }
+
+
+
+
+    }
+
+
     void InitializeMaze()
     {
         GameObject sourceBlock = GameObject.Find("block_11_7");
