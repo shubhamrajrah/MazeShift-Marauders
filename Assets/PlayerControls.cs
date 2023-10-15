@@ -96,6 +96,6 @@ public class PlayerControls : MonoBehaviour
 	{
 		score++;
 		Debug.Log("Current Score == " + score);
-		scoreText.text = score.ToString();
+		scoreText.text = "Coins: " + score.ToString();
 	}
 }
