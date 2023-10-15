@@ -13,6 +13,10 @@ public class PlayerControls : MonoBehaviour
 	bool coinsSpawned = false;
 	public TextMeshProUGUI scoreText;
 
+	private Vector3 lastBlockPosition;
+	private int boundariesCrossed = 0;
+	public MazeSetup mazeSetup;
+
 	void Start()
     {
         WinText.enabled = false;
@@ -23,6 +27,8 @@ public class PlayerControls : MonoBehaviour
 			RandomizeCoinPositions();
 			coinsSpawned = true;
 		}
+
+		lastBlockPosition = transform.position;
 	}
 
     void Update()
@@ -44,6 +50,20 @@ public class PlayerControls : MonoBehaviour
 			transform.position += Vector3.back * speed * Time.deltaTime;
 		}
 		Debug.Log("Score"+score);
+
+		Vector3 currentBlockPosition = new Vector3(Mathf.Floor(transform.position.x), 0, Mathf.Floor(transform.position.z));
+
+		if (currentBlockPosition != lastBlockPosition)
+		{
+			boundariesCrossed++;
+			lastBlockPosition = currentBlockPosition;
+		}
+
+		if (boundariesCrossed >= 3)
+		{
+			boundariesCrossed = 0;
+			mazeSetup.ResetMaze();
+		}
 
 	}
 
