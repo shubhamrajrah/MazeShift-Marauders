@@ -8,18 +8,24 @@ namespace Analytic.DTO
         public String Start;
         public String End;
         public long Interval;
-        public int DeadTimes;
+        public bool IsSuccess;
+        public int DeadTimesUp;
+        public int DeadByChaser;
         public int CoinCollected;
         public int DestroyedWalls;
 
         public LevelInfo(int levelNum, DateTime start)
         {
+            Random random = new Random();
             LevelNum = levelNum;
             Start = start.ToString("O");
             Interval = 0;
-            DeadTimes = 0;
+            // mock up data
+            DeadTimesUp = random.Next(0, 10);
+            DeadByChaser = random.Next(0, 10);
+            IsSuccess = random.Next(0, 1) == 0 ? true : false;
             CoinCollected = 0;
-            DestroyedWalls = 0;
+            DestroyedWalls = random.Next(0, 3);
         }
 
         public void CalculateIntervalAndSend(DateTime end)
