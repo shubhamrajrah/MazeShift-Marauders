@@ -1,9 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
-public class Player
+namespace Analytic.DTO
 {
-    public long Start;
-    public long End;
-    public long Interval;
+    public class Player
+    {
+        [SerializeField]
+        private int age;
+        [SerializeField]
+        public string userId;
+
+        public Player(int age, string userId)
+        {
+            this.age = age;
+            this.userId = userId;
+        }
+    }
 }

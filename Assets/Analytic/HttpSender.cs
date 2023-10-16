@@ -13,16 +13,18 @@ namespace Analytic
         public static void RecordData(string fileName, Object content)
         {
             string url = DataBaseUrl + fileName + ".json";
+            Debug.Log(UnityEngine.JsonUtility.ToJson(content, true));
             Send(url, content);
         }
 
         public static void UpdateData(String fileName, Object content)
         {
             string url = DataBaseUrl + fileName + ".json";
+            Debug.Log("whz-----------" + url);
             Update(url, content);
         }
 
-        public String GetData(String fileName)
+        public static String GetData(String fileName)
         {
             string url = DataBaseUrl + fileName + ".json";
             return Get(url);
