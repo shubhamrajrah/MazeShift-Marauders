@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 public class TimerController : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class TimerController : MonoBehaviour
     private float timer;
 
     public TextMeshProUGUI timerText;  // Reference to your TextMeshPro text object
+    public GameObject gameOverPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +31,8 @@ public class TimerController : MonoBehaviour
         {
             timer = 0;
             UpdateTimerText();
-            // Timer has reached 0, handle timer completion logic here
+            GameOver();
+            
         }
     }
     void UpdateTimerText()
@@ -36,5 +40,21 @@ public class TimerController : MonoBehaviour
         int minutes = Mathf.FloorToInt(timer / 60f);
         int seconds = Mathf.FloorToInt(timer % 60f);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+
+        Time.timeScale = 0;
+
+        StartCoroutine(WaitAndLoadMenu());
+    }
+
+    IEnumerator WaitAndLoadMenu()
+    {
+        yield return new WaitForSecondsRealtime(3); 
+        Time.timeScale = 1; 
+        SceneManager.LoadScene("Menu"); 
     }
 }
