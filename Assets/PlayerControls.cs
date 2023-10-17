@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Analytic;
+using Analytic.DTO;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,10 +15,12 @@ public class PlayerControls : MonoBehaviour
 	public GameObject coinPrefab;
 	bool coinsSpawned = false;
 	public TextMeshProUGUI scoreText;
+	public MazeSetup mazeSetup;
 
 	private Vector3 lastBlockPosition;
 	private int boundariesCrossed = 0;
-	public MazeSetup mazeSetup;
+	private LevelInfo _levelInfo;
+	
 
 	void Start()
     {
@@ -28,6 +33,7 @@ public class PlayerControls : MonoBehaviour
 			coinsSpawned = true;
 		}
 
+		_levelInfo = new LevelInfo(GlobalVariables.Level, DateTime.Now);
 		lastBlockPosition = transform.position;
 	}
 
@@ -69,17 +75,17 @@ public class PlayerControls : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		Debug.Log("Win tIle");
-		
 		if (collision.gameObject.tag == "WinTile")
 		{
 			Debug.Log("Win tIle");
+			_levelInfo.CalculateIntervalAndSend(DateTime.Now);
 			WinText.text = "You Win!!";
 		}
 		if (collision.gameObject.tag == "Coin")
 		{
 
 			AddScore();
+			_levelInfo.CoinCollected++;
 			Destroy(collision.gameObject);
 
 		}
