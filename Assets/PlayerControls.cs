@@ -36,7 +36,8 @@ public class PlayerControls : MonoBehaviour
 			coinsSpawned = true;
 		}
 
-		_levelInfo = new LevelInfo(GlobalVariables.Level, DateTime.Now);
+		GlobalVariables.LevelInfo = new LevelInfo(GlobalVariables.Level, DateTime.Now);
+		_levelInfo = GlobalVariables.LevelInfo;
 		lastBlockPosition = transform.position;
 	}
 
@@ -81,6 +82,7 @@ public class PlayerControls : MonoBehaviour
 		if (collision.gameObject.tag == "WinTile")
 		{
 			Debug.Log("Win tIle");
+			_levelInfo.IsSuccess = true;
 			_levelInfo.CalculateIntervalAndSend(DateTime.Now);
 			gameWinPanelDisplay();
 			//WinText.text = "You Win!!";
