@@ -23,7 +23,6 @@ namespace Analytic.DTO
             // mock up data
             DeadTimesUp = random.Next(0, 10);
             DeadByChaser = random.Next(0, 10);
-            IsSuccess = random.Next(0, 1) == 0 ? true : false;
             CoinCollected = 0;
             DestroyedWalls = random.Next(0, 3);
         }

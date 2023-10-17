@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Analytic.DTO;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -29,6 +31,13 @@ public class TimerController : MonoBehaviour
         }
         else
         {
+            LevelInfo levelInfo = GlobalVariables.LevelInfo;
+            if (levelInfo != null)
+            {
+                levelInfo.IsSuccess = false;
+                levelInfo.CalculateIntervalAndSend(DateTime.Now);
+                GlobalVariables.LevelInfo = null;
+            }
             timer = 0;
             UpdateTimerText();
             GameOver();
