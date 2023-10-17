@@ -6,11 +6,13 @@ using Analytic.DTO;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerControls : MonoBehaviour
 {
     public float speed = 1.5f;
-	public TextMeshProUGUI WinText;
+	//public TextMeshProUGUI WinText;
 	public int score;
 	public GameObject coinPrefab;
 	bool coinsSpawned = false;
@@ -20,7 +22,8 @@ public class PlayerControls : MonoBehaviour
 	private Vector3 lastBlockPosition;
 	private int boundariesCrossed = 0;
 	private LevelInfo _levelInfo;
-	
+	public GameObject gameWinPanel;
+
 
 	void Start()
     {
@@ -79,7 +82,8 @@ public class PlayerControls : MonoBehaviour
 		{
 			Debug.Log("Win tIle");
 			_levelInfo.CalculateIntervalAndSend(DateTime.Now);
-			WinText.text = "You Win!!";
+			gameWinPanelDisplay();
+			//WinText.text = "You Win!!";
 		}
 		if (collision.gameObject.tag == "Coin")
 		{
@@ -123,5 +127,21 @@ public class PlayerControls : MonoBehaviour
 		score++;
 		Debug.Log("Current Score == " + score);
 		scoreText.text = "Coins: " + score.ToString();
+	}
+
+	void gameWinPanelDisplay()
+	{
+		gameWinPanel.SetActive(true);
+
+		Time.timeScale = 0;
+
+		StartCoroutine(WaitAndLoadMenu());
+	}
+
+	IEnumerator WaitAndLoadMenu()
+	{
+		yield return new WaitForSecondsRealtime(5);
+		Time.timeScale = 1;
+		SceneManager.LoadScene("Menu");
 	}
 }
