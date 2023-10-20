@@ -69,11 +69,7 @@ public class PlayerControls : MonoBehaviour
 			lastBlockPosition = currentBlockPosition;
 		}
 
-		if (boundariesCrossed >= 3)
-		{
-			boundariesCrossed = 0;
-			mazeSetup.ResetMaze();
-		}
+		
 
 	}
 

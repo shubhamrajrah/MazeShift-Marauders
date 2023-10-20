@@ -33,7 +33,15 @@ public class MazeSetup : MonoBehaviour
 
     // Flag to ensure we initialize the maze only once
     private bool mazeInitialized = false;
-
+    int[,] previewMaze;
+    float mazeChangeInterval = 20f;  // change every 20 seconds interval
+    float mazeChangeTimer;
+    bool isPreviewing = false;
+    void Start()
+    {
+        mazeChangeTimer = mazeChangeInterval;  // initialize maze change timer
+        GeneratePreviewMaze();  // generate future maze
+    }
     void Update()
     {
         // if (Input.GetKeyDown(KeyCode.Space) && !mazeInitialized)
@@ -41,6 +49,74 @@ public class MazeSetup : MonoBehaviour
         {
             InitializeMaze();
             mazeInitialized = true; // Ensure we don't re-initialize if space is pressed again
+        }
+        if (Input.GetKey(KeyCode.P))
+        {
+            PreviewNextMaze();
+        }
+        else if (isPreviewing)
+        {
+            RevertToCurrentMaze();
+        }
+
+        mazeChangeTimer -= Time.deltaTime;
+        if (mazeChangeTimer <= 0)
+        {
+            mazeChangeTimer = mazeChangeInterval;
+            SetMazeToPreview();
+            GeneratePreviewMaze();
+        }
+    }
+    void PreviewNextMaze()
+    {
+        isPreviewing = true;
+        DisplayMaze(previewMaze);
+    }
+
+    void RevertToCurrentMaze()
+    {
+        isPreviewing = false;
+        DisplayMaze(maze);
+    }
+
+    void DisplayMaze(int[,] mazeToDisplay)
+    {
+       
+        for (int j = 1; j <= 11; j++)
+        {
+            for (int i = 1; i <= 11; i++)
+            {
+                GameObject block = GameObject.Find($"block_{j}_{i}");
+                if (block)
+                {
+                    blockController controller = block.GetComponent<blockController>();
+                    if (controller)
+                    {
+                        controller.AdjustBlock(mazeToDisplay[j - 1, i - 1]);
+                    }
+                }
+            }
+        }
+    }
+
+    void SetMazeToPreview()
+    {
+        maze = previewMaze;  // set current maze as future maze
+        InitializeMaze();
+    }
+
+    void GeneratePreviewMaze()
+    {
+        previewMaze = (int[,])maze.Clone(); 
+
+        
+        for (int i = 1; i < previewMaze.GetLength(0) - 1; i++)
+        {
+            for (int j = 1; j < previewMaze.GetLength(1) - 1; j++)
+            {
+                Vector3 blockPosition = new Vector3(i, 0, j);
+                previewMaze[i, j] = Random.Range(0, 2);
+            }
         }
     }
 
