@@ -37,10 +37,17 @@ public class MazeSetup : MonoBehaviour
     float mazeChangeInterval = 20f;  // change every 20 seconds interval
     float mazeChangeTimer;
     bool isPreviewing = false;
+    //private Rigidbody playerobjectrb;
+
+    private PlayerControls pc;
+
+
     void Start()
     {
         mazeChangeTimer = mazeChangeInterval;  // initialize maze change timer
         GeneratePreviewMaze();  // generate future maze
+        //playerobjectrb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
+        pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
     }
     void Update()
     {
@@ -53,10 +60,13 @@ public class MazeSetup : MonoBehaviour
         if (Input.GetKey(KeyCode.P))
         {
             PreviewNextMaze();
+            //playerobjectrb.velocity = Vector3.zero;
+            pc.speed=0;
         }
         else if (isPreviewing)
         {
             RevertToCurrentMaze();
+            pc.speed = 1.5f;
         }
 
         mazeChangeTimer -= Time.deltaTime;
@@ -171,7 +181,7 @@ public class MazeSetup : MonoBehaviour
             {
                 // Fetch the block based on its name
                 GameObject block = GameObject.Find($"block_{j}_{i}");
-                Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
+                //Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
                 if (block)
                 {
                     blockController controller = block.GetComponent<blockController>();
