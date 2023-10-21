@@ -51,6 +51,9 @@ public class TimerController : MonoBehaviour
             case TimerState.TimeIsUp:
                 GameOver();
                 break;
+            case TimerState.Hold:
+                // hold the time and do nothing
+                break;
             default:
                 Debug.Log("unknown state");
                 break;
@@ -79,34 +82,22 @@ public class TimerController : MonoBehaviour
     {
         int minutes = Mathf.FloorToInt(_timer / 60f);
         int seconds = Mathf.FloorToInt(_timer % 60f);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timerText.text = $"{minutes:00}:{seconds:00}";
     }
 
     void GameOver()
     {
         gameOverPanel.SetActive(true);
-
-        Time.timeScale = 0;
-
-        StartCoroutine(WaitAndLoadMenu());
-    }
-    
-
-    IEnumerator WaitAndLoadMenu()
-    {
-        yield return new WaitForSecondsRealtime(3); 
-        Time.timeScale = 1; 
-        SceneManager.LoadScene("Menu"); 
     }
 
     public void FreezeTimer(float time)
     {
-        this._state = TimerState.Freeze;
+        _state = TimerState.Freeze;
         _freezeTime += time;
     }
 
     private enum TimerState
     {
-        Normal, Freeze, TimeIsUp
+        Normal, Freeze, TimeIsUp, Hold
     }
 }
