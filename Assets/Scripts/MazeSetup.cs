@@ -34,7 +34,7 @@ public class MazeSetup : MonoBehaviour
     // Flag to ensure we initialize the maze only once
     private bool mazeInitialized = false;
     int[,] previewMaze;
-    float mazeChangeInterval = 20f;  // change every 20 seconds interval
+    float mazeChangeInterval = 10f;  // change every 20 seconds interval
     float mazeChangeTimer;
     bool isPreviewing = false;
     //private Rigidbody playerobjectrb;
