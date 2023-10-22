@@ -18,17 +18,21 @@ public class MazeSetup : MonoBehaviour
         // {1,1,0,1,0},
         // {3,0,3,1,3}
 
-        {3,1,3,0,3,1,3,0,3,0,3},
-        {0,0,0,0,0,0,0,0,1,0,0},
-        {3,0,3,1,3,1,3,1,3,1,3},
-        {1,0,0,0,0,0,0,0,0,0,0},
-        {3,0,3,1,3,0,3,1,3,0,3},
-        {0,0,1,0,1,0,1,0,1,0,1},
-        {3,0,3,0,3,0,3,0,3,0,3},
-        {0,0,1,0,1,0,1,0,1,0,0},
-        {3,0,3,0,3,1,3,0,3,1,3},
-        {1,0,0,0,0,0,0,0,0,0,0},
-        {3,0,3,1,3,1,3,1,3,0,3}
+        {3,1,3,0,3,1,3,0,3,0,3,0,3,0,3}, //1
+        {0,0,0,0,0,0,0,0,1,0,0,0,3,0,3}, //2
+        {3,0,3,1,3,1,3,1,3,1,3,0,3,0,3}, //3
+        {1,0,0,0,0,0,0,0,0,0,0,0,3,0,3}, //4
+        {3,0,3,1,3,0,3,1,3,0,3,0,3,0,3}, //5
+        {0,0,1,0,1,0,1,0,1,0,1,0,3,0,3}, //6
+        {3,0,3,0,3,0,3,0,3,0,3,0,3,0,3}, //7
+        {0,0,1,0,1,0,1,0,1,0,0,0,3,0,3}, //8
+        {3,0,3,0,3,1,3,0,3,1,3,0,3,0,3}, //9
+        {1,0,0,0,0,0,0,0,0,0,0,0,3,0,3}, //10
+        {3,0,3,1,3,1,3,1,3,0,3,0,3,0,3}, //11
+        {3,1,3,0,3,1,3,0,3,0,3,0,3,0,3}, //1
+        {0,0,0,0,0,0,0,0,1,0,0,0,3,0,3}, //2
+        {3,0,3,1,3,1,3,1,3,1,3,0,3,0,3}, //3
+        {1,0,0,0,0,0,0,0,0,0,0,0,3,0,3} //4
     };
 
     // Flag to ensure we initialize the maze only once
@@ -74,24 +78,20 @@ public class MazeSetup : MonoBehaviour
                 }
             }
         }
-
-
-
-
     }
 
 
     void InitializeMaze()
     {
-        GameObject sourceBlock = GameObject.Find("block_11_7");
+        GameObject sourceBlock = GameObject.Find("block_15_11");
         if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;
 
         GameObject targetBlock = GameObject.Find("block_1_5");
         if (targetBlock) targetBlock.GetComponent<Renderer>().material.color = Color.green;
 
-        for (int j = 1; j <= 11; j++)
+        for (int j = 1; j <= 15; j++)
         {
-            for (int i = 1; i <= 11; i++)
+            for (int i = 1; i <= 15; i++)
             {
                 // Fetch the block based on its name
                 GameObject block = GameObject.Find($"block_{j}_{i}");
@@ -107,7 +107,5 @@ public class MazeSetup : MonoBehaviour
                 }
             }
         }
-
-
     }
 }
