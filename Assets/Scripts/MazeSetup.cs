@@ -37,7 +37,7 @@ public class MazeSetup : MonoBehaviour
     float mazeChangeInterval = 10f;  // change every 20 seconds interval
     float mazeChangeTimer;
     bool isPreviewing = false;
-    //private Rigidbody playerobjectrb;
+    private Rigidbody playerobjectrb;
 
     private PlayerControls pc;
 
@@ -46,10 +46,10 @@ public class MazeSetup : MonoBehaviour
     {
         mazeChangeTimer = mazeChangeInterval;  // initialize maze change timer
         GeneratePreviewMaze();  // generate future maze
-        //playerobjectrb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
+        playerobjectrb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
         pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
     }
-    void Update()
+    void FixedUpdate()
     {
         // if (Input.GetKeyDown(KeyCode.Space) && !mazeInitialized)
         if (!mazeInitialized && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))
@@ -60,13 +60,16 @@ public class MazeSetup : MonoBehaviour
         if (Input.GetKey(KeyCode.P))
         {
             PreviewNextMaze();
-            //playerobjectrb.velocity = Vector3.zero;
+            playerobjectrb.velocity = Vector3.zero;
+            playerobjectrb.angularVelocity = Vector3.zero;
+            playerobjectrb.isKinematic = true;
             pc.speed=0;
         }
         else if (isPreviewing)
         {
             RevertToCurrentMaze();
             pc.speed = 1.5f;
+            playerobjectrb.isKinematic = false;
         }
 
         mazeChangeTimer -= Time.deltaTime;
