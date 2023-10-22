@@ -20,7 +20,6 @@ namespace Analytic
         public static void UpdateData(String fileName, Object content)
         {
             string url = DataBaseUrl + fileName + ".json";
-            Debug.Log("whz-----------" + url);
             Update(url, content);
         }
 
