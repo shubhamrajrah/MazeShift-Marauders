@@ -24,6 +24,11 @@ public class PlayerControls : MonoBehaviour
 	private LevelInfo _levelInfo;
 	public GameObject gameWinPanel;
 
+	//Ghost Power up
+	public GameObject[] walls;
+	private int availablePowerUps = 0;
+	public TextMeshProUGUI powerUpText;
+
 
 	void Start()
     {
@@ -80,6 +85,14 @@ public class PlayerControls : MonoBehaviour
 			mazeSetup.ResetMaze();
 		}
 
+		//Ghost Power up
+		if (Input.GetKeyDown(KeyCode.G) && availablePowerUps > 0) // Check for 'G' press and if power-ups are available
+		{
+			UsePowerUp();
+			availablePowerUps--; // decrement the power-up count
+			powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
+		}
+
 	}
 
 	void OnCollisionEnter(Collision collision)
@@ -91,6 +104,7 @@ public class PlayerControls : MonoBehaviour
 			gameWinPanelDisplay();
 			//WinText.text = "You Win!!";
 		}
+
 		if (collision.gameObject.tag == "Coin")
 		{
 
@@ -98,6 +112,49 @@ public class PlayerControls : MonoBehaviour
 			_levelInfo.CoinCollected++;
 			Destroy(collision.gameObject);
 
+		}
+
+		if (collision.gameObject.tag == "Ghost")
+		{
+			Debug.Log("Inside if...");
+
+			AddScore();
+			_levelInfo.CoinCollected++;
+			availablePowerUps++;
+			powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
+			Destroy(collision.gameObject);
+
+
+		}
+	}
+
+	void UsePowerUp()
+	{
+		powerUp();
+	}
+
+	void powerUp()
+	{
+		Debug.Log("Inside PowerUp");
+		walls = GameObject.FindGameObjectsWithTag("Wall");
+		Debug.Log("Fine got walls");
+		foreach (GameObject wall in walls)
+		{
+			Debug.Log("Inside FOR");
+			wall.GetComponent<Collider>().isTrigger = true;
+
+		}
+		StartCoroutine(TurnOffPowerUp(5f));
+	}
+
+	IEnumerator TurnOffPowerUp(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+
+		// Now, set isTrigger back to false for all walls
+		foreach (GameObject wall in walls)
+		{
+			wall.GetComponent<Collider>().isTrigger = false;
 		}
 	}
 
@@ -111,7 +168,7 @@ public class PlayerControls : MonoBehaviour
 			List<GameObject> spawnPointsList = new List<GameObject>(coinSpawnPoints);
 			System.Random rng = new System.Random();
 
-			for (int i = 0; i < 8; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				int randomIndex = rng.Next(spawnPointsList.Count);
 				Debug.Log("spawnPointsList.Count" + spawnPointsList.Count);

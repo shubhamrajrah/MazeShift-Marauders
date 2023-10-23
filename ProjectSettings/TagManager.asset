@@ -10,6 +10,7 @@ TagManager:
   - CoinSpawnPoint
   - Coin
   - FreezeCollection
+  - Ghost
   layers:
   - Default
   - TransparentFX
