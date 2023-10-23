@@ -40,7 +40,7 @@ public class MazeSetup : MonoBehaviour
     private Rigidbody playerobjectrb;
 
     private PlayerControls pc;
-
+    public GameObject dimmingPanel;
 
     void Start()
     {
@@ -48,6 +48,7 @@ public class MazeSetup : MonoBehaviour
         GeneratePreviewMaze();  // generate future maze
         playerobjectrb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
         pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
+        dimmingPanel.SetActive(false);
     }
     void FixedUpdate()
     {
@@ -64,12 +65,14 @@ public class MazeSetup : MonoBehaviour
             playerobjectrb.angularVelocity = Vector3.zero;
             playerobjectrb.isKinematic = true;
             pc.speed=0;
+            dimmingPanel.SetActive(true);
         }
         else if (isPreviewing)
         {
             RevertToCurrentMaze();
             pc.speed = 1.5f;
             playerobjectrb.isKinematic = false;
+            dimmingPanel.SetActive(false);
         }
 
         mazeChangeTimer -= Time.deltaTime;
