@@ -1,23 +1,34 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 
 public class MazeSetup : MonoBehaviour
 {
-    int[,] maze = {
-        // {4,4,4,4,4,4,4},
-        // {4,3,1,3,0,3,4},
-        // {4,0,0,0,1,1,4},
-        // {4,3,1,3,0,3,4},
-        // {4,1,1,0,1,0,4},
-        // {4,3,0,3,1,3,4},
-        // {4,4,4,4,4,4,4}
 
-        // {3,1,3,0,3},
-        // {0,0,0,1,1},
-        // {3,1,3,0,3},
-        // {1,1,0,1,0},
-        // {3,0,3,1,3}
-
+    int[,] maze;
+    int[,] maze1;
+    int[,] maze2;
+    int[,] maze_og_level3 = {
+        {3,0,3,0,3,1,3,0,3,0,3,0,3,0,3}, //1
+        {0,0,0,0,0,0,0,0,1,0,0,0,3,1,3}, //2
+        {3,0,3,1,3,1,3,1,3,1,3,1,3,0,3}, //3
+        {1,0,0,0,0,0,0,0,0,0,0,0,3,0,3}, //4
+        {3,0,3,1,3,0,3,1,3,0,3,1,3,1,3}, //5
+        {0,0,1,0,1,0,1,0,1,0,1,0,3,0,3}, //6
+        {3,0,3,0,3,0,3,0,3,0,3,0,3,0,3}, //7
+        {0,0,1,0,1,0,1,0,1,0,0,1,3,0,3}, //8
+        {3,0,3,0,3,1,3,0,3,1,3,0,3,1,3}, //9
+        {1,0,0,0,0,0,0,0,0,0,0,0,3,0,3}, //10
+        {3,0,3,1,3,1,3,1,3,0,3,1,3,0,3}, //11
+        {3,1,3,0,3,1,3,0,3,0,3,1,3,0,3}, //1
+        {1,1,0,0,0,0,0,0,1,1,0,1,3,0,3}, //2
+        {3,0,3,1,3,1,3,1,3,1,3,0,3,1,3}, //3
+        {1,0,0,0,0,1,0,0,0,0,1,0,3,1,3} //4
+    };
+    int[,] maze_leve1_alt1 = {
+        //maze 1 [alternate switching] - source - block_11_1 
+        //target - block_7_11
         {3,0,3,1,3,0,3,1,3,0,3}, //1
         {0,1,0,0,0,0,1,1,0,0,1}, //2
         {3,1,3,0,3,0,3,1,3,0,3}, //3
@@ -30,9 +41,9 @@ public class MazeSetup : MonoBehaviour
         {0,1,0,0,1,0,1,1,1,0,0}, //10
         {3,1,3,0,3,0,3,1,3,0,3} //11
     };
-
-
-    int[,] maze1 = {
+    int[,] maze_level_alt2 = {
+        // //maze2 [alternate switching]
+        //maze 1 [alternate switching]
         {3,0,3,1,3,0,3,0,3,0,3}, //1
         {1,1,0,0,0,0,1,1,0,0,1}, //2
         {3,1,3,0,3,0,3,1,3,0,3}, //3
@@ -44,9 +55,11 @@ public class MazeSetup : MonoBehaviour
         {3,0,3,0,3,0,3,0,3,1,3}, //9
         {0,0,1,1,0,0,1,1,0,0,0}, //10
         {3,0,3,1,3,0,3,1,3,0,3} //11
-};
+    };
 
-    int[,] maze2 = {
+    int[,] maze_og_level2 = {
+        //maze 1 [alternate switching] - source - block_11_1 
+        //target - block_7_11
         {3,0,3,1,3,0,3,1,3,0,3}, //1
         {0,1,0,0,0,0,1,1,0,0,1}, //2
         {3,1,3,0,3,0,3,1,3,0,3}, //3
@@ -60,10 +73,34 @@ public class MazeSetup : MonoBehaviour
         {3,1,3,0,3,0,3,1,3,0,3} //11
     };
 
+
     // Flag to ensure we initialize the maze only once
     private bool mazeInitialized = false;
-    private float switchTime = 5.0f; // 5���л�ʱ��
-    private float lastSwitch = 0.0f; // ��һ���л���ʱ��
+    private float switchTime = 5.0f; 
+    private float lastSwitch = 0.0f; 
+    
+    void Start()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        if (currentScene == "Level1")
+        {
+            maze1 = maze_leve1_alt1;
+            maze2 = maze_level_alt2;
+        }
+        else if (currentScene == "Level2")
+        {
+            maze = maze_level_alt2; 
+        }
+        else if (currentScene == "Level3")
+        {
+            maze = maze_og_level3; 
+        }
+        else
+        {
+            maze = maze_leve1_alt1; 
+        }
+    }
     void Update()
     {
         // if (Input.GetKeyDown(KeyCode.Space) && !mazeInitialized)
@@ -129,19 +166,19 @@ public class MazeSetup : MonoBehaviour
 
     void InitializeMaze()
     {
-        GameObject sourceBlock = GameObject.Find("block_15_11");
+        GameObject sourceBlock = GameObject.Find("block_11_1");
         if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;
 
-        GameObject targetBlock = GameObject.Find("block_1_5");
+        GameObject targetBlock = GameObject.Find("block_7_11");
         if (targetBlock) targetBlock.GetComponent<Renderer>().material.color = Color.green;
 
-        for (int j = 1; j <= 11; j++)
+        for (int j = 1; j <= maze.GetLength(0); j++)
         {
-            for (int i = 1; i <= 11; i++)
+            for (int i = 1; i <= maze.GetLength(1); i++)
             {
                 // Fetch the block based on its name
                 GameObject block = GameObject.Find($"block_{j}_{i}");
-                Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
+                // Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
                 if (block)
                 {
                     blockController controller = block.GetComponent<blockController>();
