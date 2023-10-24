@@ -16,6 +16,11 @@ public class LoadLevel : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void LoadScene(int idx)
+    {
+        SceneManager.LoadScene(idx);
+    }
+
     public void SendResult(bool result)
     {
         if (GlobalVariables.LevelInfo == null)

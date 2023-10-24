@@ -87,6 +87,7 @@ public class MazeSetup : MonoBehaviour
         // if (Input.GetKeyDown(KeyCode.Space) && !mazeInitialized)
         if (!mazeInitialized && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))
         {
+            
             InitializeMaze();
             mazeInitialized = true; // Ensure we don't re-initialize if space is pressed again
         }
