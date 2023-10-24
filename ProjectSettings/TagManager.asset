@@ -9,6 +9,8 @@ TagManager:
   - WinTile
   - CoinSpawnPoint
   - Coin
+  - FreezeCollection
+  - Ghost
   layers:
   - Default
   - TransparentFX

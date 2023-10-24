@@ -20,19 +20,23 @@ namespace Analytic.DTO
             LevelNum = levelNum;
             Start = start.ToString("O");
             Interval = 0;
+            DeadTimesUp = 0;
             // mock up data
-            DeadTimesUp = random.Next(0, 10);
             DeadByChaser = random.Next(0, 10);
             CoinCollected = 0;
             DestroyedWalls = random.Next(0, 3);
         }
 
-        public void CalculateIntervalAndSend(DateTime end)
+        public void CalculateInterval(DateTime end)
         {
             End = end.ToString("O");
             DateTime start = DateTime.Parse(Start);
             TimeSpan span = end - start;
-            Interval = span.Seconds;
+            Interval = (long)span.TotalSeconds;
+        }
+
+        public void SendData()
+        {
             // send data to firebase
             HttpSender.RecordData(this.GetType().Name, this);
         }

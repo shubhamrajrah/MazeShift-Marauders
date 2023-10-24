@@ -6,7 +6,7 @@ using TMPro;
 
 public class TutorialController : MonoBehaviour
 {
-    public GameObject dialoguePanel;
+    // public GameObject dialoguePanel;
     public Text dialogueText;
     public Text instructionCounterText;
     public GameObject timerObject;
@@ -25,12 +25,13 @@ public class TutorialController : MonoBehaviour
     private void Start()
     {
         
-        dialoguePanel.SetActive(true);
+        this.gameObject.SetActive(true);
         StartCoroutine(DisplayMessages());
     }
 
     private IEnumerator DisplayMessages()
     {
+        
         while (currentMessageIndex < messages.Length)
         {
             dialogueText.text = messages[currentMessageIndex];
@@ -55,8 +56,8 @@ public class TutorialController : MonoBehaviour
             {
                 scoreObject.SetActive(true);
             }
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(3);
         }
-        dialoguePanel.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 }

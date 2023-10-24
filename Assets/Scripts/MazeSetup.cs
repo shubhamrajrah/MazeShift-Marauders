@@ -18,17 +18,46 @@ public class MazeSetup : MonoBehaviour
         // {1,1,0,1,0},
         // {3,0,3,1,3}
 
-        {3,1,3,0,3,1,3,0,3,0,3},
-        {0,0,0,0,0,0,0,0,1,0,0},
-        {3,0,3,1,3,1,3,1,3,1,3},
-        {1,0,0,0,0,0,0,0,0,0,0},
-        {3,0,3,1,3,0,3,1,3,0,3},
-        {0,0,1,0,1,0,1,0,1,0,1},
-        {3,0,3,0,3,0,3,0,3,0,3},
-        {0,0,1,0,1,0,1,0,1,0,0},
-        {3,0,3,0,3,1,3,0,3,1,3},
-        {1,0,0,0,0,0,0,0,0,0,0},
-        {3,0,3,1,3,1,3,1,3,0,3}
+        {3,0,3,1,3,0,3,1,3,0,3}, //1
+        {0,1,0,0,0,0,1,1,0,0,1}, //2
+        {3,1,3,0,3,0,3,1,3,0,3}, //3
+        {0,0,1,0,1,0,1,1,0,1,0}, //4
+        {3,0,3,0,3,0,3,1,3,1,3}, //5
+        {0,1,0,0,1,1,0,1,0,1,0}, //6
+        {3,1,3,0,3,1,3,1,3,1,3}, //7
+        {1,0,1,0,0,1,0,0,0,0,1}, //8
+        {3,0,3,0,3,1,3,0,3,0,3}, //9
+        {0,1,0,0,1,0,1,1,1,0,0}, //10
+        {3,1,3,0,3,0,3,1,3,0,3} //11
+    };
+
+
+    int[,] maze1 = {
+        {3,0,3,1,3,0,3,0,3,0,3}, //1
+        {1,1,0,0,0,0,1,1,0,0,1}, //2
+        {3,1,3,0,3,0,3,1,3,0,3}, //3
+        {0,0,0,1,1,0,1,1,1,1,0}, //4
+        {3,0,3,1,3,0,3,1,3,1,3}, //5
+        {1,0,0,0,0,1,0,1,0,1,0}, //6
+        {3,0,3,0,3,1,3,1,3,1,3}, //7
+        {0,0,1,0,1,0,1,0,0,1,1}, //8
+        {3,0,3,0,3,0,3,0,3,1,3}, //9
+        {0,0,1,1,0,0,1,1,0,0,0}, //10
+        {3,0,3,1,3,0,3,1,3,0,3} //11
+};
+
+    int[,] maze2 = {
+        {3,0,3,1,3,0,3,1,3,0,3}, //1
+        {0,1,0,0,0,0,1,1,0,0,1}, //2
+        {3,1,3,0,3,0,3,1,3,0,3}, //3
+        {0,0,1,0,1,0,1,1,0,1,0}, //4
+        {3,0,3,0,3,0,3,1,3,1,3}, //5
+        {0,1,0,0,1,1,0,1,0,1,0}, //6
+        {3,1,3,0,3,1,3,1,3,1,3}, //7
+        {1,0,1,0,0,1,0,0,0,0,1}, //8
+        {3,0,3,0,3,1,3,0,3,0,3}, //9
+        {0,1,0,0,1,0,1,1,1,0,0}, //10
+        {3,1,3,0,3,0,3,1,3,0,3} //11
     };
 
     // Flag to ensure we initialize the maze only once
@@ -41,6 +70,9 @@ public class MazeSetup : MonoBehaviour
 
     private PlayerControls pc;
     public GameObject dimmingPanel;
+
+    private float switchTime = 5.0f; // 5���л�ʱ��
+    private float lastSwitch = 0.0f; // ��һ���л���ʱ��
 
     void Start()
     {
@@ -134,6 +166,25 @@ public class MazeSetup : MonoBehaviour
                 previewMaze[i, j] = Random.Range(0, 2);
             }
         }
+        if (Time.time - lastSwitch > switchTime)
+        {
+            ToggleMaze();
+            lastSwitch = Time.time;
+        }
+
+    }
+    void ToggleMaze()
+    {
+        if (maze == maze1)
+        {
+            maze = maze2;
+        }
+        else
+        {
+            maze = maze1;
+        }
+
+        InitializeMaze();
     }
 
     public void ResetMaze()
@@ -166,16 +217,12 @@ public class MazeSetup : MonoBehaviour
                 }
             }
         }
-
-
-
-
     }
 
 
     void InitializeMaze()
     {
-        GameObject sourceBlock = GameObject.Find("block_11_7");
+        GameObject sourceBlock = GameObject.Find("block_15_11");
         if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;
 
         GameObject targetBlock = GameObject.Find("block_1_5");
@@ -199,7 +246,5 @@ public class MazeSetup : MonoBehaviour
                 }
             }
         }
-
-
     }
 }
