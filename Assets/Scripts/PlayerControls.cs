@@ -15,7 +15,6 @@ public class PlayerControls : MonoBehaviour
 	//public TextMeshProUGUI WinText;
 	public int score;
 	public GameObject coinPrefab;
-	public GameObject t;
 	bool coinsSpawned = false;
 	public TextMeshProUGUI scoreText;
 	public MazeSetup mazeSetup;
@@ -49,7 +48,6 @@ public class PlayerControls : MonoBehaviour
 		}
 		_levelInfo = GlobalVariables.LevelInfo;
 		lastBlockPosition = transform.position;
-		t.gameObject.SetActive(false);
 	}
 
     void Update()
