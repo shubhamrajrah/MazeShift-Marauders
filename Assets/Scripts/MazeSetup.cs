@@ -81,24 +81,56 @@ public class MazeSetup : MonoBehaviour
     
     void Start()
     {
+        maze = maze1;
+        maze1 = maze_leve1_alt1;
+        maze2 = maze_level_alt2;
         string currentScene = SceneManager.GetActiveScene().name;
 
         if (currentScene == "Level1")
         {
             maze1 = maze_leve1_alt1;
             maze2 = maze_level_alt2;
+
+            GameObject sourceBlock = GameObject.Find("block_11_1");
+            if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;
+
+            GameObject targetBlock = GameObject.Find("block_7_11");
+            if (targetBlock) targetBlock.GetComponent<Renderer>().material.color = Color.green;
+
         }
         else if (currentScene == "Level2")
         {
-            maze = maze_level_alt2; 
+            maze = maze_level_alt2;
+
+            GameObject sourceBlock = GameObject.Find("block_11_1");
+            if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;
+
+            GameObject targetBlock = GameObject.Find("block_7_11");
+            if (targetBlock) targetBlock.GetComponent<Renderer>().material.color = Color.green;
+
         }
         else if (currentScene == "Level3")
         {
-            maze = maze_og_level3; 
+            maze = maze_og_level3;
+
+            GameObject sourceBlock = GameObject.Find("block_15_1");
+            if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;
+
+            GameObject targetBlock = GameObject.Find("block_1_5");
+            if (targetBlock) targetBlock.GetComponent<Renderer>().material.color = Color.green;
+
         }
         else
         {
-            maze = maze_leve1_alt1; 
+            maze = maze_leve1_alt1;
+
+
+            GameObject sourceBlock = GameObject.Find("block_11_1");
+            if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;
+
+            GameObject targetBlock = GameObject.Find("block_7_11");
+            if (targetBlock) targetBlock.GetComponent<Renderer>().material.color = Color.green;
+
         }
     }
     void Update()
@@ -106,7 +138,8 @@ public class MazeSetup : MonoBehaviour
         // if (Input.GetKeyDown(KeyCode.Space) && !mazeInitialized)
         if (!mazeInitialized && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))
         {
-            
+            maze = maze1;
+
             InitializeMaze();
             mazeInitialized = true; // Ensure we don't re-initialize if space is pressed again
         }
@@ -166,11 +199,9 @@ public class MazeSetup : MonoBehaviour
 
     void InitializeMaze()
     {
-        GameObject sourceBlock = GameObject.Find("block_11_1");
-        if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;
+       
 
-        GameObject targetBlock = GameObject.Find("block_7_11");
-        if (targetBlock) targetBlock.GetComponent<Renderer>().material.color = Color.green;
+        
 
         for (int j = 1; j <= maze.GetLength(0); j++)
         {
