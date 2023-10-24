@@ -81,6 +81,7 @@ public class MazeSetup : MonoBehaviour
     
     void Start()
     {
+        maze = maze1;
         string currentScene = SceneManager.GetActiveScene().name;
 
         if (currentScene == "Level1")
