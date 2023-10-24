@@ -15,6 +15,8 @@ public class PlayerControls : MonoBehaviour
 	//public TextMeshProUGUI WinText;
 	public int score;
 	public GameObject coinPrefab;
+
+	public GameObject speedPowerPrefab;
 	bool coinsSpawned = false;
 	public TextMeshProUGUI scoreText;
 	public MazeSetup mazeSetup;
@@ -26,9 +28,12 @@ public class PlayerControls : MonoBehaviour
 
 	//Ghost Power up
 	public GameObject[] walls;
-	private int availablePowerUps = 0;
-	public TextMeshProUGUI powerUpText;
+	private int availableGhostPowerUps = 0;
+	private int availableSpeedPowerUps = 0;
+	public TextMeshProUGUI ghostPowerUpText;
+	public TextMeshProUGUI speedPowerUpText;
 
+	List<GameObject> spawnPointsList;
 
 	void Start()
     {
@@ -82,11 +87,17 @@ public class PlayerControls : MonoBehaviour
 		
 
 		//Ghost Power up
-		if (Input.GetKeyDown(KeyCode.G) && availablePowerUps > 0) // Check for 'G' press and if power-ups are available
+		if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
 		{
-			UsePowerUp();
-			availablePowerUps--; // decrement the power-up count
-			powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
+			UseGhostPowerUp();
+			availableGhostPowerUps--; // decrement the power-up count
+			ghostPowerUpText.text = "Ghost AP: " + availableGhostPowerUps.ToString();
+		}
+		if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
+		{
+			UseSpeedPowerUp();
+			availableSpeedPowerUps--; // decrement the power-up count
+			speedPowerUpText.text = "Speed AP: " + availableSpeedPowerUps.ToString();
 		}
 
 	}
@@ -116,52 +127,82 @@ public class PlayerControls : MonoBehaviour
 
 			AddScore();
 			_levelInfo.CoinCollected++;
-			availablePowerUps++;
-			powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
+			availableGhostPowerUps++;
+			ghostPowerUpText.text = "Ghost AP: " + availableGhostPowerUps.ToString();
 			Destroy(collision.gameObject);
 
 
 		}
+
+		if (collision.gameObject.tag == "SpeedPowerUp")
+		{
+			Debug.Log("Inside SpeedPowerUp...");
+			Debug.Log("available SpeedPowerUps..."+availableSpeedPowerUps);
+			AddScore();
+			_levelInfo.CoinCollected++;
+			availableSpeedPowerUps++;
+			Debug.Log("available SpeedPowerUps after inc..."+availableSpeedPowerUps);
+			speedPowerUpText.text = "Speed AP: " + availableSpeedPowerUps.ToString();
+			Destroy(collision.gameObject);
+		}
 	}
 
-	void UsePowerUp()
+	void UseGhostPowerUp()
 	{
-		powerUp();
+		ghostPowerUp();
 	}
+	
 
-	void powerUp()
+	void ghostPowerUp()
 	{
 		Debug.Log("Inside PowerUp");
 		walls = GameObject.FindGameObjectsWithTag("Wall");
 		Debug.Log("Fine got walls");
 		foreach (GameObject wall in walls)
 		{
-			Debug.Log("Inside FOR");
+			// Debug.Log("Inside FOR");
 			wall.GetComponent<Collider>().isTrigger = true;
 
 		}
-		StartCoroutine(TurnOffPowerUp(5f));
+		StartCoroutine(TurnOffGhostPowerUp(5f));
 	}
 
-	IEnumerator TurnOffPowerUp(float delay)
+	IEnumerator TurnOffGhostPowerUp(float delay)
 	{
 		yield return new WaitForSeconds(delay);
-
 		// Now, set isTrigger back to false for all walls
 		foreach (GameObject wall in walls)
 		{
 			wall.GetComponent<Collider>().isTrigger = false;
 		}
 	}
+	void UseSpeedPowerUp()
+	{
+		speedPowerUp();
+	}
+	void speedPowerUp()
+	{
+		Debug.Log("Inside speed PowerUp");
+		speed = 3f;
+		StartCoroutine(TurnOffSpeedPowerUp(5f));
+	}
+
+	IEnumerator TurnOffSpeedPowerUp(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		speed = 1.5f;
+
+	}
 
 	//Code to generate Coins at Random Locations
 	void RandomizeCoinPositions()
 	{
 		GameObject[] coinSpawnPoints = GameObject.FindGameObjectsWithTag("CoinSpawnPoint");
+		GameObject[] speedSpawnPoints = GameObject.FindGameObjectsWithTag("SpeedPowerUp");
 
 		if (coinSpawnPoints.Length >= 3)
 		{
-			List<GameObject> spawnPointsList = new List<GameObject>(coinSpawnPoints);
+			spawnPointsList = new List<GameObject>(coinSpawnPoints);
 			System.Random rng = new System.Random();
 
 			for (int i = 0; i < 2; i++)
@@ -169,7 +210,6 @@ public class PlayerControls : MonoBehaviour
 				int randomIndex = rng.Next(spawnPointsList.Count);
 				Debug.Log("spawnPointsList.Count" + spawnPointsList.Count);
 				GameObject spawnPoint = spawnPointsList[randomIndex];
-
 				Instantiate(coinPrefab, spawnPoint.transform.position, Quaternion.identity);
 				spawnPointsList.RemoveAt(randomIndex);
 			}
@@ -178,6 +218,27 @@ public class PlayerControls : MonoBehaviour
 		{
 			Debug.LogWarning("Not enough coin spawn points in the scene.");
 		}
+
+
+		if (speedSpawnPoints.Length >= 3)
+		{
+			List<GameObject> speedSpawnPointsList = new List<GameObject>(speedSpawnPoints);
+			System.Random rng = new System.Random();
+
+			for (int i = 0; i < 2; i++)
+			{
+				int randomIndex = rng.Next(speedSpawnPointsList.Count);
+				Debug.Log("speedSpawnPointsList.Count" + speedSpawnPointsList.Count);
+				GameObject speedSpawnPoint = speedSpawnPointsList[randomIndex];
+				Debug.Log("spawn point" + speedSpawnPoint);
+				Instantiate(speedPowerPrefab, speedSpawnPoint.transform.position, Quaternion.identity);
+				speedSpawnPointsList.RemoveAt(randomIndex);
+			}
+		}
+		else
+		{
+			Debug.LogWarning("Not enough coin spawn points in the scene.");
+		}		
 	}
 
 	//Code to Add Player Score

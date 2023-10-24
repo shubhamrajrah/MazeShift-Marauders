@@ -10,20 +10,20 @@ public class MazeSetup : MonoBehaviour
     int[,] maze2;
     int[,] maze_og_level3 = {
         {3,0,3,0,3,1,3,0,3,0,3,0,3,0,3}, //1
-        {0,0,0,0,0,0,0,0,1,0,0,0,3,0,3}, //2
-        {3,0,3,1,3,1,3,1,3,1,3,0,3,0,3}, //3
+        {0,0,0,0,0,0,0,0,1,0,0,0,3,1,3}, //2
+        {3,0,3,1,3,1,3,1,3,1,3,1,3,0,3}, //3
         {1,0,0,0,0,0,0,0,0,0,0,0,3,0,3}, //4
-        {3,0,3,1,3,0,3,1,3,0,3,0,3,0,3}, //5
+        {3,0,3,1,3,0,3,1,3,0,3,1,3,1,3}, //5
         {0,0,1,0,1,0,1,0,1,0,1,0,3,0,3}, //6
         {3,0,3,0,3,0,3,0,3,0,3,0,3,0,3}, //7
-        {0,0,1,0,1,0,1,0,1,0,0,0,3,0,3}, //8
-        {3,0,3,0,3,1,3,0,3,1,3,0,3,0,3}, //9
+        {0,0,1,0,1,0,1,0,1,0,0,1,3,0,3}, //8
+        {3,0,3,0,3,1,3,0,3,1,3,0,3,1,3}, //9
         {1,0,0,0,0,0,0,0,0,0,0,0,3,0,3}, //10
-        {3,0,3,1,3,1,3,1,3,0,3,0,3,0,3}, //11
-        {3,1,3,0,3,1,3,0,3,0,3,0,3,0,3}, //1
-        {0,0,0,0,0,0,0,0,1,0,0,0,3,0,3}, //2
-        {3,0,3,1,3,1,3,1,3,1,3,0,3,0,3}, //3
-        {1,0,0,0,0,0,0,0,0,0,0,0,3,0,3} //4
+        {3,0,3,1,3,1,3,1,3,0,3,1,3,0,3}, //11
+        {3,1,3,0,3,1,3,0,3,0,3,1,3,0,3}, //1
+        {1,1,0,0,0,0,0,0,1,1,0,1,3,0,3}, //2
+        {3,0,3,1,3,1,3,1,3,1,3,0,3,1,3}, //3
+        {1,0,0,0,0,1,0,0,0,0,1,0,3,1,3} //4
     };
     int[,] maze_leve1_alt1 = {
         //maze 1 [alternate switching] - source - block_11_1 
@@ -145,7 +145,6 @@ public class MazeSetup : MonoBehaviour
         {
             coinPositions.Add(new Vector3(Mathf.Floor(coin.transform.position.x), 0, Mathf.Floor(coin.transform.position.z)));
         }
-
         // Shuffle the inner blocks
         for (int i = 1; i < maze.GetLength(0) - 1; i++)
         {
@@ -154,6 +153,7 @@ public class MazeSetup : MonoBehaviour
                 Vector3 blockPosition = new Vector3(i, 0, j);
                 if (blockPosition != playerBlockPosition && !coinPositions.Contains(blockPosition))
                 {
+                    Debug.Log("maze i= " + i + " j= "+j);
                     maze[i, j] = Random.Range(0, 2);
                 }
             }
@@ -175,7 +175,7 @@ public class MazeSetup : MonoBehaviour
             {
                 // Fetch the block based on its name
                 GameObject block = GameObject.Find($"block_{j}_{i}");
-                Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
+                // Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
                 if (block)
                 {
                     blockController controller = block.GetComponent<blockController>();
