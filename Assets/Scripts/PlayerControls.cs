@@ -24,6 +24,16 @@ public class PlayerControls : MonoBehaviour
 	private LevelInfo _levelInfo;
 	public GameObject gameWinPanel;
 
+	//Time-Freeze
+	[SerializeField]
+	private TimerController timerController;
+	[SerializeField]
+	private int freezeTime = 5;
+	private int availableFreeze = 0;
+	public TextMeshProUGUI TimeFreezeText;
+	// Start is called before the first frame update
+
+
 	//Ghost Power up
 	public GameObject[] walls;
 	private int availablePowerUps = 0;
@@ -79,10 +89,18 @@ public class PlayerControls : MonoBehaviour
 			lastBlockPosition = currentBlockPosition;
 		}
 
-		
+        //Time Freeze
+        if (Input.GetKeyDown(KeyCode.F) && availableFreeze > 0) // Check for 'T' press and if power-ups are available
+        {
+			Debug.Log("freeze the time");
+			timerController.FreezeTimer(freezeTime);
+			availableFreeze--;
+			TimeFreezeText.text = "Time-Freeze: " + availableFreeze.ToString();
+		}
 
-		//Ghost Power up
-		if (Input.GetKeyDown(KeyCode.G) && availablePowerUps > 0) // Check for 'G' press and if power-ups are available
+
+        //Ghost Power up
+        if (Input.GetKeyDown(KeyCode.G) && availablePowerUps > 0) // Check for 'G' press and if power-ups are available
 		{
 			UsePowerUp();
 			availablePowerUps--; // decrement the power-up count
@@ -122,7 +140,17 @@ public class PlayerControls : MonoBehaviour
 
 
 		}
+		if (collision.gameObject.tag == "FreezeCollection")
+		{
+
+			availableFreeze++;
+			Debug.Log(availableFreeze);
+			//powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
+			TimeFreezeText.text = "Time-Freeze: " + availableFreeze.ToString();
+			Destroy(collision.gameObject);
+		}
 	}
+
 
 	void UsePowerUp()
 	{
