@@ -3710,7 +3710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5300763782613221016, guid: b74624df7102f46e19b2e8c0ffee0c84, type: 3}
       propertyPath: m_TagString
-      value: Tile
+      value: WinTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b74624df7102f46e19b2e8c0ffee0c84, type: 3}
@@ -8140,7 +8140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5300763782613221016, guid: b74624df7102f46e19b2e8c0ffee0c84, type: 3}
       propertyPath: m_TagString
-      value: WinTile
+      value: Tile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b74624df7102f46e19b2e8c0ffee0c84, type: 3}
@@ -8205,6 +8205,7 @@ MonoBehaviour:
   score: 0
   coinPrefab: {fileID: 5420048002135346800, guid: 24c03cffba3d640a2855da83a6cd4cdf, type: 3}
   scoreText: {fileID: 1302853615}
+  mazeSetup: {fileID: 0}
   gameWinPanel: {fileID: 1429486595}
   walls: []
   powerUpText: {fileID: 0}
@@ -8295,7 +8296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1619155822}
   m_LocalRotation: {x: 0.015394261, y: 0.010334913, z: -0.0008661358, w: 0.99982774}
-  m_LocalPosition: {x: 3.25, y: 0.74, z: 0.03}
+  m_LocalPosition: {x: 0.06, y: 0.74, z: 0.1}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
