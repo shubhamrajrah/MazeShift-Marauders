@@ -115,7 +115,7 @@ public class PlayerControls : MonoBehaviour
 			AddScore();
 			_levelInfo.CoinCollected++;
 			availablePowerUps++;
-			// powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
+			powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
 			collision.gameObject.SetActive(false);
 		}
 	}
