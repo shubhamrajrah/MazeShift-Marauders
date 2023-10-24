@@ -13,7 +13,7 @@ namespace Analytic
         public static void RecordData(string fileName, Object content)
         {
             string url = DataBaseUrl + fileName + ".json";
-            Debug.Log(UnityEngine.JsonUtility.ToJson(content, true));
+            // Debug.Log(UnityEngine.JsonUtility.ToJson(content, true));
             Send(url, content);
         }
 

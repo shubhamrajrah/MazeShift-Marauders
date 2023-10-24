@@ -15,6 +15,7 @@ public class PlayerControls : MonoBehaviour
 	//public TextMeshProUGUI WinText;
 	public int score;
 	public GameObject coinPrefab;
+	public GameObject t;
 	bool coinsSpawned = false;
 	public TextMeshProUGUI scoreText;
 	public MazeSetup mazeSetup;
@@ -47,8 +48,8 @@ public class PlayerControls : MonoBehaviour
 			GlobalVariables.LevelInfo = new LevelInfo(GlobalVariables.Level, DateTime.Now);
 		}
 		_levelInfo = GlobalVariables.LevelInfo;
-		Debug.Log(JsonUtility.ToJson(_levelInfo, true));
 		lastBlockPosition = transform.position;
+		t.gameObject.SetActive(false);
 	}
 
     void Update()
@@ -93,15 +94,15 @@ public class PlayerControls : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.tag == "WinTile")
+		if (collision.gameObject.CompareTag("WinTile"))
 		{
 			Debug.Log("Win tIle");
 			_levelInfo.CalculateInterval(DateTime.Now);
-			gameWinPanelDisplay();
+			GameWinPanelDisplay();
 			//WinText.text = "You Win!!";
 		}
 
-		if (collision.gameObject.tag == "Coin")
+		if (collision.gameObject.CompareTag("Coin"))
 		{
 
 			AddScore();
@@ -110,26 +111,23 @@ public class PlayerControls : MonoBehaviour
 
 		}
 
-		if (collision.gameObject.tag == "Ghost")
+		if (collision.gameObject.CompareTag("Ghost"))
 		{
 			Debug.Log("Inside if...");
-
 			AddScore();
 			_levelInfo.CoinCollected++;
 			availablePowerUps++;
-			powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
-			Destroy(collision.gameObject);
-
-
+			// powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
+			collision.gameObject.SetActive(false);
 		}
 	}
 
 	void UsePowerUp()
 	{
-		powerUp();
+		PowerUp();
 	}
 
-	void powerUp()
+	void PowerUp()
 	{
 		Debug.Log("Inside PowerUp");
 		walls = GameObject.FindGameObjectsWithTag("Wall");
@@ -188,18 +186,8 @@ public class PlayerControls : MonoBehaviour
 		scoreText.text = "Coins: " + score.ToString();
 	}
 
-	void gameWinPanelDisplay()
+	void GameWinPanelDisplay()
 	{
 		gameWinPanel.SetActive(true);
-		Time.timeScale = 0;
-		//
-		// StartCoroutine(WaitAndLoadMenu());
-	}
-
-	IEnumerator WaitAndLoadMenu()
-	{
-		yield return new WaitForSecondsRealtime(5);
-		Time.timeScale = 1;
-		SceneManager.LoadScene("Menu");
 	}
 }
