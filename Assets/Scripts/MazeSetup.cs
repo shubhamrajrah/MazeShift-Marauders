@@ -62,13 +62,14 @@ public class MazeSetup : MonoBehaviour
 
     // Flag to ensure we initialize the maze only once
     private bool mazeInitialized = false;
-    private float switchTime = 5.0f; // 5ÃëÇÐ»»Ê±¼ä
-    private float lastSwitch = 0.0f; // ÉÏÒ»´ÎÇÐ»»µÄÊ±¼ä
+    private float switchTime = 5.0f; // 5ï¿½ï¿½ï¿½Ð»ï¿½Ê±ï¿½ï¿½
+    private float lastSwitch = 0.0f; // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
     void Update()
     {
         // if (Input.GetKeyDown(KeyCode.Space) && !mazeInitialized)
         if (!mazeInitialized && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))
         {
+            
             InitializeMaze();
             mazeInitialized = true; // Ensure we don't re-initialize if space is pressed again
         }
