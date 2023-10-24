@@ -79,11 +79,7 @@ public class PlayerControls : MonoBehaviour
 			lastBlockPosition = currentBlockPosition;
 		}
 
-		if (boundariesCrossed >= 3)
-		{
-			boundariesCrossed = 0;
-			mazeSetup.ResetMaze();
-		}
+		
 
 		//Ghost Power up
 		if (Input.GetKeyDown(KeyCode.G) && availablePowerUps > 0) // Check for 'G' press and if power-ups are available
