@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class MazeSetup : MonoBehaviour
 {
     int[,] maze;
+    int[,] maze1;
+    int[,] maze2;
     int[,] maze_og_level3 = {
         {3,0,3,0,3,1,3,0,3,0,3,0,3,0,3}, //1
         {0,0,0,0,0,0,0,0,1,0,0,0,3,0,3}, //2
@@ -71,7 +73,6 @@ public class MazeSetup : MonoBehaviour
     };
 
     // Flag to ensure we initialize the maze only once
-    private bool mazeInitialized = false;
 
     void Start()
     {
@@ -79,7 +80,8 @@ public class MazeSetup : MonoBehaviour
 
         if (currentScene == "Level1")
         {
-            maze = maze_leve1_alt1; 
+            maze1 = maze_leve1_alt1;
+            maze2 = maze_level_alt2;
         }
         else if (currentScene == "Level2")
         {
@@ -94,6 +96,9 @@ public class MazeSetup : MonoBehaviour
             maze = maze_leve1_alt1; 
         }
     }
+    private bool mazeInitialized = false;
+    private float switchTime = 5.0f; // 5���л�ʱ��
+    private float lastSwitch = 0.0f; // ��һ���л���ʱ��
     void Update()
     {
         // if (Input.GetKeyDown(KeyCode.Space) && !mazeInitialized)
@@ -102,6 +107,25 @@ public class MazeSetup : MonoBehaviour
             InitializeMaze();
             mazeInitialized = true; // Ensure we don't re-initialize if space is pressed again
         }
+        if (Time.time - lastSwitch > switchTime)
+        {
+            ToggleMaze();
+            lastSwitch = Time.time;
+        }
+
+    }
+    void ToggleMaze()
+    {
+        if (maze == maze1)
+        {
+            maze = maze2;
+        }
+        else
+        {
+            maze = maze1;
+        }
+
+        InitializeMaze();
     }
 
     public void ResetMaze()
