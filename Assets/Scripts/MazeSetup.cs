@@ -130,7 +130,7 @@ public class MazeSetup : MonoBehaviour
         }
         // Initalize the maze
 
-        if (currentScene!="level1"){
+        if (currentScene!="Level1"){
         if (Input.GetKey(KeyCode.P))
         {
             PreviewNextMaze();
@@ -153,9 +153,7 @@ public class MazeSetup : MonoBehaviour
         {
             mazeChangeTimer = mazeChangeInterval;
             SetMazeToPreview();
-            if(currentScene=="level1"){
             GeneratePreviewMaze();
-            }
         }
     }
     void PreviewNextMaze()
@@ -200,7 +198,7 @@ public class MazeSetup : MonoBehaviour
     {
         previewMaze = (int[,])maze.Clone(); 
 
-        
+        if(currentScene!="Level1"){
         for (int i = 1; i < previewMaze.GetLength(0) - 1; i++)
         {
             for (int j = 1; j < previewMaze.GetLength(1) - 1; j++)
@@ -208,10 +206,11 @@ public class MazeSetup : MonoBehaviour
                 Vector3 blockPosition = new Vector3(i, 0, j);
                 previewMaze[i, j] = Random.Range(0, 2);
             }
-        }
+        }}
         if (Time.time - lastSwitch > switchTime)
         {
-            ToggleMaze();
+            if(currentScene=="Level1"){
+            ToggleMaze();}
             lastSwitch = Time.time;
         }
 
