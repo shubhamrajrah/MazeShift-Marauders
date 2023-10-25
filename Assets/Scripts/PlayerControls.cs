@@ -28,7 +28,7 @@ public class PlayerControls : MonoBehaviour
 	public GameObject[] walls;
 	private int availablePowerUps = 0;
 	public TextMeshProUGUI powerUpText;
-
+	private Rigidbody playerobjectrb;
 
 	void Start()
     {
@@ -48,6 +48,7 @@ public class PlayerControls : MonoBehaviour
 		}
 		_levelInfo = GlobalVariables.LevelInfo;
 		lastBlockPosition = transform.position;
+		playerobjectrb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
 	}
 
     void Update()
@@ -97,6 +98,9 @@ public class PlayerControls : MonoBehaviour
 			Debug.Log("Win tIle");
 			_levelInfo.CalculateInterval(DateTime.Now);
 			GameWinPanelDisplay();
+			playerobjectrb.velocity = Vector3.zero;
+            playerobjectrb.angularVelocity = Vector3.zero;
+            Time.timeScale = 0f;
 			//WinText.text = "You Win!!";
 		}
 
