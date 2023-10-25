@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 
-public class MazeSetup : MonoBehaviour
+public class AlternatingMazeSetup : MonoBehaviour
 {
+
 
     int[,] maze;
     int[,] maze1;
@@ -76,53 +77,20 @@ public class MazeSetup : MonoBehaviour
 
     // Flag to ensure we initialize the maze only once
     private bool mazeInitialized = false;
-    int[,] previewMaze;
-    float mazeChangeInterval = 10f;  // change every 20 seconds interval
-    float mazeChangeTimer;
-    bool isPreviewing = false;
-    private Rigidbody playerobjectrb;
-
-    private PlayerControls pc;
-    public GameObject dimmingPanel;
-
-    private float switchTime = 5.0f; // 5���л�ʱ��
-    private float lastSwitch = 0.0f; // ��һ���л���ʱ��
-    private string currentScene;
+    private float switchTime = 5.0f; 
+    private float lastSwitch = 0.0f; 
+    
     void Start()
     {
-        currentScene = SceneManager.GetActiveScene().name;
-
-        if (currentScene == "Level1")
-        {
-            maze1 = maze_leve1_alt1;
-            maze2 = maze_level_alt2;
-            maze = maze1;
-            Debug.Log("Correct scenario");
-        }
-        else if (currentScene == "Level2")
-        {
-            maze = maze_level_alt2; 
-        }
-        else if (currentScene == "Level3")
-        {
-            maze = maze_og_level3; 
-        }
-        else
-        {
-            maze = maze_leve1_alt1; 
-        }
-        mazeChangeTimer = mazeChangeInterval;  // initialize maze change timer
-        GeneratePreviewMaze(); // generate future maze
-        if (currentScene!="Level1"){
-          
-        playerobjectrb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
-        pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
-        }
-        dimmingPanel.SetActive(false);
+        Debug.Log("AlternatingMazeSetup");
+        maze = maze1;
+        string currentScene = SceneManager.GetActiveScene().name;
+        maze1 = maze_leve1_alt1;
+        maze2 = maze_level_alt2;
+        
     }
     void Update()
-    {   
-        mazeChangeTimer -= Time.deltaTime;
+    {
         // if (Input.GetKeyDown(KeyCode.Space) && !mazeInitialized)
         if (!mazeInitialized && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)))
         {
@@ -130,89 +98,9 @@ public class MazeSetup : MonoBehaviour
             InitializeMaze();
             mazeInitialized = true; // Ensure we don't re-initialize if space is pressed again
         }
-        // Initalize the maze
-
-        if (currentScene!="Level1"){
-        if (Input.GetKey(KeyCode.P))
-        {
-            PreviewNextMaze();
-            playerobjectrb.velocity = Vector3.zero;
-            playerobjectrb.angularVelocity = Vector3.zero;
-            playerobjectrb.isKinematic = true;
-            pc.speed=0;
-            dimmingPanel.SetActive(true);
-        }
-        else if (isPreviewing)
-        {
-            RevertToCurrentMaze();
-            pc.speed = 1.5f;
-            playerobjectrb.isKinematic = false;
-            dimmingPanel.SetActive(false);
-        }
-        }
-        
-        if (mazeChangeTimer <= 0)
-        {
-            mazeChangeTimer = mazeChangeInterval;
-            SetMazeToPreview();
-            GeneratePreviewMaze();
-        }
-    }
-    void PreviewNextMaze()
-    {
-        isPreviewing = true;
-        DisplayMaze(previewMaze);
-    }
-
-    void RevertToCurrentMaze()
-    {
-        isPreviewing = false;
-        DisplayMaze(maze);
-    }
-
-    void DisplayMaze(int[,] mazeToDisplay)
-    {
-       
-        for (int j = 1; j <= 11; j++)
-        {
-            for (int i = 1; i <= 11; i++)
-            {
-                GameObject block = GameObject.Find($"block_{j}_{i}");
-                if (block)
-                {
-                    blockController controller = block.GetComponent<blockController>();
-                    if (controller)
-                    {
-                        controller.AdjustBlock(mazeToDisplay[j - 1, i - 1]);
-                    }
-                }
-            }
-        }
-    }
-
-    void SetMazeToPreview()
-    {
-        maze = previewMaze;  // set current maze as future maze
-        InitializeMaze();
-    }
-
-    void GeneratePreviewMaze()
-    {
-        previewMaze = (int[,])maze.Clone(); 
-
-        if(currentScene!="Level1"){
-        for (int i = 1; i < previewMaze.GetLength(0) - 1; i++)
-        {
-            for (int j = 1; j < previewMaze.GetLength(1) - 1; j++)
-            {
-                Vector3 blockPosition = new Vector3(i, 0, j);
-                previewMaze[i, j] = Random.Range(0, 2);
-            }
-        }}
         if (Time.time - lastSwitch > switchTime)
         {
-            if(currentScene=="Level1"){
-            ToggleMaze();}
+            ToggleMaze();
             lastSwitch = Time.time;
         }
 
