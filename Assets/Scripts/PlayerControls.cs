@@ -48,6 +48,7 @@ public class PlayerControls : MonoBehaviour
 		}
 		_levelInfo = GlobalVariables.LevelInfo;
 		lastBlockPosition = transform.position;
+
 	}
 
     void Update()
@@ -97,6 +98,7 @@ public class PlayerControls : MonoBehaviour
 			Debug.Log("Win tIle");
 			_levelInfo.CalculateInterval(DateTime.Now);
 			GameWinPanelDisplay();
+            Time.timeScale = 0f;
 			//WinText.text = "You Win!!";
 		}
 

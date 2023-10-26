@@ -18,6 +18,8 @@ public class TimerController : MonoBehaviour
     public TextMeshProUGUI timerText;  // Reference to your TextMeshPro text object
     public GameObject gameOverPanel;
     // Start is called before the first frame update
+
+
     void Start()
     {
         _timer = countdownTime;
