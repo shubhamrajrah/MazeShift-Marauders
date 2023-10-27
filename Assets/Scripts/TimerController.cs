@@ -19,11 +19,14 @@ public class TimerController : MonoBehaviour
     public GameObject gameOverPanel;
     // Start is called before the first frame update
 
+    private GameObject textMeshProButton;
+
 
     void Start()
     {
         _timer = countdownTime;
         _state = TimerState.Normal;
+        textMeshProButton = GameObject.FindWithTag("PauseMenu");
     }
 
     // Update is called once per frame
@@ -90,6 +93,7 @@ public class TimerController : MonoBehaviour
     void GameOver()
     {
         gameOverPanel.SetActive(true);
+        textMeshProButton.SetActive(false);
     }
 
     public void FreezeTimer(float time)

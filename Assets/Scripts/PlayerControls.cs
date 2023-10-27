@@ -29,6 +29,7 @@ public class PlayerControls : MonoBehaviour
 	private int availablePowerUps = 0;
 	public TextMeshProUGUI powerUpText;
 
+	private GameObject textMeshProButton;
 
 	void Start()
     {
@@ -48,6 +49,7 @@ public class PlayerControls : MonoBehaviour
 		}
 		_levelInfo = GlobalVariables.LevelInfo;
 		lastBlockPosition = transform.position;
+		textMeshProButton = GameObject.FindWithTag("PauseMenu");
 
 	}
 
@@ -100,6 +102,7 @@ public class PlayerControls : MonoBehaviour
 			GameWinPanelDisplay();
             Time.timeScale = 0f;
 			//WinText.text = "You Win!!";
+            textMeshProButton.SetActive(false);
 		}
 
 		if (collision.gameObject.CompareTag("Coin"))

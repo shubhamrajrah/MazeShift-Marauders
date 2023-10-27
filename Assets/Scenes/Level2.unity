@@ -678,6 +678,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveHeight: 0.5
+--- !u!1 &114646407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7552355156038359188, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+  m_PrefabInstance: {fileID: 1960235618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &152643477
 GameObject:
   m_ObjectHideFlags: 0
@@ -8424,6 +8429,7 @@ MonoBehaviour:
   gameWinPanel: {fileID: 278631795}
   walls: []
   powerUpText: {fileID: 0}
+  PauseMenu: {fileID: 114646407}
 --- !u!54 &1619155824
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10031,7 +10037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8251983811893940071, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
