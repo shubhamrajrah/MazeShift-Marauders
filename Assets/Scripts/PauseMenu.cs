@@ -10,6 +10,8 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject PausePanel;
 
+    public GameObject PowerUpText;
+
     private GameObject textMeshProButton;
     // Start is called before the first frame update
     void Start()
@@ -37,10 +39,16 @@ public class PauseMenu : MonoBehaviour
         if(isPaused){
         Time.timeScale = 0f;
         textMeshProButton.SetActive(false);
+        if(PowerUpText){
+        PowerUpText.SetActive(false);
+    }
     }
     else {
         Time.timeScale = 1f;
         textMeshProButton.SetActive(true);
+        if(PowerUpText){
+        PowerUpText.SetActive(true);
+    }
     }
     //objectRenderer.enabled = !isPaused;
 
