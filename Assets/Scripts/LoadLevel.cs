@@ -39,7 +39,7 @@ public class LoadLevel : MonoBehaviour
         }
         // send data to firebase
         levelInfo.SendData();
-        // set global variable to nullddddddd
+        // set global variable to null
         GlobalVariables.LevelInfo = null;
     }
     
@@ -51,7 +51,6 @@ public class LoadLevel : MonoBehaviour
         if (levelInfo != null)
         {
             levelInfo.DeadTimesUp++;
-            levelInfo.CoinCollected = 0;
         }
         Time.timeScale = 1f;
         SceneManager.LoadScene(currentIdx);

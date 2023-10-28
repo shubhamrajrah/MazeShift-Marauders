@@ -90,6 +90,7 @@ public class TimerController : MonoBehaviour
     void GameOver()
     {
         gameOverPanel.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void FreezeTimer(float time)

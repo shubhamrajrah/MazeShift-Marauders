@@ -12,6 +12,7 @@ TagManager:
   - FreezeCollection
   - Ghost
   - SpeedPowerUp
+  - WinCollection
   - PauseMenu
   layers:
   - Default

@@ -11,8 +11,13 @@ namespace Analytic.DTO
         public bool IsSuccess;
         public int DeadTimesUp;
         public int DeadByChaser;
-        public int CoinCollected;
         public int DestroyedWalls;
+        public int SpeedCollected;
+        public int SpeedUsed;
+        public int FreezeCollected;
+        public int FreezeUsed;
+        public int GhostUsed;
+        public int GhostCollected;
 
         public LevelInfo(int levelNum, DateTime start)
         {
@@ -23,7 +28,6 @@ namespace Analytic.DTO
             DeadTimesUp = 0;
             // mock up data
             DeadByChaser = random.Next(0, 10);
-            CoinCollected = 0;
             DestroyedWalls = random.Next(0, 3);
         }
 
