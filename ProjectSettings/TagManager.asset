@@ -12,6 +12,7 @@ TagManager:
   - FreezeCollection
   - Ghost
   - SpeedPowerUp
+  - PauseMenu
   layers:
   - Default
   - TransparentFX
