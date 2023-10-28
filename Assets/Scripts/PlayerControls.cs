@@ -12,14 +12,8 @@ using UnityEngine.Serialization;
 
 public class PlayerControls : MonoBehaviour
 {
+    public float startSpeed = 1.5f;
     public float speed = 1.5f;
-
-    //public TextMeshProUGUI WinText;
-    // public GameObject coinPrefab;
-    // bool coinsSpawned = false;
-    // public MazeSetup mazeSetup;
-    public TextMeshProUGUI scoreText;
-    public int score;
     public string nextLevel;
     public int curLevel;
     public GameObject gameWinPanel;
@@ -36,21 +30,14 @@ public class PlayerControls : MonoBehaviour
     
     //Ghost Power up
     public GameObject[] walls;
-    private int availablePowerUps = 0;
-    public TextMeshProUGUI powerUpText;
+    private int availableGhostPowerUps = 0;
+    private int availableSpeedPowerUps = 0;
+    public TextMeshProUGUI ghostPowerUpText;
+    public TextMeshProUGUI speedPowerUpText;
 
 
     void Start()
     {
-        score = 0;
-        // //Random Coin Genration
-        // if (!coinsSpawned)
-        // {
-        // 	RandomizeCoinPositions();
-        // 	coinsSpawned = true;
-        // }
-
-
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
         if (GlobalVariables.LevelInfo == null)
@@ -84,14 +71,19 @@ public class PlayerControls : MonoBehaviour
         {
             transform.position += Vector3.back * speed * Time.deltaTime;
         }
-        //Debug.Log("Score"+score);
 
         //Ghost Power up
-        if (Input.GetKeyDown(KeyCode.G) && availablePowerUps > 0) // Check for 'G' press and if power-ups are available
+        if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
-            UsePowerUp();
-            availablePowerUps--; // decrement the power-up count
-            powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
+            UseGhostPowerUp();
+            availableGhostPowerUps--; // decrement the power-up count
+            ghostPowerUpText.text = availableGhostPowerUps.ToString();
+        }
+        if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
+        {
+            UseSpeedPowerUp();
+            availableSpeedPowerUps--; // decrement the power-up count
+            speedPowerUpText.text = availableSpeedPowerUps.ToString();
         }
     }
 
@@ -99,17 +91,21 @@ public class PlayerControls : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("WinTile") && !_isDescending)
         {
-            Debug.Log("抵达终点");
             StartCoroutine(DoorDescend());
         }
         else if (collision.gameObject.CompareTag("Ghost"))
         {
             Debug.Log("Inside if...");
-            AddScore();
-            availablePowerUps++;
-            powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
+            availableGhostPowerUps++;
+            ghostPowerUpText.text = availableGhostPowerUps.ToString();
             collision.gameObject.SetActive(false);
-        } else if (collision.gameObject.CompareTag("WinCollection"))
+        } else if (collision.gameObject.CompareTag("Speed"))
+        {
+            Debug.Log("Inside if...");
+            availableSpeedPowerUps++;
+            speedPowerUpText.text = availableSpeedPowerUps.ToString();
+            collision.gameObject.SetActive(false);
+        }else if (collision.gameObject.CompareTag("WinCollection"))
         {
             _levelInfo.CalculateInterval(DateTime.Now);
             collision.gameObject.SetActive(false);
@@ -128,14 +124,19 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    void UsePowerUp()
+    void UseGhostPowerUp()
     {
-        PowerUp();
+        GhostPowerUp();
+    }
+    void UseSpeedPowerUp()
+    {
+        speed = 3f;
+        StartCoroutine(TurnOffSpeedPowerUp(5f));
     }
 
-    void PowerUp()
+    void GhostPowerUp()
     {
-        Debug.Log("Inside PowerUp");
+        Debug.Log("Inside GhostPowerUp");
         walls = GameObject.FindGameObjectsWithTag("Wall");
         Debug.Log("Fine got walls");
         foreach (GameObject wall in walls)
@@ -144,10 +145,10 @@ public class PlayerControls : MonoBehaviour
             wall.GetComponent<Collider>().isTrigger = true;
         }
 
-        StartCoroutine(TurnOffPowerUp(5f));
+        StartCoroutine(TurnOffGhostPowerUp(5f));
     }
 
-    IEnumerator TurnOffPowerUp(float delay)
+    IEnumerator TurnOffGhostPowerUp(float delay)
     {
         yield return new WaitForSeconds(delay);
 
@@ -157,39 +158,11 @@ public class PlayerControls : MonoBehaviour
             wall.GetComponent<Collider>().isTrigger = false;
         }
     }
-
-    //Code to generate Coins at Random Locations
-    // void RandomizeCoinPositions()
-    // {
-    // 	GameObject[] coinSpawnPoints = GameObject.FindGameObjectsWithTag("CoinSpawnPoint");
-    //
-    // 	if (coinSpawnPoints.Length >= 3)
-    // 	{
-    // 		List<GameObject> spawnPointsList = new List<GameObject>(coinSpawnPoints);
-    // 		System.Random rng = new System.Random();
-    //
-    // 		for (int i = 0; i < 2; i++)
-    // 		{
-    // 			int randomIndex = rng.Next(spawnPointsList.Count);
-    // 			Debug.Log("spawnPointsList.Count" + spawnPointsList.Count);
-    // 			GameObject spawnPoint = spawnPointsList[randomIndex];
-    //
-    // 			Instantiate(coinPrefab, spawnPoint.transform.position, Quaternion.identity);
-    // 			spawnPointsList.RemoveAt(randomIndex);
-    // 		}
-    // 	}
-    // 	else
-    // 	{
-    // 		Debug.LogWarning("Not enough coin spawn points in the scene.");
-    // 	}
-    // }
-
-    //Code to Add Player Score
-    void AddScore()
+    IEnumerator TurnOffSpeedPowerUp(float delay)
     {
-        score++;
-        Debug.Log("Current Score == " + score);
-        scoreText.text = "Coins: " + score.ToString();
+        yield return new WaitForSeconds(delay);
+
+        speed = startSpeed;
     }
 
     void GameWinPanelDisplay()
