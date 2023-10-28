@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class blockController : MonoBehaviour
+public class BlockController : MonoBehaviour
 {
     public float moveSpeed = 5f;  // Speed at which the cube moves
     public float moveHeight = 0.5f;  // The height for the raised wall
@@ -17,8 +17,10 @@ public class blockController : MonoBehaviour
     private void Update()
     {
         // Smoothly move towards the target height using MoveTowards
-        float newY = Mathf.MoveTowards(transform.position.y, targetHeight, moveSpeed * Time.deltaTime);
-        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+        var position = transform.position;
+        float newY = Mathf.MoveTowards(position.y, targetHeight, moveSpeed * Time.deltaTime);
+        position = new Vector3(position.x, newY, position.z);
+        transform.position = position;
     }
 
     // This method sets the target position based on the maze value

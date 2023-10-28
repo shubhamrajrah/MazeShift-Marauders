@@ -7,22 +7,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 
 public class PlayerControls : MonoBehaviour
 {
     public float speed = 1.5f;
 	//public TextMeshProUGUI WinText;
-	public int score;
-	public GameObject coinPrefab;
-	bool coinsSpawned = false;
+	// public GameObject coinPrefab;
+	// bool coinsSpawned = false;
+	// public MazeSetup mazeSetup;
 	public TextMeshProUGUI scoreText;
-	public MazeSetup mazeSetup;
-
-	private Vector3 lastBlockPosition;
-	private int boundariesCrossed = 0;
-	private LevelInfo _levelInfo;
+	public int score;
+	public string nextLevel;
+	public int curLevel;
 	public GameObject gameWinPanel;
+    
+	private LevelInfo _levelInfo;
+	private LoadLevel _loadLevel;
+	
 
 	//Ghost Power up
 	public GameObject[] walls;
@@ -34,21 +37,24 @@ public class PlayerControls : MonoBehaviour
     {
         //WinText.enabled = false;
 		score = 0;
-		//Random Coin Genration
-		if (!coinsSpawned)
-		{
-			RandomizeCoinPositions();
-			coinsSpawned = true;
-		}
-
+		// //Random Coin Genration
+		// if (!coinsSpawned)
+		// {
+		// 	RandomizeCoinPositions();
+		// 	coinsSpawned = true;
+		// }
+		
+		
+		// set time scale to 1 in case time scale was mistakenly set to 0
+		Time.timeScale = 1;
 		if (GlobalVariables.LevelInfo == null)
 		{
 			// called when enter a new level
-			GlobalVariables.LevelInfo = new LevelInfo(GlobalVariables.Level, DateTime.Now);
+			GlobalVariables.LevelInfo = new LevelInfo(curLevel, DateTime.Now);
 		}
-		_levelInfo = GlobalVariables.LevelInfo;
-		lastBlockPosition = transform.position;
 
+		_loadLevel = gameObject.AddComponent<LoadLevel>();
+		_levelInfo = GlobalVariables.LevelInfo;
 	}
 
     void Update()
@@ -71,16 +77,6 @@ public class PlayerControls : MonoBehaviour
 		}
 		//Debug.Log("Score"+score);
 
-		Vector3 currentBlockPosition = new Vector3(Mathf.Floor(transform.position.x), 0, Mathf.Floor(transform.position.z));
-
-		if (currentBlockPosition != lastBlockPosition)
-		{
-			boundariesCrossed++;
-			lastBlockPosition = currentBlockPosition;
-		}
-
-		
-
 		//Ghost Power up
 		if (Input.GetKeyDown(KeyCode.G) && availablePowerUps > 0) // Check for 'G' press and if power-ups are available
 		{
@@ -97,25 +93,24 @@ public class PlayerControls : MonoBehaviour
 		{
 			Debug.Log("Win tIle");
 			_levelInfo.CalculateInterval(DateTime.Now);
-			GameWinPanelDisplay();
-            Time.timeScale = 0f;
-			//WinText.text = "You Win!!";
-		}
-
-		if (collision.gameObject.CompareTag("Coin"))
-		{
-
-			AddScore();
-			_levelInfo.CoinCollected++;
-			Destroy(collision.gameObject);
-
+			if (nextLevel == "Menu")
+			{
+				// when this the last level, show game win panel to the player 
+				GameWinPanelDisplay();
+			}
+			else
+			{
+				_loadLevel.LoadScene(nextLevel);
+				_loadLevel.SendResult(true);
+			}
+			
+			// GameWinPanelDisplay();
 		}
 
 		if (collision.gameObject.CompareTag("Ghost"))
 		{
 			Debug.Log("Inside if...");
 			AddScore();
-			_levelInfo.CoinCollected++;
 			availablePowerUps++;
 			powerUpText.text = "Ghost Power up: " + availablePowerUps.ToString();
 			collision.gameObject.SetActive(false);
@@ -153,30 +148,30 @@ public class PlayerControls : MonoBehaviour
 	}
 
 	//Code to generate Coins at Random Locations
-	void RandomizeCoinPositions()
-	{
-		GameObject[] coinSpawnPoints = GameObject.FindGameObjectsWithTag("CoinSpawnPoint");
-
-		if (coinSpawnPoints.Length >= 3)
-		{
-			List<GameObject> spawnPointsList = new List<GameObject>(coinSpawnPoints);
-			System.Random rng = new System.Random();
-
-			for (int i = 0; i < 2; i++)
-			{
-				int randomIndex = rng.Next(spawnPointsList.Count);
-				Debug.Log("spawnPointsList.Count" + spawnPointsList.Count);
-				GameObject spawnPoint = spawnPointsList[randomIndex];
-
-				Instantiate(coinPrefab, spawnPoint.transform.position, Quaternion.identity);
-				spawnPointsList.RemoveAt(randomIndex);
-			}
-		}
-		else
-		{
-			Debug.LogWarning("Not enough coin spawn points in the scene.");
-		}
-	}
+	// void RandomizeCoinPositions()
+	// {
+	// 	GameObject[] coinSpawnPoints = GameObject.FindGameObjectsWithTag("CoinSpawnPoint");
+	//
+	// 	if (coinSpawnPoints.Length >= 3)
+	// 	{
+	// 		List<GameObject> spawnPointsList = new List<GameObject>(coinSpawnPoints);
+	// 		System.Random rng = new System.Random();
+	//
+	// 		for (int i = 0; i < 2; i++)
+	// 		{
+	// 			int randomIndex = rng.Next(spawnPointsList.Count);
+	// 			Debug.Log("spawnPointsList.Count" + spawnPointsList.Count);
+	// 			GameObject spawnPoint = spawnPointsList[randomIndex];
+	//
+	// 			Instantiate(coinPrefab, spawnPoint.transform.position, Quaternion.identity);
+	// 			spawnPointsList.RemoveAt(randomIndex);
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		Debug.LogWarning("Not enough coin spawn points in the scene.");
+	// 	}
+	// }
 
 	//Code to Add Player Score
 	void AddScore()
@@ -188,6 +183,7 @@ public class PlayerControls : MonoBehaviour
 
 	void GameWinPanelDisplay()
 	{
+		Time.timeScale = 0;
 		gameWinPanel.SetActive(true);
 	}
 }
