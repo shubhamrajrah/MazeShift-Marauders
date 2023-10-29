@@ -26,6 +26,25 @@ namespace MazeSetUpScripts
             {3,0,3,1,3,1,3,1,3,1,3,0,3,1,3}, //3
             {1,0,0,0,0,1,0,0,0,0,1,0,3,1,3} //4
         };
+        int[,] maze_og_level4 =
+        {
+            { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3, 1 }, //1
+            { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 1, 1 , 0}, //2
+            { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 0 }, //3
+            { 1, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0 , 1}, //4
+            { 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 1, 3, 1, 3, 0 }, //5
+            { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 3, 0, 0 , 1}, //6
+            { 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 0, 1, 3, 0 }, //7
+            { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 3 }, //8
+            { 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0 }, //9
+            { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0 }, //10
+            { 3, 0, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 3, 0, 3, 3 }, //11
+            { 3, 1, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 0, 0, 0, 3 }, //1
+            { 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 3, 0, 3, 3 }, //2
+            { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 1, 0 }, //3
+            { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 3 , 3}, //4
+            { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1 } //8
+        };
         int[,] maze_leve1_alt1 = {
             //maze 1 [alternate switching] - source - block_11_1 
             //target - block_7_11
@@ -110,6 +129,17 @@ namespace MazeSetUpScripts
             else if (currentScene == "Level3")
             {
                 maze = maze_og_level3;
+
+                GameObject sourceBlock = GameObject.Find("block_15_1");
+                if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;
+
+                GameObject targetBlock = GameObject.Find("block_1_5");
+                if (targetBlock) targetBlock.GetComponent<Renderer>().material.color = Color.green;
+
+            }
+            else if (currentScene == "Level4")
+            {
+                maze = maze_og_level4;
 
                 GameObject sourceBlock = GameObject.Find("block_15_1");
                 if (sourceBlock) sourceBlock.GetComponent<Renderer>().material.color = Color.blue;

@@ -121,6 +121,7 @@ public class PlayerControls : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("WinTile") && !_isDescending)
         {
+            Debug.Log("WinTile.");
             StartCoroutine(DoorDescend());
         }
         else if (collision.gameObject.CompareTag("Ghost"))
