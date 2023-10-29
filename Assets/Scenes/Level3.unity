@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.332744, g: 0.43589878, b: 0.5797736, a: 1}
+  m_IndirectSpecularColor: {r: 0.332718, g: 0.43588057, b: 0.5797472, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7187,6 +7187,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveHeight: 0.5
+--- !u!114 &578107823 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2049340531480692692, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+  m_PrefabInstance: {fileID: 750595073}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9bf47e3539113e46981724a2df12862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &580824131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22061,6 +22072,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 750595076}
     - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
+      propertyPath: freezeText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
       propertyPath: powerUpText
       value: 
       objectReference: {fileID: 694284164}
@@ -22069,6 +22084,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 750595075}
     - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
+      propertyPath: timerController
+      value: 
+      objectReference: {fileID: 578107823}
+    - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
       propertyPath: ghostPowerUpText
       value: 
       objectReference: {fileID: 694284164}
@@ -22076,6 +22095,10 @@ PrefabInstance:
       propertyPath: speedPowerUpText
       value: 
       objectReference: {fileID: 756211831}
+    - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
+      propertyPath: plusFiveSecondsText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7140168318387979399, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
       propertyPath: m_Name
       value: Player

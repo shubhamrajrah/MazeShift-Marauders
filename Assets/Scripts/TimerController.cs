@@ -33,9 +33,11 @@ public class TimerController : MonoBehaviour
         {
             case TimerState.Freeze:
                 _freezeTime -= Time.deltaTime;
-                if (_freezeTime < 0)
+                if (_freezeTime <= 0)
                 {
+                    _freezeTime = 0;
                     _state = TimerState.Normal;
+                    _timer -= Time.deltaTime;
                 }
                 break;
             case TimerState.Normal:
@@ -79,6 +81,21 @@ public class TimerController : MonoBehaviour
         //     GameOver();
         //     
         // }
+        UpdateTimerText();
+    }
+    public void UnfreezeTimer()
+    {
+        if (_state == TimerState.Freeze)
+        {
+            _state = TimerState.Normal;
+            
+            _timer -= Time.deltaTime;
+        }
+    }
+    public void AddTime(float timeToAdd)
+    {
+        _timer += timeToAdd;
+        UpdateTimerText(); 
     }
     void UpdateTimerText()
     {

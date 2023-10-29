@@ -23,12 +23,36 @@ public class FreezeControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.CompareTag("Player"))
         {
-            Debug.Log("freeze the time");
-            gameObject.SetActive(false);
-            timerController.FreezeTimer(freezeTime);
+            PlayerControls playerControls = other.GetComponent<PlayerControls>();
+
+            if (playerControls != null)
+            {
+               
+                
+                    timerController.AddTime(freezeTime);
+                
+                gameObject.SetActive(false);
+                playerControls.HandleFreezeEffect(freezeTime);
+            }
         }
+    }
+    private IEnumerator FreezePlayerRoutine(PlayerControls player)
+    {
+        // 增加时间并显示 "+5s"
+        timerController.FreezeTimer(freezeTime);
+        player.plusFiveSecondsText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        player.plusFiveSecondsText.gameObject.SetActive(false);
+
+        // 显示冻结文本并冻结玩家
+        player.freezeText.gameObject.SetActive(true);
+        player.canMove = false;
+        yield return new WaitForSeconds(2);
+
+        // 解除冻结并隐藏文本
+        player.freezeText.gameObject.SetActive(false);
+        player.canMove = true;
     }
 }

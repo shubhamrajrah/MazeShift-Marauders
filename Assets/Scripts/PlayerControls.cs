@@ -34,10 +34,15 @@ public class PlayerControls : MonoBehaviour
     private int availableSpeedPowerUps = 0;
     public TextMeshProUGUI ghostPowerUpText;
     public TextMeshProUGUI speedPowerUpText;
-
+    public TextMeshProUGUI plusFiveSecondsText;
+    public TextMeshProUGUI freezeText; 
+    public bool canMove = true;
+    public TimerController timerController;
 
     void Start()
     {
+        plusFiveSecondsText.gameObject.SetActive(false);
+        freezeText.gameObject.SetActive(false);
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
         if (GlobalVariables.LevelInfo == null)
@@ -52,6 +57,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+        if (!canMove) return;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
@@ -85,6 +91,30 @@ public class PlayerControls : MonoBehaviour
             availableSpeedPowerUps--; // decrement the power-up count
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
         }
+    }
+    public void HandleFreezeEffect(int freezeTime)
+    {
+        
+        StartCoroutine(FreezePlayerRoutine(freezeTime));
+    }
+
+    private IEnumerator FreezePlayerRoutine(int freezeTime)
+    {
+        // 增加时间并显示 "+5s"
+        plusFiveSecondsText.gameObject.SetActive(true);
+        timerController.FreezeTimer(freezeTime);
+        yield return new WaitForSeconds(1);
+        plusFiveSecondsText.gameObject.SetActive(false);
+
+        // 显示冻结文本并冻结玩家
+        freezeText.gameObject.SetActive(true);
+        canMove = false;
+        yield return new WaitForSeconds(freezeTime - 1);
+
+        // 解除冻结并隐藏文本
+        freezeText.gameObject.SetActive(false);
+        canMove = true;
+        timerController.UnfreezeTimer();
     }
 
     void OnCollisionEnter(Collision collision)
