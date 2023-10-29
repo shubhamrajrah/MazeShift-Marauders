@@ -22,13 +22,13 @@ public class PlayerControls : MonoBehaviour
 
     private LevelInfo _levelInfo;
     private LoadLevel _loadLevel;
-    
+
     // Door Descending 
     public GameObject winDoor;
-    public float descentSpeed = 1.0f; 
+    public float descentSpeed = 1.0f;
     public float descentDistance = 2.0f;
     private bool _isDescending = false;
-    
+
     //Ghost Power up
     public GameObject[] walls;
     private int availableGhostPowerUps = 0;
@@ -41,9 +41,18 @@ public class PlayerControls : MonoBehaviour
 
     public Color timerHighlight = Color.yellow;
 
+    public ProgressBarScript progressBar;
+
+
     void Start()
     {
         plusFiveSecondsText.gameObject.SetActive(false);
+        if (curLevel == 3 || curLevel == 4)
+        {
+            progressBar.gameObject.SetActive(false);
+
+
+        }
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
         if (GlobalVariables.LevelInfo == null)
@@ -95,23 +104,23 @@ public class PlayerControls : MonoBehaviour
     }
     public void HandleFreezeEffect(int freezeTime)
     {
-        
+
         StartCoroutine(FreezePlayerRoutine(freezeTime));
     }
 
     private IEnumerator FreezePlayerRoutine(int freezeTime)
     {
         // canMove = false; 
-        
+
         Image panelImage = timePanel.GetComponent<Image>();
-        plusFiveSecondsText.gameObject.SetActive(true); 
-        Time.timeScale = 0; 
+        plusFiveSecondsText.gameObject.SetActive(true);
+        Time.timeScale = 0;
         timePanel.SetActive(true);
         panelImage.color = timerHighlight;
-        yield return new WaitForSecondsRealtime(0.5f); 
+        yield return new WaitForSecondsRealtime(0.5f);
         timePanel.SetActive(false);
-        Time.timeScale = 1; 
-        plusFiveSecondsText.gameObject.SetActive(false); 
+        Time.timeScale = 1;
+        plusFiveSecondsText.gameObject.SetActive(false);
 
         // canMove = true; 
     }
@@ -121,7 +130,6 @@ public class PlayerControls : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("WinTile") && !_isDescending)
         {
-            Debug.Log("WinTile.");
             StartCoroutine(DoorDescend());
         }
         else if (collision.gameObject.CompareTag("Ghost"))
@@ -130,14 +138,18 @@ public class PlayerControls : MonoBehaviour
             availableGhostPowerUps++;
             ghostPowerUpText.text = availableGhostPowerUps.ToString();
             collision.gameObject.SetActive(false);
-        } else if (collision.gameObject.CompareTag("Speed"))
+
+        }
+        else if (collision.gameObject.CompareTag("Speed"))
         {
             Debug.Log("Inside if...");
             availableSpeedPowerUps++;
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
             collision.gameObject.SetActive(false);
-        }else if (collision.gameObject.CompareTag("WinCollection"))
+        }
+        else if (collision.gameObject.CompareTag("WinCollection"))
         {
+            Debug.Log("Inside Win Col");
             _levelInfo.CalculateInterval(DateTime.Now);
             collision.gameObject.SetActive(false);
             if (nextLevel == "Menu")
@@ -158,10 +170,13 @@ public class PlayerControls : MonoBehaviour
     void UseGhostPowerUp()
     {
         GhostPowerUp();
+        progressBar.StartProgress(5f);
+
     }
     void UseSpeedPowerUp()
     {
         speed = 3f;
+        progressBar.StartProgress(5f);
         StartCoroutine(TurnOffSpeedPowerUp(5f));
     }
 
