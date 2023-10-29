@@ -100,18 +100,18 @@ public class PlayerControls : MonoBehaviour
 
     private IEnumerator FreezePlayerRoutine(int freezeTime)
     {
-        // 增加时间并显示 "+5s"
+        
         plusFiveSecondsText.gameObject.SetActive(true);
         timerController.FreezeTimer(freezeTime);
         yield return new WaitForSeconds(1);
         plusFiveSecondsText.gameObject.SetActive(false);
 
-        // 显示冻结文本并冻结玩家
+       
         freezeText.gameObject.SetActive(true);
         canMove = false;
         yield return new WaitForSeconds(freezeTime - 1);
 
-        // 解除冻结并隐藏文本
+   
         freezeText.gameObject.SetActive(false);
         canMove = true;
         timerController.UnfreezeTimer();
