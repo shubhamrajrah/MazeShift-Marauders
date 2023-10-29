@@ -8,20 +8,17 @@ public class LoadLevel : MonoBehaviour
     public void LoadNextLevel(int levelNum)
     {
         GlobalVariables.Level = levelNum;
-        Time.timeScale = 1f;
     }
 
     public void LoadScene(string sceneName)
     {
         // Load the scene with the specified name
-        Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName);
     }
 
     public void LoadScene(int idx)
     {
         SceneManager.LoadScene(idx);
-        Time.timeScale = 1f;
     }
 
     public void SendResult(bool result)
@@ -52,7 +49,21 @@ public class LoadLevel : MonoBehaviour
         {
             levelInfo.DeadTimesUp++;
         }
-        Time.timeScale = 1f;
         SceneManager.LoadScene(currentIdx);
+    }
+
+    public void SendTrack(bool result)
+    {
+        if (GlobalVariables.LevelTrack == null)
+        {
+            return;
+        }
+
+        LevelTrack track = GlobalVariables.LevelTrack;
+        track.EndLevel = GlobalVariables.Level;
+        Debug.Log(JsonUtility.ToJson(track, true));
+        track.IsReachTheEnd = result;
+        track.SendTrack();
+        GlobalVariables.LevelTrack = null;
     }
 }

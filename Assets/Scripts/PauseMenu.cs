@@ -13,6 +13,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject PowerUpText;
 
     private GameObject textMeshProButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +25,10 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    // if (Input.GetKeyDown(KeyCode.Escape))
-    // {
-    //     Paused();
-    // }
-
+        // if (Input.GetKeyDown(KeyCode.Escape))
+        // {
+        //     Paused();
+        // }
     }
 
     public void Paused()
@@ -36,21 +36,24 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Pause Menu Clicked");
         isPaused = !isPaused;
         PausePanel.SetActive(isPaused);
-        if(isPaused){
-        Time.timeScale = 0f;
-        textMeshProButton.SetActive(false);
-        if(PowerUpText){
-            PowerUpText.SetActive(false);
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            textMeshProButton.SetActive(false);
+            if (PowerUpText)
+            {
+                PowerUpText.SetActive(false);
+            }
         }
-    }
-    else {
-        Time.timeScale = 1f;
-        textMeshProButton.SetActive(true);
-        if(PowerUpText){
-        PowerUpText.SetActive(true);
-    }
-    }
-    //objectRenderer.enabled = !isPaused;
-
+        else
+        {
+            Time.timeScale = 1f;
+            textMeshProButton.SetActive(true);
+            if (PowerUpText)
+            {
+                PowerUpText.SetActive(true);
+            }
+        }
+        //objectRenderer.enabled = !isPaused;
     }
 }

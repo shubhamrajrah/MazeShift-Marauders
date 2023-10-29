@@ -48,7 +48,7 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         plusFiveSecondsText.gameObject.SetActive(false);
-        if (curLevel == 3 || curLevel == 4)
+        if (curLevel > 2)
         {
             progressBarGhost.gameObject.SetActive(false);
             progressBarSpeed.gameObject.SetActive(false);
@@ -63,13 +63,17 @@ public class PlayerControls : MonoBehaviour
             GlobalVariables.LevelInfo = new LevelInfo(curLevel, DateTime.Now);
         }
 
+        if (GlobalVariables.LevelTrack == null)
+        {
+            GlobalVariables.LevelTrack = new LevelTrack(curLevel);
+        }
+        GlobalVariables.Level = curLevel;
         _loadLevel = gameObject.AddComponent<LoadLevel>();
         _levelInfo = GlobalVariables.LevelInfo;
     }
 
     void Update()
     {
-        // if (!canMove) return;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
@@ -164,8 +168,6 @@ public class PlayerControls : MonoBehaviour
                 _loadLevel.LoadScene(nextLevel);
                 _loadLevel.SendResult(true);
             }
-
-            // GameWinPanelDisplay();
         }
     }
 
