@@ -17,6 +17,7 @@ public class PlayerControls : MonoBehaviour
     public string nextLevel;
     public int curLevel;
     public GameObject gameWinPanel;
+    public GameObject timePanel;
 
 
     private LevelInfo _levelInfo;
@@ -35,14 +36,14 @@ public class PlayerControls : MonoBehaviour
     public TextMeshProUGUI ghostPowerUpText;
     public TextMeshProUGUI speedPowerUpText;
     public TextMeshProUGUI plusFiveSecondsText;
-    public TextMeshProUGUI freezeText; 
     public bool canMove = true;
     public TimerController timerController;
+
+    public Color timerHighlight = Color.yellow;
 
     void Start()
     {
         plusFiveSecondsText.gameObject.SetActive(false);
-        freezeText.gameObject.SetActive(false);
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
         if (GlobalVariables.LevelInfo == null)
@@ -57,7 +58,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (!canMove) return;
+        // if (!canMove) return;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
@@ -100,15 +101,19 @@ public class PlayerControls : MonoBehaviour
 
     private IEnumerator FreezePlayerRoutine(int freezeTime)
     {
-        canMove = false; 
+        // canMove = false; 
+        
+        Image panelImage = timePanel.GetComponent<Image>();
         plusFiveSecondsText.gameObject.SetActive(true); 
         Time.timeScale = 0; 
-        yield return new WaitForSecondsRealtime(1); 
-
+        timePanel.SetActive(true);
+        panelImage.color = timerHighlight;
+        yield return new WaitForSecondsRealtime(0.5f); 
+        timePanel.SetActive(false);
         Time.timeScale = 1; 
         plusFiveSecondsText.gameObject.SetActive(false); 
 
-        canMove = true; 
+        // canMove = true; 
     }
 
 

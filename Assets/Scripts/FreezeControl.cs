@@ -31,28 +31,27 @@ public class FreezeControl : MonoBehaviour
             {
                
                 
-                    timerController.AddTime(freezeTime);
-                
+                timerController.AddTime(freezeTime);
                 gameObject.SetActive(false);
                 playerControls.HandleFreezeEffect(freezeTime);
             }
         }
     }
-    private IEnumerator FreezePlayerRoutine(PlayerControls player)
-    {
+    // private IEnumerator FreezePlayerRoutine(PlayerControls player)
+    // {
         
-        timerController.FreezeTimer(freezeTime);
-        player.plusFiveSecondsText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(1);
-        player.plusFiveSecondsText.gameObject.SetActive(false);
+    //     timerController.FreezeTimer(freezeTime);
+    //     player.plusFiveSecondsText.gameObject.SetActive(true);
+    //     yield return new WaitForSeconds(1);
+    //     player.plusFiveSecondsText.gameObject.SetActive(false);
 
        
-        player.freezeText.gameObject.SetActive(true);
-        player.canMove = false;
-        yield return new WaitForSeconds(2);
+    //     player.freezeText.gameObject.SetActive(true);
+    //     player.canMove = false;
+    //     yield return new WaitForSeconds(2);
 
       
-        player.freezeText.gameObject.SetActive(false);
-        player.canMove = true;
-    }
+    //     player.freezeText.gameObject.SetActive(false);
+    //     player.canMove = true;
+    // }
 }
