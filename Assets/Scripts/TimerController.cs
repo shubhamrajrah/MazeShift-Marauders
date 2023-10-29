@@ -35,9 +35,7 @@ public class TimerController : MonoBehaviour
                 _freezeTime -= Time.deltaTime;
                 if (_freezeTime <= 0)
                 {
-                    _freezeTime = 0;
-                    _state = TimerState.Normal;
-                    _timer -= Time.deltaTime;
+                    UnfreezeTimer();
                 }
                 break;
             case TimerState.Normal:

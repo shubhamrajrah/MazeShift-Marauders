@@ -100,22 +100,17 @@ public class PlayerControls : MonoBehaviour
 
     private IEnumerator FreezePlayerRoutine(int freezeTime)
     {
-        
-        plusFiveSecondsText.gameObject.SetActive(true);
-        timerController.FreezeTimer(freezeTime);
-        yield return new WaitForSeconds(1);
-        plusFiveSecondsText.gameObject.SetActive(false);
+        canMove = false; 
+        plusFiveSecondsText.gameObject.SetActive(true); 
+        Time.timeScale = 0; 
+        yield return new WaitForSecondsRealtime(1); 
 
-       
-        freezeText.gameObject.SetActive(true);
-        canMove = false;
-        yield return new WaitForSeconds(freezeTime - 1);
+        Time.timeScale = 1; 
+        plusFiveSecondsText.gameObject.SetActive(false); 
 
-   
-        freezeText.gameObject.SetActive(false);
-        canMove = true;
-        timerController.UnfreezeTimer();
+        canMove = true; 
     }
+
 
     void OnCollisionEnter(Collision collision)
     {
