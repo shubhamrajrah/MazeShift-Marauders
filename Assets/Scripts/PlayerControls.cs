@@ -17,6 +17,7 @@ public class PlayerControls : MonoBehaviour
     public string nextLevel;
     public int curLevel;
     public GameObject gameWinPanel;
+    public GameObject timePanel;
 
 
     private LevelInfo _levelInfo;
@@ -34,10 +35,15 @@ public class PlayerControls : MonoBehaviour
     private int availableSpeedPowerUps = 0;
     public TextMeshProUGUI ghostPowerUpText;
     public TextMeshProUGUI speedPowerUpText;
+    public TextMeshProUGUI plusFiveSecondsText;
+    public bool canMove = true;
+    public TimerController timerController;
 
+    public Color timerHighlight = Color.yellow;
 
     void Start()
     {
+        plusFiveSecondsText.gameObject.SetActive(false);
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
         if (GlobalVariables.LevelInfo == null)
@@ -52,6 +58,7 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
+        // if (!canMove) return;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
@@ -86,6 +93,29 @@ public class PlayerControls : MonoBehaviour
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
         }
     }
+    public void HandleFreezeEffect(int freezeTime)
+    {
+        
+        StartCoroutine(FreezePlayerRoutine(freezeTime));
+    }
+
+    private IEnumerator FreezePlayerRoutine(int freezeTime)
+    {
+        // canMove = false; 
+        
+        Image panelImage = timePanel.GetComponent<Image>();
+        plusFiveSecondsText.gameObject.SetActive(true); 
+        Time.timeScale = 0; 
+        timePanel.SetActive(true);
+        panelImage.color = timerHighlight;
+        yield return new WaitForSecondsRealtime(0.5f); 
+        timePanel.SetActive(false);
+        Time.timeScale = 1; 
+        plusFiveSecondsText.gameObject.SetActive(false); 
+
+        // canMove = true; 
+    }
+
 
     void OnCollisionEnter(Collision collision)
     {

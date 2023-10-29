@@ -23,12 +23,35 @@ public class FreezeControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.CompareTag("Player"))
         {
-            Debug.Log("freeze the time");
-            gameObject.SetActive(false);
-            timerController.FreezeTimer(freezeTime);
+            PlayerControls playerControls = other.GetComponent<PlayerControls>();
+
+            if (playerControls != null)
+            {
+               
+                
+                timerController.AddTime(freezeTime);
+                gameObject.SetActive(false);
+                playerControls.HandleFreezeEffect(freezeTime);
+            }
         }
     }
+    // private IEnumerator FreezePlayerRoutine(PlayerControls player)
+    // {
+        
+    //     timerController.FreezeTimer(freezeTime);
+    //     player.plusFiveSecondsText.gameObject.SetActive(true);
+    //     yield return new WaitForSeconds(1);
+    //     player.plusFiveSecondsText.gameObject.SetActive(false);
+
+       
+    //     player.freezeText.gameObject.SetActive(true);
+    //     player.canMove = false;
+    //     yield return new WaitForSeconds(2);
+
+      
+    //     player.freezeText.gameObject.SetActive(false);
+    //     player.canMove = true;
+    // }
 }
