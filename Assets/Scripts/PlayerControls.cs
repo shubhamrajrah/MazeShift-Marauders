@@ -41,7 +41,8 @@ public class PlayerControls : MonoBehaviour
 
     public Color timerHighlight = Color.yellow;
 
-    public ProgressBarScript progressBar;
+    public ProgressBarScript progressBarGhost;
+    public ProgressBarScript progressBarSpeed;
 
 
     void Start()
@@ -49,7 +50,8 @@ public class PlayerControls : MonoBehaviour
         plusFiveSecondsText.gameObject.SetActive(false);
         if (curLevel == 3 || curLevel == 4)
         {
-            progressBar.gameObject.SetActive(false);
+            progressBarGhost.gameObject.SetActive(false);
+            progressBarSpeed.gameObject.SetActive(false);
 
 
         }
@@ -170,13 +172,13 @@ public class PlayerControls : MonoBehaviour
     void UseGhostPowerUp()
     {
         GhostPowerUp();
-        progressBar.StartProgress(5f);
+        progressBarGhost.StartProgress(5f);
 
     }
     void UseSpeedPowerUp()
     {
         speed = 3f;
-        progressBar.StartProgress(5f);
+        progressBarSpeed.StartProgress(5f);
         StartCoroutine(TurnOffSpeedPowerUp(5f));
     }
 
