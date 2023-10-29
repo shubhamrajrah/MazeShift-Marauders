@@ -40,8 +40,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         textMeshProButton.SetActive(false);
         if(PowerUpText){
-        PowerUpText.SetActive(false);
-    }
+            PowerUpText.SetActive(false);
+        }
     }
     else {
         Time.timeScale = 1f;
