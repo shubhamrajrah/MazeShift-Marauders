@@ -48,12 +48,10 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         plusFiveSecondsText.gameObject.SetActive(false);
-        if (curLevel == 3 || curLevel == 4)
+        if (curLevel > 2)
         {
             progressBarGhost.gameObject.SetActive(false);
             progressBarSpeed.gameObject.SetActive(false);
-
-
         }
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
@@ -63,13 +61,17 @@ public class PlayerControls : MonoBehaviour
             GlobalVariables.LevelInfo = new LevelInfo(curLevel, DateTime.Now);
         }
 
+        if (GlobalVariables.LevelTrack == null)
+        {
+            GlobalVariables.LevelTrack = new LevelTrack(curLevel);
+        }
+        GlobalVariables.Level = curLevel;
         _loadLevel = gameObject.AddComponent<LoadLevel>();
         _levelInfo = GlobalVariables.LevelInfo;
     }
 
     void Update()
     {
-        // if (!canMove) return;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.position += Vector3.left * speed * Time.deltaTime;
@@ -94,13 +96,15 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             UseGhostPowerUp();
-            availableGhostPowerUps--; // decrement the power-up count
+            availableGhostPowerUps--;// decrement the power-up count
+            _levelInfo.GhostUsed++;
             ghostPowerUpText.text = availableGhostPowerUps.ToString();
         }
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             UseSpeedPowerUp();
             availableSpeedPowerUps--; // decrement the power-up count
+            _levelInfo.SpeedUsed++;
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
         }
     }
@@ -138,6 +142,7 @@ public class PlayerControls : MonoBehaviour
         {
             Debug.Log("Inside if...");
             availableGhostPowerUps++;
+            _levelInfo.GhostCollected++;
             ghostPowerUpText.text = availableGhostPowerUps.ToString();
             collision.gameObject.SetActive(false);
 
@@ -146,6 +151,7 @@ public class PlayerControls : MonoBehaviour
         {
             Debug.Log("Inside if...");
             availableSpeedPowerUps++;
+            _levelInfo.SpeedCollected++;
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
             collision.gameObject.SetActive(false);
         }
@@ -164,8 +170,6 @@ public class PlayerControls : MonoBehaviour
                 _loadLevel.LoadScene(nextLevel);
                 _loadLevel.SendResult(true);
             }
-
-            // GameWinPanelDisplay();
         }
     }
 
