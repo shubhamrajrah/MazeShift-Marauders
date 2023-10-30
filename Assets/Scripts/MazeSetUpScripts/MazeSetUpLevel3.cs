@@ -1,3 +1,4 @@
+using Analytic.DTO;
 using UnityEngine;
 
 namespace MazeSetUpScripts
@@ -38,6 +39,7 @@ namespace MazeSetUpScripts
 
         [SerializeField] private float switchTime = 5.0f; //
         private float _lastSwitch = 0.0f; //
+        private LevelInfo _levelInfo;
 
         void Start()
         {
@@ -70,6 +72,7 @@ namespace MazeSetUpScripts
                 _playerObjectRb.isKinematic = true;
                 _pc.speed = 0;
                 dimmingPanel.SetActive(true);
+                GlobalVariables.LevelInfo.FutureSightUsedTime += Time.deltaTime;
             }
             else if (_isPreviewing)
             {

@@ -58,11 +58,10 @@ public class LoadLevel : MonoBehaviour
         {
             return;
         }
-
         LevelTrack track = GlobalVariables.LevelTrack;
         track.EndLevel = GlobalVariables.Level;
-        Debug.Log(JsonUtility.ToJson(track, true));
         track.IsReachTheEnd = result;
+        Debug.Log(JsonUtility.ToJson(track, true));
         track.SendTrack();
         GlobalVariables.LevelTrack = null;
     }

@@ -52,8 +52,6 @@ public class PlayerControls : MonoBehaviour
         {
             progressBarGhost.gameObject.SetActive(false);
             progressBarSpeed.gameObject.SetActive(false);
-
-
         }
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
@@ -98,13 +96,15 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             UseGhostPowerUp();
-            availableGhostPowerUps--; // decrement the power-up count
+            availableGhostPowerUps--;// decrement the power-up count
+            _levelInfo.GhostUsed++;
             ghostPowerUpText.text = availableGhostPowerUps.ToString();
         }
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             UseSpeedPowerUp();
             availableSpeedPowerUps--; // decrement the power-up count
+            _levelInfo.SpeedUsed++;
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
         }
     }
@@ -142,6 +142,7 @@ public class PlayerControls : MonoBehaviour
         {
             Debug.Log("Inside if...");
             availableGhostPowerUps++;
+            _levelInfo.GhostCollected++;
             ghostPowerUpText.text = availableGhostPowerUps.ToString();
             collision.gameObject.SetActive(false);
 
@@ -150,6 +151,7 @@ public class PlayerControls : MonoBehaviour
         {
             Debug.Log("Inside if...");
             availableSpeedPowerUps++;
+            _levelInfo.SpeedCollected++;
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
             collision.gameObject.SetActive(false);
         }
