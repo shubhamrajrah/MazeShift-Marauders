@@ -15,6 +15,7 @@ TagManager:
   - WinCollection
   - PauseMenu
   - Speed
+  - ArrowTile
   layers:
   - Default
   - TransparentFX
