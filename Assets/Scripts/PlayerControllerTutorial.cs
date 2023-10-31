@@ -57,7 +57,6 @@ public class PlayerControllerTutorial : MonoBehaviour
         dialogueText.text = instructions[0];
         freeze.gameObject.SetActive(false);
         futureText.gameObject.SetActive(true);
-
         ghost.gameObject.SetActive(false);
     }
 
@@ -116,7 +115,7 @@ public class PlayerControllerTutorial : MonoBehaviour
     }
     IEnumerator WaitForFunctionWinTile()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1f);
         Debug.Log("HELLO!!");
         dialogueText.text = instructions[8];
         targetBlock.GetComponent<Renderer>().material.color = Color.green;
