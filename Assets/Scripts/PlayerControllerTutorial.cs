@@ -55,14 +55,14 @@ public class PlayerControllerTutorial : MonoBehaviour
         timer1.gameObject.SetActive(false);
         dialogueText.text = instructions[0];
         freeze.gameObject.SetActive(false);
-        futureText.gameObject.SetActive(false);
+        futureText.gameObject.SetActive(true);
 
         ghost.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        futureText.gameObject.SetActive(true);
+        // futureText.gameObject.SetActive(true);
         if (!canMove) return;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -245,5 +245,10 @@ public class PlayerControllerTutorial : MonoBehaviour
     {
         Time.timeScale = 0;
         gameWinPanel.SetActive(true);
+        dialogueText.gameObject.SetActive(false);
+        futureText.gameObject.SetActive(false);
+
+        timer.gameObject.SetActive(false);
+        // timerController.SetActive(false);
     }
 }
