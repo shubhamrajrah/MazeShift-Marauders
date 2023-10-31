@@ -48,6 +48,7 @@ public class PlayerControllerTutorial : MonoBehaviour
       public Text dialogueText;
     [SerializeField] private GameObject targetBlock;
     public TextMeshProUGUI futureText;
+    public GameObject TutorialPanel;
 
     void Start()
     {
@@ -244,6 +245,7 @@ public class PlayerControllerTutorial : MonoBehaviour
     void GameWinPanelDisplay()
     {
         Time.timeScale = 0;
+        TutorialPanel.gameObject.SetActive(false);
         gameWinPanel.SetActive(true);
         dialogueText.gameObject.SetActive(false);
         futureText.gameObject.SetActive(false);

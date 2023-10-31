@@ -6186,6 +6186,7 @@ MonoBehaviour:
   dialogueText: {fileID: 1665805075}
   targetBlock: {fileID: 154392240}
   futureText: {fileID: 1920566898}
+  TutorialPanel: {fileID: 174967294}
 --- !u!4 &969125084 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8094311133565265371, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
