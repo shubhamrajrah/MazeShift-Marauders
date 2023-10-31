@@ -9297,7 +9297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159.7, y: 207.76083}
+  m_AnchoredPosition: {x: -262, y: 207.76083}
   m_SizeDelta: {x: 219.4, y: 22.2875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &608023962
@@ -11548,8 +11548,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 694284162}
     - target: {fileID: 2049340531480692693, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 484
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340531480692693, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -129
+      value: -52
       objectReference: {fileID: 0}
     - target: {fileID: 2049340532031635609, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_Name
@@ -17717,7 +17721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -311, y: -131}
+  m_AnchoredPosition: {x: -18, y: -248}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1242546297
@@ -17740,8 +17744,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Collect Ghost Ability to walk through the walls. Click G to use the ghost
-    power.
+  m_text: Press P for future sight!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -17750,8 +17753,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -23526,7 +23529,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -98, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1621146029
@@ -23736,7 +23739,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159, y: 164}
+  m_AnchoredPosition: {x: -261.3, y: 164}
   m_SizeDelta: {x: 219.4, y: 22.2875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1635074008
