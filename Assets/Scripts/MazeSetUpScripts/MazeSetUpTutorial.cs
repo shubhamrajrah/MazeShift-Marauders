@@ -45,7 +45,7 @@ namespace MazeSetUpScripts
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
             _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
             _playerSpeed = _pc.speed;
-            targetBlock.GetComponent<Renderer>().material.color = Color.green;
+            //targetBlock.GetComponent<Renderer>().material.color = Color.green;
         }
 
         void Update()
