@@ -14,10 +14,7 @@ public class TutorialController : MonoBehaviour
     public GameObject winTileObject;
 
     private string[] messages = {
-        "Ready to explore the maze?", 
-        "Reach the goal using arrow keys!",
-        "Before time runs out",
-        "Collect coins for future endeavors"
+        ""
     };
 
     private int currentMessageIndex = 0;
