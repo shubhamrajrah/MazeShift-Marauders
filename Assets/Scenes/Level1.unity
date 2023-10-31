@@ -9151,7 +9151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1197268852
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16968,6 +16968,14 @@ PrefabInstance:
     - target: {fileID: 2049340531480692692, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: countdownTime
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340531480692693, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 486
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340531480692693, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
