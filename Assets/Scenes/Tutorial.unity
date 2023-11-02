@@ -9216,6 +9216,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UserPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 2049340532031635611, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340532031635611, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 960
+      objectReference: {fileID: 0}
     - target: {fileID: 2049340532031635613, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -11500,5 +11508,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.081
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}

@@ -29,7 +29,7 @@ namespace MazeSetUpScripts
         bool _isPreviewing;
         private Rigidbody _playerObjectRb;
 
-        private PlayerControls _pc;
+        private PlayerControllerTutorial _pc;
         private float _playerSpeed;
         public GameObject dimmingPanel;
         
@@ -43,7 +43,7 @@ namespace MazeSetUpScripts
             // mazeChangeTimer = mazeChangeInterval; // initialize maze change timer
             GeneratePreviewMaze(); // generate future maze
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
-            _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
+            _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControllerTutorial>();
             _playerSpeed = _pc.speed;
             //targetBlock.GetComponent<Renderer>().material.color = Color.green;
         }
