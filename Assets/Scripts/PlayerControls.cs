@@ -44,6 +44,8 @@ public class PlayerControls : MonoBehaviour
     public ProgressBarScript progressBarGhost;
     public ProgressBarScript progressBarSpeed;
 
+    private int tilesTouched = 0;
+
 
     void Start()
     {
@@ -171,6 +173,15 @@ public class PlayerControls : MonoBehaviour
                 _loadLevel.SendResult(true);
             }
         }
+        else if (collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("Wall"))
+        {
+            PortalTeleporter.recentlyTeleported = false;
+            // tilesTouched++;
+            // if (tilesTouched==2)
+            // {
+            //     PortalTeleporter.recentlyTeleported = false;
+            // }    
+        }
     }
 
     void UseGhostPowerUp()
@@ -236,4 +247,5 @@ public class PlayerControls : MonoBehaviour
         }
         _isDescending = false;
     }
+
 }
