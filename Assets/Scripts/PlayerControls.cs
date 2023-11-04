@@ -27,6 +27,13 @@ public class PlayerControls : MonoBehaviour
     public GameObject winDoor;
     public float descentSpeed = 1.0f;
     public float descentDistance = 2.0f;
+    public int keyNum = 3;
+    public GameObject endBlock;
+    public Color targetUnfinish = Color.red;
+    public Color targetFinish = Color.green;
+    public TextMeshProUGUI keyText;
+    private string _keyTextFormat = "Keys: {0}/{1}";
+    private int _keyGet = 0;
     private bool _isDescending = false;
 
     //Ghost Power up
@@ -55,19 +62,16 @@ public class PlayerControls : MonoBehaviour
         }
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
-        if (GlobalVariables.LevelInfo == null)
-        {
-            // called when enter a new level
-            GlobalVariables.LevelInfo = new LevelInfo(curLevel, DateTime.Now);
-        }
-
-        if (GlobalVariables.LevelTrack == null)
-        {
-            GlobalVariables.LevelTrack = new LevelTrack(curLevel);
-        }
+        // initialize level info
+        GlobalVariables.LevelInfo ??= new LevelInfo(curLevel, DateTime.Now);
+        // initialize level track
+        GlobalVariables.LevelTrack ??= new LevelTrack(curLevel);
+        // track level
         GlobalVariables.Level = curLevel;
         _loadLevel = gameObject.AddComponent<LoadLevel>();
         _levelInfo = GlobalVariables.LevelInfo;
+        endBlock.GetComponent<Renderer>().material.color = targetUnfinish;
+        keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
     }
 
     void Update()
@@ -134,9 +138,16 @@ public class PlayerControls : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("WinTile") && !_isDescending)
+        if (collision.gameObject.CompareTag("Key") && !_isDescending)
         {
-            StartCoroutine(DoorDescend());
+            _keyGet++;
+            collision.gameObject.SetActive(false);
+            keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
+            if (_keyGet == keyNum && !_isDescending)
+            {
+                endBlock.GetComponent<Renderer>().material.color = targetFinish;
+                StartCoroutine(DoorDescend());
+            }
         }
         else if (collision.gameObject.CompareTag("Ghost"))
         {
