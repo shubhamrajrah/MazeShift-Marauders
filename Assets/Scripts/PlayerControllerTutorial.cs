@@ -58,6 +58,7 @@ public class PlayerControllerTutorial : MonoBehaviour
         freeze.gameObject.SetActive(false);
         futureText.gameObject.SetActive(true);
         ghost.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 
     void Update()
@@ -110,8 +111,6 @@ public class PlayerControllerTutorial : MonoBehaviour
         freeze.gameObject.SetActive(true);
         dialogueText.text = instructions[7];
         StartCoroutine(WaitForFunctionWinTile());
-        
-
     }
     IEnumerator WaitForFunctionWinTile()
     {
@@ -139,10 +138,6 @@ public class PlayerControllerTutorial : MonoBehaviour
         timePanel.SetActive(false);
         Time.timeScale = 1;
         plusFiveSecondsText.gameObject.SetActive(false);
-       
-
-
-
     }
 
 
@@ -181,15 +176,6 @@ public class PlayerControllerTutorial : MonoBehaviour
             collision.gameObject.tag = "Untagged";               
         }
     }
-    //IEnumerator WaitForFunctionAfterTimer()
-    //{
-        
-    //    yield return new WaitForSeconds(2);
-    //    dialogueText.text = instructions[8];
-    //    targetBlock.GetComponent<Renderer>().material.color = Color.green;
-    //    targetBlock.gameObject.tag = "WinTile";
-    //}
-
     void UseGhostPowerUp()
     {
         GhostPowerUp();
@@ -237,8 +223,7 @@ public class PlayerControllerTutorial : MonoBehaviour
 
     void DisplayGhostPowerup()
     {
-            ghost.gameObject.SetActive(true);
-
+        ghost.gameObject.SetActive(true);
     }
 
     void GameWinPanelDisplay()
@@ -250,6 +235,5 @@ public class PlayerControllerTutorial : MonoBehaviour
         futureText.gameObject.SetActive(false);
 
         timer.gameObject.SetActive(false);
-        // timerController.SetActive(false);
     }
 }
