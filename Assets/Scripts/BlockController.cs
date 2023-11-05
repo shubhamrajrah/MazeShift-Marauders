@@ -35,6 +35,8 @@ public class BlockController : MonoBehaviour
             {
                 renderer.material.color = Color.black;
             }
+            gameObject.GetComponent<Collider>().isTrigger = true;
+
             targetHeight = (value == 1) ? baseHeight + moveHeight : baseHeight;
         }
         // You can add further adjustments for other block types if needed.

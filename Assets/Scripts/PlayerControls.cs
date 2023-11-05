@@ -30,14 +30,18 @@ public class PlayerControls : MonoBehaviour
     private bool _isDescending = false;
 
     //Ghost Power up
+    private int wallsPassedThrough = 0;
+    private bool isPowerUpActive;
     public GameObject[] walls;
-    private int availableGhostPowerUps = 0;
+    public int availableGhostPowerUps = 0;
     private int availableSpeedPowerUps = 0;
     public TextMeshProUGUI ghostPowerUpText;
     public TextMeshProUGUI speedPowerUpText;
     public TextMeshProUGUI plusFiveSecondsText;
     public bool canMove = true;
     public TimerController timerController;
+
+    //Current maze
 
     public Color timerHighlight = Color.yellow;
 
@@ -93,13 +97,13 @@ public class PlayerControls : MonoBehaviour
         }
 
         //Ghost Power up
-        if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
-        {
-            UseGhostPowerUp();
-            availableGhostPowerUps--;// decrement the power-up count
-            _levelInfo.GhostUsed++;
-            ghostPowerUpText.text = availableGhostPowerUps.ToString();
-        }
+        //if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
+        //{
+        //    UseGhostPowerUp();
+        //    availableGhostPowerUps--;// decrement the power-up count
+        //    _levelInfo.GhostUsed++;
+        //    ghostPowerUpText.text = availableGhostPowerUps.ToString();
+        //}
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             UseSpeedPowerUp();
@@ -175,10 +179,41 @@ public class PlayerControls : MonoBehaviour
 
     void UseGhostPowerUp()
     {
-        GhostPowerUp();
+        //GhostPowerUp();
+        
+        walls = GameObject.FindGameObjectsWithTag("Wall");
+
+        foreach (GameObject wall in walls)
+        {
+            BlockController blockController = wall.gameObject.GetComponent<BlockController>();
+            if (blockController != null && blockController.IsUp() == true)
+            {
+                wall.GetComponent<Collider>().isTrigger = true;
+
+            }
+            
+        }
+
         progressBarGhost.StartProgress(5f);
 
     }
+    
+    void DeactivateGhostPowerUp()
+    {
+        foreach (GameObject wall in walls)
+        {
+            if (wall != null)
+            {
+                wall.GetComponent<Collider>().isTrigger = false;
+            }
+        }
+    }
+    //private bool IsWallUp(BlockController blockController)
+    //{
+    //    // You'll need to determine what "up" means for your game
+    //    // This is a simple check assuming the wall is "up" if it's above a certain height
+    //    return blockController.transform.position.y > blockController.baseHeight;
+    //} 
     void UseSpeedPowerUp()
     {
         speed = 3f;
@@ -235,5 +270,12 @@ public class PlayerControls : MonoBehaviour
             yield return null;
         }
         _isDescending = false;
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Wall") && isPowerUpActive)
+        {
+            PassedThroughWall();
+        }
     }
 }

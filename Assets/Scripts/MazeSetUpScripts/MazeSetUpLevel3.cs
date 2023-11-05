@@ -10,6 +10,7 @@ namespace MazeSetUpScripts
 {
     public class MazeSetUpLevel3 : MonoBehaviour
     {
+        public PlayerControls playercontrols;
         int[,] _mazeOgLevel3 =
         {
             { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3 }, //1
@@ -42,11 +43,15 @@ namespace MazeSetUpScripts
         private float _playerSpeed;
         public GameObject dimmingPanel;
 
-        [SerializeField] private float switchTime = 5.0f; //
+
+        [SerializeField] private float switchTime = 20.0f; //
         private float _lastSwitch = 0.0f; //
         private LevelInfo _levelInfo;
 
         private List<(int, int)> _redWalls = new List<(int, int)>();
+        public GameObject[] walls;
+        
+
 
 
         void Start()
@@ -78,7 +83,10 @@ namespace MazeSetUpScripts
                            
                                 Debug.Log(" YO  Inside if" + i + " " + j);
                                 wallCoordinates.Add((i, j));
+
+                                wallGameObject.GetComponent<Collider>().isTrigger = true;
                             
+
                         }
                     }
                 }
@@ -90,7 +98,7 @@ namespace MazeSetUpScripts
             if (wallCoordinates.Count >= 4)
             {
                 List<(int, int)> selectedWalls = new List<(int, int)>();
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     int randomIndex = UnityEngine.Random.Range(0, wallCoordinates.Count);
                     (int, int) randomWall = wallCoordinates[randomIndex];
@@ -117,8 +125,10 @@ namespace MazeSetUpScripts
                     Renderer renderer = block.GetComponent<Renderer>();
                     if (renderer != null)
                     {
-                        renderer.material.color = Color.red;
+                        renderer.material.color = Color.yellow;
                     }
+                    block.GetComponent<Collider>().isTrigger = false;
+
                 }
             }
         }
@@ -182,14 +192,46 @@ namespace MazeSetUpScripts
 
             if (Time.time - _lastSwitch > switchTime)
             {
+                Debug.Log("YO");
                 _lastSwitch = Time.time;
                 SetMazeToPreview();
                 _previewMaze = null;
                 GeneratePreviewMaze();
-                GhostAbilty(_maze); //To randomly color 4 walls red
+                //GhostAbilty(_maze); //To randomly color 4 walls red
 
             }
-           
+            if (Input.GetKeyDown(KeyCode.G) && playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
+            {
+                Debug.Log("Inside iff");
+                GhostAbilty(_maze);
+                //GhostPowerUp();
+            }
+
+        }
+
+        void GhostPowerUp()
+        {
+            Debug.Log("Inside GhostPowerUp");
+            walls = GameObject.FindGameObjectsWithTag("Wall");
+            Debug.Log("Fine got walls");
+            foreach (GameObject wall in walls)
+            {
+                Debug.Log("Inside FOR");
+                wall.GetComponent<Collider>().isTrigger = true;
+            }
+
+            StartCoroutine(TurnOffGhostPowerUp(5f));
+        }
+
+        IEnumerator TurnOffGhostPowerUp(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            // Now, set isTrigger back to false for all walls
+            foreach (GameObject wall in walls)
+            {
+                wall.GetComponent<Collider>().isTrigger = false;
+            }
         }
 
 
