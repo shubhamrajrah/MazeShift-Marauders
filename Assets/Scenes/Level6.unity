@@ -4903,14 +4903,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152643477}
-  m_LocalRotation: {x: -0.43418482, y: -0.1677131, z: 0.08266152, w: -0.8812055}
-  m_LocalPosition: {x: 0.9130666, y: 8.71579, z: -3.6411843}
+  m_LocalRotation: {x: -0.44835302, y: -0.2148904, z: 0.061372332, w: -0.8654682}
+  m_LocalPosition: {x: -0.42, y: 13.12, z: -6.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 134.99701, y: -186.973, z: -183.463}
+  m_LocalEulerAnglesHint: {x: 126.636, y: -147.919, z: -171.669}
 --- !u!1001 &154664131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39048,7 +39048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5300763782613221016, guid: b74624df7102f46e19b2e8c0ffee0c84, type: 3}
       propertyPath: m_TagString
-      value: WinTile
+      value: Tile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b74624df7102f46e19b2e8c0ffee0c84, type: 3}
@@ -47606,7 +47606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5300763782613221016, guid: b74624df7102f46e19b2e8c0ffee0c84, type: 3}
       propertyPath: m_TagString
-      value: WinTile
+      value: Tile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b74624df7102f46e19b2e8c0ffee0c84, type: 3}
