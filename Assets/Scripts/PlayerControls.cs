@@ -271,11 +271,11 @@ public class PlayerControls : MonoBehaviour
         }
         _isDescending = false;
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Wall") && isPowerUpActive)
-        {
-            PassedThroughWall();
-        }
-    }
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Wall") && isPowerUpActive)
+    //    {
+    //        PassedThroughWall();
+    //    }
+    //}
 }
