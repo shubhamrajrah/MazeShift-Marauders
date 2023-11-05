@@ -7,6 +7,8 @@ public class BlockController : MonoBehaviour
 
     private float baseHeight;     // Starting height for the block
     private float targetHeight;   // The target height to which the block should move
+    public int row;
+    public int col;
 
     private void Start()
     {
@@ -31,5 +33,14 @@ public class BlockController : MonoBehaviour
             targetHeight = (value == 1) ? baseHeight + moveHeight : baseHeight;
         }
         // You can add further adjustments for other block types if needed.
+    }
+    public bool IsUp()
+    {
+        // Assuming that when the wall is "up" its y position is greater than the baseHeight
+        return transform.position.y > baseHeight;
+    }
+    public bool IsAtCoordinates(int targetRow, int targetCol)
+    {
+        return row == targetRow && col == targetCol;
     }
 }
