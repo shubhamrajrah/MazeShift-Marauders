@@ -30,6 +30,11 @@ public class BlockController : MonoBehaviour
     {
         if (gameObject.CompareTag("Wall"))
         {
+            Renderer renderer = gameObject.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.material.color = Color.black;
+            }
             targetHeight = (value == 1) ? baseHeight + moveHeight : baseHeight;
         }
         // You can add further adjustments for other block types if needed.

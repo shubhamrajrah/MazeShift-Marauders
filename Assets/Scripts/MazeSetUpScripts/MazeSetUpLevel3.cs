@@ -216,6 +216,7 @@ namespace MazeSetUpScripts
                     // Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
                     if (block)
                     {
+
                         BlockController controller = block.GetComponent<BlockController>();
                         if (controller)
                         {
