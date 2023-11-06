@@ -54,7 +54,7 @@ namespace MazeSetUpScripts
         private float _lastSwitch = 0.0f; //
         private LevelInfo _levelInfo;
         private int index;
-        private int mazeshiftmode = 1;
+        private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
 
         void Start()
         {
@@ -279,13 +279,13 @@ namespace MazeSetUpScripts
             // }
             if(mazeshiftmode==0){
             _previewMaze = mazesLevel3[UnityEngine.Random.Range(0, 10)];
-        }
-        else
-        {
-            index=(index+1)%10;
-            _previewMaze = mazesLevel3[index];
-        }
-        }
+            }
+            else
+            {
+                index=(index+1)%10;
+                _previewMaze = mazesLevel3[index];
+            }
+            }
 
     }
 
