@@ -71,6 +71,8 @@ namespace MazeSetUpScripts
             List<(int, int)> wallCoordinates = new List<(int, int)>();
             Debug.Log("maze lenght cols "+ _maze.GetLength(0));
             Debug.Log("maze lenght row "+_maze.GetLength(1));
+            _pc.availableGhostPowerUps--;
+            _pc.ghostPowerUpText.text = _pc.availableGhostPowerUps.ToString();
             for (int i = 1; i <= _maze.GetLength(0); i++)
             {
                 for (int j = 1; j <= _maze.GetLength(1); j++)
