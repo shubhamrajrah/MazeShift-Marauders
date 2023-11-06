@@ -39,6 +39,7 @@ namespace MazeSetUpScripts
         bool _isPreviewing;
         private Rigidbody _playerObjectRb;
         public Material noWallMaterial;
+        public Material noWallMaterialDestruct;
         public Material WallMaterial;
         private PlayerControls _pc;
         private float _playerSpeed;
@@ -122,7 +123,7 @@ namespace MazeSetUpScripts
                             Renderer renderer = wallGameObject.GetComponent<Renderer>();
                             if (renderer != null)
                             {
-                                renderer.material = noWallMaterial;
+                                renderer.material = noWallMaterialDestruct;
                             }
                         }
                     }

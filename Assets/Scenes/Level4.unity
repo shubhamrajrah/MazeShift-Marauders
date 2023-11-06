@@ -21097,7 +21097,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.4215, y: -0}
+  m_AnchoredPosition: {x: -135, y: -196}
   m_SizeDelta: {x: 202.6087, y: 12.6929}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &628591368 stripped
@@ -28926,6 +28926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noWallMaterial: {fileID: 2100000, guid: e5e4b53ffe7034451a2a0cdb6f67b575, type: 2}
+  noWallMaterialDestruct: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
   dimmingPanel: {fileID: 1506337163}
   progressBarWallDestruction: {fileID: 1323841133}
@@ -31937,7 +31938,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -13, y: -127}
+  m_AnchoredPosition: {x: -171.3, y: 244}
   m_SizeDelta: {x: 219.4, y: 22.2875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1323841135
