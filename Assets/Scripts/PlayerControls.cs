@@ -181,7 +181,6 @@ public class PlayerControls : MonoBehaviour
             collision.gameObject.SetActive(false);
             if (nextLevel == "Menu")
             {
-                // when this the last level, show game win panel to the player 
                 GameWinPanelDisplay();
             }
             else
@@ -201,24 +200,15 @@ public class PlayerControls : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Wall") && WallDestroyerTouched)
         {
-            // Get the wall's current position
             Vector3 wallPosition = collision.gameObject.transform.position;
             Debug.Log("trying to dstroy the wall---"+wallPosition);
-            // Check the wall's y position (height in this case)
             if (wallPosition.y >= 0.5f)
             {
                 Debug.Log("destroying high wall---"+wallPosition);
-                // Create a new Vector3 with the desired y value (0 in this case)
                 Vector3 newPosition = new Vector3(wallPosition.x, 0f, wallPosition.z);
                 Debug.Log("destroying high new position wall---"+newPosition);
-                // Set the wall's position to the new Vector3
                 collision.gameObject.transform.position = newPosition;
-                // GameObject explosion = GameObject.Find("destroyWall");
-                // explosion.gameObject.SetActive(true);
-                // explosion.transform.position = new Vector3(wallPosition.x, 0.5f, wallPosition.z);
-                
                 collision.gameObject.SetActive(false);
-                // Set the WallDestroyerTouched flag to false
                 WallDestroyerTouched = false;
             }
         }
