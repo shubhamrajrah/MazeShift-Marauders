@@ -15452,7 +15452,7 @@ MonoBehaviour:
   playercontrols: {fileID: 131287925}
   progressBarGhost: {fileID: 1865663593}
   walls: []
-  noWallMaterial: {fileID: 2100000, guid: a4fafb755dfa64f4daae99ec68e5ca2b, type: 2}
+  noWallMaterial: {fileID: 2100000, guid: e5e4b53ffe7034451a2a0cdb6f67b575, type: 2}
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
   dimmingPanel: {fileID: 193846711}
   switchTime: 10
