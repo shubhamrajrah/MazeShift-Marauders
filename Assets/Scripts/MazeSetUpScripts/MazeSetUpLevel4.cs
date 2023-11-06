@@ -104,6 +104,12 @@ namespace MazeSetUpScripts
                 progressBarWallDestruction.StartProgress(5f);
                 // DeactivateGhostPowerUp();
                 //GhostPowerUp();
+            }else{
+                walls = GameObject.FindGameObjectsWithTag("Wall");
+                foreach (GameObject wall in walls)
+                {
+                    wall.GetComponent<Renderer>().material = WallMaterial;
+                }
             }
         }
         void WallDestructionMode(int[,] _maze)
