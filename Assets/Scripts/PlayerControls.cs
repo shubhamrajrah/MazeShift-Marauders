@@ -182,6 +182,10 @@ public class PlayerControls : MonoBehaviour
                 _loadLevel.SendResult(true);
             }
         }
+        else if (collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("Wall"))
+        {
+            PortalTeleporter.recentlyTeleported = false;  
+        }
     }
 
     void UseGhostPowerUp()
