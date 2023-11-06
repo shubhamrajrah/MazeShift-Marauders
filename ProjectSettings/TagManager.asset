@@ -18,6 +18,7 @@ TagManager:
   - ArrowTile
   - Key
   - Portal
+  - WallDestroyer
   layers:
   - Default
   - TransparentFX

@@ -2,12 +2,13 @@ using System;
 using Analytic.DTO;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
+using System.Collections.Generic;
+using System.Collections;
 namespace MazeSetUpScripts
 {
     public class MazeSetUpLevel4 : MonoBehaviour
     {
-        int[,] _mazeOgLevel4 =
+        public static int[,] _mazeOgLevel4 =
         {
             { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3 }, //1
             { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 1, 1, 0, 3, 0, 0 }, //2
@@ -30,23 +31,24 @@ namespace MazeSetUpScripts
             { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 3 }  //19
 
         };
-
-        int[,] _maze;
-
+        public static int[,] _maze;
+        
         // Flag to ensure we initialize the maze only once
         private bool _mazeInitialized = false;
         int[,] _previewMaze;
         bool _isPreviewing;
         private Rigidbody _playerObjectRb;
-
+        public Material noWallMaterial;
+        public Material WallMaterial;
         private PlayerControls _pc;
         private float _playerSpeed;
         public GameObject dimmingPanel;
-
+        public ProgressBarScript progressBarWallDestruction;
         [SerializeField] private float switchTime = 5.0f; //
         private float _lastSwitch = 0.0f; //
         private LevelInfo _levelInfo;
 
+        public GameObject[] walls;
         void Start()
         {
             _maze = _mazeOgLevel4;
@@ -94,6 +96,51 @@ namespace MazeSetUpScripts
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
+            if (_pc.WallDestroyerTouched) 
+            {
+                Debug.Log("Inside iff");
+                WallDestructionMode(_maze);
+                progressBarWallDestruction.StartProgress(5f);
+                // DeactivateGhostPowerUp();
+                //GhostPowerUp();
+            }
+        }
+        void WallDestructionMode(int[,] _maze)
+        {
+            Debug.Log("maze lenght cols " + _maze.GetLength(0));
+            Debug.Log("maze lenght row " + _maze.GetLength(1));
+            for (int i = 1; i <= _maze.GetLength(0); i++)
+            {
+                for (int j = 1; j <= _maze.GetLength(1); j++)
+                {
+                    if (_maze[i - 1, j - 1] == 1)
+                    {
+                        Debug.Log("current block one- " + $"block_{i}_{j}");
+                        GameObject wallGameObject = GameObject.Find($"block_{i}_{j}");
+                        if (wallGameObject != null && wallGameObject.CompareTag("Wall"))
+                        {
+                            Renderer renderer = wallGameObject.GetComponent<Renderer>();
+                            if (renderer != null)
+                            {
+                                renderer.material = noWallMaterial;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            walls = GameObject.FindGameObjectsWithTag("Wall");
+            StartCoroutine(TurnOffWallDestructionMode(5f));
+        }
+        IEnumerator TurnOffWallDestructionMode(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            // Now, set isTrigger back to false for all walls
+            foreach (GameObject wall in walls)
+            {
+                wall.GetComponent<Renderer>().material = WallMaterial;
+            }
+            _pc.WallDestroyerTouched = false;
         }
 
         void PreviewNextMaze()

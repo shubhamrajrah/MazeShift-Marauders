@@ -44,12 +44,14 @@ public class PlayerControls : MonoBehaviour
     public TextMeshProUGUI speedPowerUpText;
     public TextMeshProUGUI plusFiveSecondsText;
     public bool canMove = true;
+    public bool WallDestroyerTouched = false;
     public TimerController timerController;
 
     public Color timerHighlight = Color.yellow;
 
     public ProgressBarScript progressBarGhost;
     public ProgressBarScript progressBarSpeed;
+    public ProgressBarScript progressBarWallDestroy;
     public GameObject trapBlock; 
     public Vector3 respawnPosition; 
 
@@ -61,6 +63,10 @@ public class PlayerControls : MonoBehaviour
         {
             progressBarGhost.gameObject.SetActive(false);
             progressBarSpeed.gameObject.SetActive(false);
+        }
+        if (curLevel > 3)
+        {
+            progressBarWallDestroy.gameObject.SetActive(false);
         }
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
@@ -188,6 +194,35 @@ public class PlayerControls : MonoBehaviour
         {
             PortalTeleporter.recentlyTeleported = false;  
         }
+        else if (collision.gameObject.CompareTag("WallDestroyer"))
+        {
+            WallDestroyerTouched = true;
+            collision.gameObject.SetActive(false);
+        }
+        if (collision.gameObject.CompareTag("Wall") && WallDestroyerTouched)
+        {
+            // Get the wall's current position
+            Vector3 wallPosition = collision.gameObject.transform.position;
+            Debug.Log("trying to dstroy the wall---"+wallPosition);
+            // Check the wall's y position (height in this case)
+            if (wallPosition.y >= 0.5f)
+            {
+                Debug.Log("destroying high wall---"+wallPosition);
+                // Create a new Vector3 with the desired y value (0 in this case)
+                Vector3 newPosition = new Vector3(wallPosition.x, 0f, wallPosition.z);
+                Debug.Log("destroying high new position wall---"+newPosition);
+                // Set the wall's position to the new Vector3
+                collision.gameObject.transform.position = newPosition;
+                // GameObject explosion = GameObject.Find("destroyWall");
+                // explosion.gameObject.SetActive(true);
+                // explosion.transform.position = new Vector3(wallPosition.x, 0.5f, wallPosition.z);
+                
+                collision.gameObject.SetActive(false);
+                // Set the WallDestroyerTouched flag to false
+                WallDestroyerTouched = false;
+            }
+        }
+
         if (collision.gameObject == trapBlock) 
         {
             transform.position = respawnPosition; 
