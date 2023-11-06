@@ -127,6 +127,17 @@ namespace MazeSetUpScripts
                     }
                 }
             }
+            int trapX = 3;
+            int trapY = 17;
+            GameObject trapBlock = GameObject.Find($"block_{trapX}_{trapY}");
+            if (trapBlock)
+            {
+
+                trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
+
+
+                _pc.trapBlock = trapBlock;
+            }
         }
 
         void SetMazeToPreview()
