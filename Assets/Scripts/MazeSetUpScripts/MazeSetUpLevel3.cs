@@ -43,6 +43,7 @@ namespace MazeSetUpScripts
         private float _playerSpeed;
         public GameObject dimmingPanel;
 
+        public ProgressBarScript progressBarGhost;
 
         [SerializeField] private float switchTime = 20.0f; //
         private float _lastSwitch = 0.0f; //
@@ -121,6 +122,8 @@ namespace MazeSetUpScripts
                 
 
             }
+            walls = GameObject.FindGameObjectsWithTag("Wall");
+            StartCoroutine(TurnOffGhostPowerUp(5f));
 
         }
 
@@ -215,6 +218,8 @@ namespace MazeSetUpScripts
             {
                 Debug.Log("Inside iff");
                 GhostAbilty(_maze);
+                progressBarGhost.StartProgress(5f);
+                // DeactivateGhostPowerUp();
                 //GhostPowerUp();
             }
 

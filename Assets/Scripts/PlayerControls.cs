@@ -198,7 +198,7 @@ public class PlayerControls : MonoBehaviour
 
     }
     
-    void DeactivateGhostPowerUp()
+    public void DeactivateGhostPowerUp()
     {
         foreach (GameObject wall in walls)
         {
