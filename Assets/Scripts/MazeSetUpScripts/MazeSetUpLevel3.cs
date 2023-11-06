@@ -69,22 +69,29 @@ namespace MazeSetUpScripts
         void GhostAbilty(int[,] _maze)
         {
             List<(int, int)> wallCoordinates = new List<(int, int)>();
-
-            for (int i = 0; i < _maze.GetLength(0); i++)
+            Debug.Log("maze lenght cols "+ _maze.GetLength(0));
+            Debug.Log("maze lenght row "+_maze.GetLength(1));
+            for (int i = 1; i <= _maze.GetLength(0); i++)
             {
-                for (int j = 0; j < _maze.GetLength(1); j++)
+                for (int j = 1; j <= _maze.GetLength(1); j++)
                 {
-                    if (_maze[i, j] == 1)
+                    if (_maze[i-1, j-1] == 1)
                     {
+                        Debug.Log("current block one- "+$"block_{i}_{j}");
                         GameObject wallGameObject = GameObject.Find($"block_{i}_{j}");
                         if (wallGameObject != null && wallGameObject.CompareTag("Wall"))
                         {
+                            Renderer renderer = wallGameObject.GetComponent<Renderer>();
+                            if (renderer != null)
+                            {
+                                renderer.material.color = Color.black;
+                            }
                             Debug.Log("Inside if" + i + " " + j);
                            
-                                Debug.Log(" YO  Inside if" + i + " " + j);
-                                wallCoordinates.Add((i, j));
+                            Debug.Log(" YO  Inside if" + i + " " + j);
+                            wallCoordinates.Add((i, j));
 
-                                wallGameObject.GetComponent<Collider>().isTrigger = true;
+                            wallGameObject.GetComponent<Collider>().isTrigger = true;
                             
 
                         }
@@ -96,9 +103,10 @@ namespace MazeSetUpScripts
 
             // Select 4 unique wall blocks randomly if there are at least 4 walls
             if (wallCoordinates.Count >= 4)
-            {
+            {   
+                Debug.Log("total walls- " + wallCoordinates.Count);
                 List<(int, int)> selectedWalls = new List<(int, int)>();
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < wallCoordinates.Count/2; i++)
                 {
                     int randomIndex = UnityEngine.Random.Range(0, wallCoordinates.Count);
                     (int, int) randomWall = wallCoordinates[randomIndex];
@@ -125,7 +133,7 @@ namespace MazeSetUpScripts
                     Renderer renderer = block.GetComponent<Renderer>();
                     if (renderer != null)
                     {
-                        renderer.material.color = Color.yellow;
+                        renderer.material.color = Color.red;
                     }
                     block.GetComponent<Collider>().isTrigger = false;
 
@@ -167,6 +175,7 @@ namespace MazeSetUpScripts
                                       Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) ||
                                       Input.GetKey(KeyCode.RightArrow)))
             {
+                Debug.Log("maze is "+_maze);
                 DisplayMaze(_maze);
                 _mazeInitialized = true; // Ensure we don't re-initialize if space is pressed again
             }
@@ -200,7 +209,7 @@ namespace MazeSetUpScripts
                 //GhostAbilty(_maze); //To randomly color 4 walls red
 
             }
-            if (Input.GetKeyDown(KeyCode.G) && playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
+            if (Input.GetKeyDown(KeyCode.G) && _pc.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
             {
                 Debug.Log("Inside iff");
                 GhostAbilty(_maze);
@@ -254,8 +263,9 @@ namespace MazeSetUpScripts
                 for (int i = 1; i <= mazeToDisplay.GetLength(1); i++)
                 {
                     // Fetch the block based on its name
+                    
                     GameObject block = GameObject.Find($"block_{j}_{i}");
-                    // Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
+                    Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + mazeToDisplay[j-1, i-1]);
                     if (block)
                     {
 
@@ -278,9 +288,9 @@ namespace MazeSetUpScripts
         void GeneratePreviewMaze()
         {
             _previewMaze = (int[,])_maze.Clone();
-            for (int i = 1; i < _previewMaze.GetLength(0) - 1; i++)
+            for (int i = 0; i < _previewMaze.GetLength(0); i++)
             {
-                for (int j = 1; j < _previewMaze.GetLength(1) - 1; j++)
+                for (int j = 0; j < _previewMaze.GetLength(1); j++)
                 {
                     _previewMaze[i, j] = UnityEngine.Random.Range(0, 2); // Use Unity's Random.Range here
                 }

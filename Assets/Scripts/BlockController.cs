@@ -30,12 +30,12 @@ public class BlockController : MonoBehaviour
     {
         if (gameObject.CompareTag("Wall"))
         {
-            Renderer renderer = gameObject.GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                renderer.material.color = Color.black;
-            }
-            gameObject.GetComponent<Collider>().isTrigger = true;
+            // Renderer renderer = gameObject.GetComponent<Renderer>();
+            // if (renderer != null)
+            // {
+            //     renderer.material.color = Color.black;
+            // }
+            // gameObject.GetComponent<Collider>().isTrigger = true;
 
             targetHeight = (value == 1) ? baseHeight + moveHeight : baseHeight;
         }
