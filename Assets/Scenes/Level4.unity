@@ -28925,13 +28925,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fb10a27c213497d800929ddd99bef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playercontrols: {fileID: 1952218168}
+  progressBarGhost: {fileID: 1855427412}
+  walls: []
   noWallMaterial: {fileID: 2100000, guid: e5e4b53ffe7034451a2a0cdb6f67b575, type: 2}
-  noWallMaterialDestruct: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
+  noWallMaterialDestruct: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   dimmingPanel: {fileID: 1506337163}
   progressBarWallDestruction: {fileID: 1323841133}
-  switchTime: 5
-  walls: []
+  switchTime: 10
 --- !u!1001 &1153625058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47832,6 +47834,17 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5163100236810546660, guid: 152c32b2af63e4cb9a6efcde2b79d13c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 152c32b2af63e4cb9a6efcde2b79d13c, type: 3}
+--- !u!114 &1952218168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
+  m_PrefabInstance: {fileID: 1935019759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f48979f9e104bbfa59dbf005a4c9a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1953932398
 PrefabInstance:
   m_ObjectHideFlags: 0
