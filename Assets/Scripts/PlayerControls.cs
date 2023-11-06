@@ -50,10 +50,12 @@ public class PlayerControls : MonoBehaviour
 
     public ProgressBarScript progressBarGhost;
     public ProgressBarScript progressBarSpeed;
-
+    public GameObject trapBlock; 
+    public Vector3 respawnPosition; 
 
     void Start()
     {
+        respawnPosition = transform.position;
         plusFiveSecondsText.gameObject.SetActive(false);
         if (curLevel > 2)
         {
@@ -185,6 +187,10 @@ public class PlayerControls : MonoBehaviour
         else if (collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("Wall"))
         {
             PortalTeleporter.recentlyTeleported = false;  
+        }
+        if (collision.gameObject == trapBlock) 
+        {
+            transform.position = respawnPosition; 
         }
     }
 
