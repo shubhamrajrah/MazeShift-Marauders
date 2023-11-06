@@ -34,7 +34,6 @@ namespace MazeSetUpScripts
         int[,] _maze;
 
         // Flag to ensure we initialize the maze only once
-        [SerializeField] private GameObject targetBlock;
         private bool _mazeInitialized = false;
         int[,] _previewMaze;
         bool _isPreviewing;
@@ -56,7 +55,6 @@ namespace MazeSetUpScripts
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
             _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
             _playerSpeed = _pc.speed;
-            targetBlock.GetComponent<Renderer>().material.color = Color.green;
         }
 
         void Update()

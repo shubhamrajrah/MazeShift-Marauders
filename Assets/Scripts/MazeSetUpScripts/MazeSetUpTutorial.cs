@@ -23,7 +23,6 @@ namespace MazeSetUpScripts
         
         int[,] _maze;
         // Flag to ensure we initialize the maze only once
-        [SerializeField] private GameObject targetBlock;
         private bool _mazeInitialized = false;
         int[,] _previewMaze;
         bool _isPreviewing;
@@ -62,7 +61,6 @@ namespace MazeSetUpScripts
             
             if (Input.GetKey(KeyCode.P))
             {
-                Debug.Log("按下P");
                 PreviewNextMaze();
                 _playerObjectRb.velocity = Vector3.zero;
                 _playerObjectRb.angularVelocity = Vector3.zero;

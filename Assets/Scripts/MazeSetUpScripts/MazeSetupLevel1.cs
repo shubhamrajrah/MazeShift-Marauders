@@ -42,8 +42,7 @@ namespace MazeSetUpScripts
             { 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3 } //11
         };
         
-
-        [SerializeField] private GameObject targetBlock;
+        
 
         [SerializeField] private float switchTime = 5.0f;
 
@@ -56,7 +55,6 @@ namespace MazeSetUpScripts
         {
             _maze.Add(_mazeLeve1Alt1);
             _maze.Add(_mazeLevelAlt2);
-            targetBlock.GetComponent<Renderer>().material.color = Color.green;
         }
 
         void Update()
