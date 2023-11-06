@@ -210,7 +210,7 @@ public class PlayerControls : MonoBehaviour
                 collision.gameObject.transform.position = newPosition;
                 collision.gameObject.SetActive(false);
                 WallDestroyerTouched = false;
-                
+                progressBarWallDestroy.gameObject.SetActive(false);
             }
             
         }
