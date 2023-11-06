@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace MazeSetUpScripts
 {
+
+    // public instructions = [];
+    public bool collectAddTimer = true;
+
     public class MazeSetupLevel1 : MonoBehaviour
     {
         List<int[,]> _maze = new List<int[,]>();
