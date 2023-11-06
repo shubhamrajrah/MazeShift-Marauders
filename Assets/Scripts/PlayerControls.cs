@@ -64,7 +64,7 @@ public class PlayerControls : MonoBehaviour
             progressBarGhost.gameObject.SetActive(false);
             progressBarSpeed.gameObject.SetActive(false);
         }
-        if (curLevel > 3)
+        if (curLevel == 4)
         {
             progressBarWallDestroy.gameObject.SetActive(false);
         }

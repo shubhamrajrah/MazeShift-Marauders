@@ -5,9 +5,18 @@ using Random = UnityEngine.Random;
 using System.Collections.Generic;
 using System.Collections;
 namespace MazeSetUpScripts
+
 {
     public class MazeSetUpLevel4 : MonoBehaviour
     {
+        //Ghost
+        public PlayerControls playercontrols;
+        public ProgressBarScript progressBarGhost;
+        private List<(int, int)> _redWalls = new List<(int, int)>();
+        public GameObject[] walls;
+        public Material noWallMaterial;
+        public Material WallMaterial;
+        public Boolean isGhostPower = false;
         public static int[,] _mazeOgLevel4 =
         {
             { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3 }, //1
@@ -38,18 +47,15 @@ namespace MazeSetUpScripts
         int[,] _previewMaze;
         bool _isPreviewing;
         private Rigidbody _playerObjectRb;
-        public Material noWallMaterial;
         public Material noWallMaterialDestruct;
-        public Material WallMaterial;
         private PlayerControls _pc;
         private float _playerSpeed;
         public GameObject dimmingPanel;
         public ProgressBarScript progressBarWallDestruction;
-        [SerializeField] private float switchTime = 5.0f; //
+        [SerializeField] private float switchTime = 10.0f; //
         private float _lastSwitch = 0.0f; //
         private LevelInfo _levelInfo;
 
-        public GameObject[] walls;
         void Start()
         {
             _maze = _mazeOgLevel4;
@@ -58,6 +64,115 @@ namespace MazeSetUpScripts
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
             _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
             _playerSpeed = _pc.speed;
+        }
+
+
+        void GhostAbilty(int[,] _maze)
+        {
+            
+            List<(int, int)> wallCoordinates = new List<(int, int)>();
+            Debug.Log("maze lenght cols " + _maze.GetLength(0));
+            Debug.Log("maze lenght row " + _maze.GetLength(1));
+            playercontrols.availableGhostPowerUps--;
+            playercontrols.ghostPowerUpText.text = playercontrols.availableGhostPowerUps.ToString();
+            for (int i = 1; i <= _maze.GetLength(0); i++)
+            {
+                for (int j = 1; j <= _maze.GetLength(1); j++)
+                {
+                    if (_maze[i - 1, j - 1] == 1)
+                    {
+                        Debug.Log("current block one- " + $"block_{i}_{j}");
+                        GameObject wallGameObject = GameObject.Find($"block_{i}_{j}");
+                        if (wallGameObject != null && wallGameObject.CompareTag("Wall"))
+                        {
+                            Renderer renderer = wallGameObject.GetComponent<Renderer>();
+                            if (renderer != null)
+                            {
+                                renderer.material = WallMaterial;
+                            }
+                            Debug.Log("Inside if" + i + " " + j);
+
+                            Debug.Log(" YO  Inside if" + i + " " + j);
+                            wallCoordinates.Add((i, j));
+                            wallGameObject.GetComponent<Collider>().isTrigger = true;
+
+                        }
+                    }
+                }
+            }
+            _redWalls.Clear();
+            // Select 4 unique wall blocks randomly if there are at least 4 walls
+            if (wallCoordinates.Count >= 4)
+            {
+                Debug.Log("total walls- " + wallCoordinates.Count);
+                List<(int, int)> selectedWalls = new List<(int, int)>();
+                for (int i = 0; i < wallCoordinates.Count / 2; i++)
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, wallCoordinates.Count);
+                    (int, int) randomWall = wallCoordinates[randomIndex];
+                    wallCoordinates.RemoveAt(randomIndex);
+                    _redWalls.Add(randomWall);
+                }
+                Debug.Log("RedWalls " + _redWalls);
+                ChangeColorToRed(_redWalls);
+
+            }
+            walls = GameObject.FindGameObjectsWithTag("Wall");
+            StartCoroutine(TurnOffGhostPowerUp(5f));
+        }
+        void ChangeColorToRed(List<(int, int)> coordinates)
+        {
+            foreach (var (row, col) in coordinates)
+            {
+                Debug.Log("Inside for - red" + row + " " + col);
+                GameObject block = GetBlockGameObjectAt(row, col);
+                if (block != null)
+                {
+                    Renderer renderer = block.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        Debug.Log("Inside renderer");
+                        //renderer.material.color = Color.red;
+                        renderer.material = noWallMaterial;
+                    }
+                    block.GetComponent<Collider>().isTrigger = false;
+                }
+            }
+        }
+
+        void ChangeColorToBlack(List<(int, int)> coordinates)
+        {
+            foreach (var (row, col) in coordinates)
+            {
+                Debug.Log("Inside for - black" + row + " " + col);
+                GameObject block = GetBlockGameObjectAt(row, col);
+                if (block != null)
+                {
+                    Renderer renderer = block.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        renderer.material = WallMaterial;
+                    }
+                }
+            }
+        }
+        GameObject GetBlockGameObjectAt(int row, int col)
+        {
+            string blockName = $"block_{row}_{col}";
+            Debug.Log("BLOCK++" + blockName);
+            GameObject block = GameObject.Find(blockName);
+            return block;
+        }
+        IEnumerator TurnOffGhostPowerUp(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            // Now, set isTrigger back to false for all walls
+            foreach (GameObject wall in walls)
+            {
+                wall.GetComponent<Collider>().isTrigger = false;
+                wall.GetComponent<Renderer>().material = WallMaterial;
+                isGhostPower = false;
+            }
         }
 
         void Update()
@@ -97,6 +212,15 @@ namespace MazeSetUpScripts
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
+            if (Input.GetKeyDown(KeyCode.G) && playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
+            {
+                isGhostPower = true;
+                Debug.Log("Inside iff");
+                GhostAbilty(_maze);
+                progressBarGhost.StartProgress(5f);
+                // DeactivateGhostPowerUp();
+                //GhostPowerUp();
+            }
             if (_pc.WallDestroyerTouched) 
             {
                 Debug.Log("Inside iff");
@@ -104,7 +228,8 @@ namespace MazeSetUpScripts
                 progressBarWallDestruction.StartProgress(5f);
                 // DeactivateGhostPowerUp();
                 //GhostPowerUp();
-            }else{
+            }else if(!isGhostPower)
+            {
                 walls = GameObject.FindGameObjectsWithTag("Wall");
                 foreach (GameObject wall in walls)
                 {
@@ -207,7 +332,7 @@ namespace MazeSetUpScripts
             {
                 for (int j = 1; j < _previewMaze.GetLength(1); j++)
                 {
-                    _previewMaze[i, j] = Random.Range(0, 2);
+                    _previewMaze[i, j] = UnityEngine.Random.Range(0, 2);
                 }
             }
         }
