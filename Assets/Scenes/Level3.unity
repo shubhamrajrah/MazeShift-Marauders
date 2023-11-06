@@ -2311,6 +2311,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Center: {x: 0, y: -0.000000074505806, z: 0}
+--- !u!114 &131287925 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
+  m_PrefabInstance: {fileID: 1935019759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f48979f9e104bbfa59dbf005a4c9a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &131923027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5954,17 +5965,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7503251139388918943, guid: 6da7689c05f9f46c4821190b365c7532, type: 3}
   m_PrefabInstance: {fileID: 1072535673}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &314525358 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7986934622317446850, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
-  m_PrefabInstance: {fileID: 930349246}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &321209962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15449,8 +15449,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331e6a582dde2471d853a64e89e6310d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playercontrols: {fileID: 131287925}
+  progressBarGhost: {fileID: 1865663593}
+  walls: []
+  noWallMaterial: {fileID: 2100000, guid: a4fafb755dfa64f4daae99ec68e5ca2b, type: 2}
+  WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
   dimmingPanel: {fileID: 193846711}
-  switchTime: 5
+  switchTime: 10
 --- !u!114 &1153610907 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 694284164, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
@@ -26554,7 +26559,7 @@ PrefabInstance:
     - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
       propertyPath: keyText
       value: 
-      objectReference: {fileID: 314525358}
+      objectReference: {fileID: 0}
     - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
       propertyPath: winDoor
       value: 

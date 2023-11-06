@@ -38,7 +38,7 @@ public class PlayerControls : MonoBehaviour
 
     //Ghost Power up
     public GameObject[] walls;
-    private int availableGhostPowerUps = 0;
+    public int availableGhostPowerUps = 0;
     private int availableSpeedPowerUps = 0;
     public TextMeshProUGUI ghostPowerUpText;
     public TextMeshProUGUI speedPowerUpText;
@@ -97,13 +97,13 @@ public class PlayerControls : MonoBehaviour
         }
 
         //Ghost Power up
-        if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
-        {
-            UseGhostPowerUp();
-            availableGhostPowerUps--;// decrement the power-up count
-            _levelInfo.GhostUsed++;
-            ghostPowerUpText.text = availableGhostPowerUps.ToString();
-        }
+        //if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
+        //{
+        //    UseGhostPowerUp();
+        //    availableGhostPowerUps--;// decrement the power-up count
+        //    _levelInfo.GhostUsed++;
+        //    ghostPowerUpText.text = availableGhostPowerUps.ToString();
+        //}
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             UseSpeedPowerUp();
