@@ -17,29 +17,32 @@ namespace MazeSetUpScripts
         public Material noWallMaterial;
         public Material WallMaterial;
         public Boolean isGhostPower = false;
-        public static int[,] _mazeOgLevel4 =
-        {
-            { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3 }, //1
-            { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 1, 1, 0, 3, 0, 0 }, //2
-            { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 0, 3, 1, 3 }, //3
-            { 1, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 1, 3, 0, 0 }, //4
-            { 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 1, 3, 1, 3, 0, 3, 1, 3 }, //5
-            { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 3, 0, 0, 1, 3, 1, 1 }, //6
-            { 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 0, 1, 3, 0, 3, 0, 3 }, //7
-            { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 3, 3, 0, 0 }, //8
-            { 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 0, 3 }, //9
-            { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 1, 0 }, //10
-            { 3, 0, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 3, 0, 3, 3, 3, 1, 3 }, //11
-            { 3, 1, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 0, 0, 0, 3, 3, 0, 1 }, //12
-            { 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 3, 0, 3, 3, 3, 0, 3 }, //13
-            { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 1, 0, 3, 1, 0 }, //14
-            { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 3, 3, 3, 0, 3 }, //15
-            { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 1 }, //16
-            { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 1, 3 }, //17
-            { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 0 }, //18
-            { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 3 }  //19
+        int[][,] mazesLevel4 = MazeSetupUtils.mazes_level4;
+        private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
+        private int index;
+        // public static int[,] _mazeOgLevel4 =
+        // {
+        //     { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3 }, //1
+        //     { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 1, 1, 0, 3, 0, 0 }, //2
+        //     { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 0, 3, 1, 3 }, //3
+        //     { 1, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 1, 3, 0, 0 }, //4
+        //     { 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 1, 3, 1, 3, 0, 3, 1, 3 }, //5
+        //     { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 3, 0, 0, 1, 3, 1, 1 }, //6
+        //     { 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 0, 1, 3, 0, 3, 0, 3 }, //7
+        //     { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 3, 3, 0, 0 }, //8
+        //     { 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 0, 3 }, //9
+        //     { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 1, 0 }, //10
+        //     { 3, 0, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 3, 0, 3, 3, 3, 1, 3 }, //11
+        //     { 3, 1, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 0, 0, 0, 3, 3, 0, 1 }, //12
+        //     { 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 3, 0, 3, 3, 3, 0, 3 }, //13
+        //     { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 1, 0, 3, 1, 0 }, //14
+        //     { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 3, 3, 3, 0, 3 }, //15
+        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 1 }, //16
+        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 1, 3 }, //17
+        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 0 }, //18
+        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 3 }  //19
 
-        };
+        // };
         public static int[,] _maze;
         
         // Flag to ensure we initialize the maze only once
@@ -58,7 +61,7 @@ namespace MazeSetUpScripts
 
         void Start()
         {
-            _maze = _mazeOgLevel4;
+            _maze = mazesLevel4[0];
             // mazeChangeTimer = mazeChangeInterval; // initialize maze change timer
             GeneratePreviewMaze(); // generate future maze
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
@@ -295,7 +298,7 @@ namespace MazeSetUpScripts
                 {
                     // Fetch the block based on its name
                     GameObject block = GameObject.Find($"block_{j}_{i}");
-                    // Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
+                    Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + mazeToDisplay[j-1, i-1]);
                     if (block)
                     {
                         BlockController controller = block.GetComponent<BlockController>();
@@ -327,13 +330,22 @@ namespace MazeSetUpScripts
 
         void GeneratePreviewMaze()
         {
-            _previewMaze = (int[,])_maze.Clone();
-            for (int i = 1; i < _previewMaze.GetLength(0); i++)
+            // _previewMaze = (int[,])_maze.Clone();
+            // for (int i = 1; i < _previewMaze.GetLength(0); i++)
+            // {
+            //     for (int j = 1; j < _previewMaze.GetLength(1); j++)
+            //     {
+            //         _previewMaze[i, j] = UnityEngine.Random.Range(0, 2);
+            //     }
+            // }
+
+            if(mazeshiftmode==0){
+            _previewMaze = mazesLevel4[UnityEngine.Random.Range(0, 10)];
+            }
+            else
             {
-                for (int j = 1; j < _previewMaze.GetLength(1); j++)
-                {
-                    _previewMaze[i, j] = UnityEngine.Random.Range(0, 2);
-                }
+                index=(index+1)%10;
+                _previewMaze = mazesLevel4[index];
             }
         }
 
