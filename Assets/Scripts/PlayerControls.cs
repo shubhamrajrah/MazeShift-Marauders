@@ -25,7 +25,6 @@ public class PlayerControls : MonoBehaviour
 
     public Text dialogueTextGhost;
     public Text dialogueTextSpeed;
-    public GameObject tutorialPanel;
 
     public Boolean speedOn = false;
     public GameObject speedImg;
@@ -74,6 +73,15 @@ public class PlayerControls : MonoBehaviour
     public GameObject trapBlock; 
     public Vector3 respawnPosition; 
 
+    //Level 4 - Tutorial
+    public Text dialougeText;
+    private string[] instructions = {
+        "Grab to activate destruction mode",
+        "Run into a wall to destroy it permenantly"
+    };
+    public GameObject tutorialPanel;
+
+
     void Start()
     {
         respawnPosition = transform.position;
@@ -99,6 +107,12 @@ public class PlayerControls : MonoBehaviour
         _levelInfo = GlobalVariables.LevelInfo;
         endBlock.GetComponent<Renderer>().material.color = targetUnfinish;
         keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
+
+       //Level 4 - Tutorial
+        if (curLevel == 4)
+        {
+            dialougeText.text = instructions[0];
+        }
         if (curLevel == 3)
         {
             dialogueTextGhost.text = instruction1[0];
@@ -128,19 +142,9 @@ public class PlayerControls : MonoBehaviour
             transform.position += Vector3.back * speed * Time.deltaTime;
         }
 
-        //Ghost Power up
-        //if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
-        //{
-        //    UseGhostPowerUp();
-        //    availableGhostPowerUps--;// decrement the power-up count
-        //    _levelInfo.GhostUsed++;
-        //    ghostPowerUpText.text = availableGhostPowerUps.ToString();
-        //}
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             speedOn = true;
-
-
             UseSpeedPowerUp();
             availableSpeedPowerUps--; // decrement the power-up count
             _levelInfo.SpeedUsed++;
@@ -155,14 +159,11 @@ public class PlayerControls : MonoBehaviour
     }
     public void HandleFreezeEffect(int freezeTime)
     {
-
         StartCoroutine(FreezePlayerRoutine(freezeTime));
     }
 
     private IEnumerator FreezePlayerRoutine(int freezeTime)
     {
-        // canMove = false; 
-
         Image panelImage = timePanel.GetComponent<Image>();
         plusFiveSecondsText.gameObject.SetActive(true);
         Time.timeScale = 0;
@@ -172,8 +173,6 @@ public class PlayerControls : MonoBehaviour
         timePanel.SetActive(false);
         Time.timeScale = 1;
         plusFiveSecondsText.gameObject.SetActive(false);
-
-        // canMove = true; 
     }
 
 
@@ -242,6 +241,7 @@ public class PlayerControls : MonoBehaviour
         {
             WallDestroyerTouched = true;
             collision.gameObject.SetActive(false);
+            dialougeText.text = instructions[1];
         }
         if (collision.gameObject.CompareTag("Wall") && WallDestroyerTouched)
         {
@@ -256,6 +256,11 @@ public class PlayerControls : MonoBehaviour
                 collision.gameObject.SetActive(false);
                 WallDestroyerTouched = false;
                 progressBarWallDestroy.gameObject.SetActive(false);
+                
+                if (curLevel == 4){
+                    tutorialPanel.SetActive(false);
+                }
+                
             }
             
         }

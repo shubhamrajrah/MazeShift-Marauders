@@ -27193,6 +27193,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 563490740}
     - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
+      propertyPath: tutorialPanel
+      value: 
+      objectReference: {fileID: 1885655961}
+    - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
       propertyPath: timerController
       value: 
       objectReference: {fileID: 798362258}
