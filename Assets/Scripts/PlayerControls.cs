@@ -56,7 +56,6 @@ public class PlayerControls : MonoBehaviour
 
 
     private LevelInfo _levelInfo;
-    private LoadLevel _loadLevel;
 
     // Door Descending 
     public GameObject winDoor;
@@ -125,7 +124,6 @@ public class PlayerControls : MonoBehaviour
         GlobalVariables.LevelTrack ??= new LevelTrack(curLevel);
         // track level
         GlobalVariables.Level = curLevel;
-        _loadLevel = gameObject.AddComponent<LoadLevel>();
         _levelInfo = GlobalVariables.LevelInfo;
         endBlock.GetComponent<Renderer>().material.color = targetUnfinish;
         keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
@@ -266,8 +264,6 @@ public class PlayerControls : MonoBehaviour
             else
             {
                 IntermediateGameWinPanelDisplay();
-                // _loadLevel.LoadScene(nextLevel);
-                // _loadLevel.SendResult(true);
             }
         }
         else if (collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("Wall"))

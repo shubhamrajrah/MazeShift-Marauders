@@ -44,11 +44,6 @@ public class LoadLevel : MonoBehaviour
     {
         Debug.Log("Restart Scene");
         int currentIdx = SceneManager.GetActiveScene().buildIndex;
-        LevelInfo levelInfo = GlobalVariables.LevelInfo;
-        if (levelInfo != null)
-        {
-            levelInfo.DeadTimesUp++;
-        }
         SceneManager.LoadScene(currentIdx);
     }
 
