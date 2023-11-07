@@ -46384,6 +46384,10 @@ PrefabInstance:
       propertyPath: plusFiveSecondsText
       value: 
       objectReference: {fileID: 368134204}
+    - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
+      propertyPath: intermediateGameWinPanel
+      value: 
+      objectReference: {fileID: 1966489351}
     - target: {fileID: 7140168318387979399, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
       propertyPath: m_Name
       value: Player
@@ -47687,6 +47691,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+--- !u!1 &1966489351 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8606514333257165525, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+  m_PrefabInstance: {fileID: 1966489350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1978542442 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7503251139388918943, guid: ea8c7c17b57d343f08bd5616edefbf12, type: 3}

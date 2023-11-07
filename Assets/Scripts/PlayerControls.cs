@@ -51,11 +51,11 @@ public class PlayerControls : MonoBehaviour
     public string nextLevel;
     public int curLevel;
     public GameObject gameWinPanel;
+    public GameObject intermediateGameWinPanel;
     public GameObject timePanel;
 
 
     private LevelInfo _levelInfo;
-    private LoadLevel _loadLevel;
 
     // Door Descending 
     public GameObject winDoor;
@@ -124,7 +124,6 @@ public class PlayerControls : MonoBehaviour
         GlobalVariables.LevelTrack ??= new LevelTrack(curLevel);
         // track level
         GlobalVariables.Level = curLevel;
-        _loadLevel = gameObject.AddComponent<LoadLevel>();
         _levelInfo = GlobalVariables.LevelInfo;
         endBlock.GetComponent<Renderer>().material.color = targetUnfinish;
         keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
@@ -264,8 +263,7 @@ public class PlayerControls : MonoBehaviour
             }
             else
             {
-                _loadLevel.LoadScene(nextLevel);
-                _loadLevel.SendResult(true);
+                IntermediateGameWinPanelDisplay();
             }
         }
         else if (collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("Wall"))
@@ -356,6 +354,34 @@ public class PlayerControls : MonoBehaviour
         Time.timeScale = 0;
         gameWinPanel.SetActive(true);
     }
+    void IntermediateGameWinPanelDisplay()
+    {
+        Time.timeScale = 0;
+        intermediateGameWinPanel.SetActive(true);
+
+        Transform goldStarsTransform = intermediateGameWinPanel.transform.Find("Stars/GoldStars");
+
+        foreach (Transform child in goldStarsTransform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        for (int i = 1; i <= _keyGet; i++)
+        {
+            string goldStarName = "GoldStar" + i;
+            Transform goldStarChild = goldStarsTransform.Find(goldStarName);
+            if (goldStarChild != null)
+            {
+                goldStarChild.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("GoldStar child with name " + goldStarName + " not found!");
+            }
+        }
+    }
+
+    
 
     private IEnumerator DoorDescend()
     {
