@@ -56,7 +56,7 @@ namespace MazeSetUpScripts
         private float _playerSpeed;
         public GameObject dimmingPanel;
 
-        [SerializeField] private float switchTime = 5.0f; //
+        [SerializeField] private float switchTime = 10.0f; //
         private float _lastSwitch = 0.0f; //
         private LevelInfo _levelInfo;
 

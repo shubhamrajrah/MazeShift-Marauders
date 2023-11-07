@@ -22681,7 +22681,7 @@ MonoBehaviour:
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
   isGhostPower: 0
   dimmingPanel: {fileID: 1506337163}
-  switchTime: 5
+  switchTime: 10
 --- !u!1001 &1153625058
 PrefabInstance:
   m_ObjectHideFlags: 0
