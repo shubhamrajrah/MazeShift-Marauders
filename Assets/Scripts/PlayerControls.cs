@@ -55,6 +55,15 @@ public class PlayerControls : MonoBehaviour
     public GameObject trapBlock; 
     public Vector3 respawnPosition; 
 
+    //Level 4 - Tutorial
+    public Text dialougeText;
+    private string[] instructions = {
+        "Grab to activate destruction mode",
+        "Run into a wall to destroy it permenantly"
+    };
+    public GameObject tutorialPanel;
+
+
     void Start()
     {
         respawnPosition = transform.position;
@@ -80,6 +89,12 @@ public class PlayerControls : MonoBehaviour
         _levelInfo = GlobalVariables.LevelInfo;
         endBlock.GetComponent<Renderer>().material.color = targetUnfinish;
         keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
+
+       //Level 4 - Tutorial
+       if (curLevel == 4)
+        {
+            dialougeText.text = instructions[0];
+        }
     }
 
     void Update()
@@ -197,6 +212,7 @@ public class PlayerControls : MonoBehaviour
         {
             WallDestroyerTouched = true;
             collision.gameObject.SetActive(false);
+            dialougeText.text = instructions[1];
         }
         if (collision.gameObject.CompareTag("Wall") && WallDestroyerTouched)
         {
@@ -211,6 +227,11 @@ public class PlayerControls : MonoBehaviour
                 collision.gameObject.SetActive(false);
                 WallDestroyerTouched = false;
                 progressBarWallDestroy.gameObject.SetActive(false);
+                
+                if (curLevel == 4){
+                    tutorialPanel.SetActive(false);
+                }
+                
             }
             
         }
