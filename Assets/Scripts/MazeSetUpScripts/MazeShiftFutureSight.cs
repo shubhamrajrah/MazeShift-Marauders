@@ -147,7 +147,7 @@ namespace MazeSetUpScripts
 
             if (currentScene != "Level1")
             {
-                if (Input.GetKey(KeyCode.P))
+                if (Input.GetKey(KeyCode.F))
                 {
                     PreviewNextMaze();
                     playerobjectrb.velocity = Vector3.zero;

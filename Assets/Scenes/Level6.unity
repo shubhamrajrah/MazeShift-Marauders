@@ -1079,7 +1079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6202357337209253917, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8094311133565265371, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_RootOrder
@@ -15242,7 +15242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6202357337209253917, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8094311133565265371, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_RootOrder
@@ -17071,7 +17071,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6202357337209253917, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8094311133565265371, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_RootOrder
@@ -23165,7 +23165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6202357337209253917, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8094311133565265371, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_RootOrder
@@ -23363,7 +23363,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6202357337209253917, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8094311133565265371, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_RootOrder
@@ -40082,7 +40082,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6202357337209253917, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8094311133565265371, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_RootOrder
@@ -41796,7 +41796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6202357337209253917, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8094311133565265371, guid: 8972318d17e7c44f091f576466d12d0b, type: 3}
       propertyPath: m_RootOrder
@@ -46909,7 +46909,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1943239167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adabc7f36729a440c88c9ee7693df88f, type: 3}
+  m_Script: {fileID: 11500000, guid: d3ae50919f81a4d368576dd4e6e90434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1946267433

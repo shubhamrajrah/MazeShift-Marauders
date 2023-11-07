@@ -23,7 +23,7 @@ public class GhostManager : MonoBehaviour
         }
 
         // Randomly activate two of them
-        ActivateRandomGhosts(2);
+        ActivateRandomGhosts(1);
     }
 
     private void ActivateRandomGhosts(int numberOfGhostsToActivate)

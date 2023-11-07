@@ -190,7 +190,7 @@ namespace MazeSetUpScripts
             }
             // Initalize the maze
 
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.F))
             {
                 PreviewNextMaze();
                 _playerObjectRb.velocity = Vector3.zero;
