@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     bool isPaused = false;
-
+    public GameObject tutorialpanel;
     public GameObject PausePanel;
 
     public GameObject PowerUpText;
@@ -19,6 +19,7 @@ public class PauseMenu : MonoBehaviour
     {
         PausePanel.SetActive(false);
         textMeshProButton = GameObject.FindWithTag("PauseMenu");
+        tutorialpanel = GameObject.FindWithTag("TutorialPanel");
         //objectRenderer = GetComponent<Renderer>();
     }
 
@@ -33,6 +34,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Paused()
     {
+       
         Debug.Log("Pause Menu Clicked");
         isPaused = !isPaused;
         PausePanel.SetActive(isPaused);
@@ -44,6 +46,12 @@ public class PauseMenu : MonoBehaviour
             {
                 PowerUpText.SetActive(false);
             }
+            if (tutorialpanel)
+            {
+                tutorialpanel.SetActive(false);
+            }
+            
+
         }
         else
         {
@@ -53,6 +61,10 @@ public class PauseMenu : MonoBehaviour
             {
                 PowerUpText.SetActive(true);
             }
+            if (tutorialpanel){
+                tutorialpanel.SetActive(true);
+            }
+            
         }
         //objectRenderer.enabled = !isPaused;
     }

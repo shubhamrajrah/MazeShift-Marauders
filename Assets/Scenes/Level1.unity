@@ -4856,6 +4856,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1550013331335861178, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: tutorialpanel
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2049340532031635609, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_Name
       value: UserPanel
@@ -14364,7 +14368,7 @@ GameObject:
   - component: {fileID: 1701902243}
   m_Layer: 0
   m_Name: TutorialPanel
-  m_TagString: Untagged
+  m_TagString: TutorialPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
