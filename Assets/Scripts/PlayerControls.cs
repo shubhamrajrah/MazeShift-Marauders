@@ -12,6 +12,25 @@ using UnityEngine.Serialization;
 
 public class PlayerControls : MonoBehaviour
 {
+    //Instructions -
+    private string[] instruction1 = {
+        "Collect Ghost Power up to walk through walls",
+        "Press G to walk through wall"
+    };
+
+    private string[] instruction2 = {
+        "Collect Speed Power up to increase speed",
+        "Press S to increase Speed"
+    };
+
+    public Text dialogueTextGhost;
+    public Text dialogueTextSpeed;
+    public GameObject tutorialPanel;
+
+    public Boolean speedOn = false;
+    public GameObject speedImg;
+
+
     public float startSpeed = 1.5f;
     public float speed = 1.5f;
     public string nextLevel;
@@ -73,7 +92,7 @@ public class PlayerControls : MonoBehaviour
             progressBarGhost.gameObject.SetActive(false);
             progressBarSpeed.gameObject.SetActive(false);
         }
-        if (curLevel > 3)
+        if (curLevel == 4)
         {
             progressBarWallDestroy.gameObject.SetActive(false);
         }
@@ -94,6 +113,10 @@ public class PlayerControls : MonoBehaviour
        if (curLevel == 4)
         {
             dialougeText.text = instructions[0];
+        if (curLevel == 3)
+        {
+            dialogueTextGhost.text = instruction1[0];
+            dialogueTextSpeed.text = instruction2[0];
         }
     }
 
@@ -129,10 +152,19 @@ public class PlayerControls : MonoBehaviour
         //}
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
+            speedOn = true;
+
+
             UseSpeedPowerUp();
             availableSpeedPowerUps--; // decrement the power-up count
             _levelInfo.SpeedUsed++;
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
+            if(curLevel == 3)
+            {
+                dialogueTextSpeed.gameObject.SetActive(false);
+                speedImg.gameObject.SetActive(false);
+            }
+           
         }
     }
     public void HandleFreezeEffect(int freezeTime)
@@ -177,8 +209,14 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("Inside if...");
             availableGhostPowerUps++;
             _levelInfo.GhostCollected++;
+            if(curLevel == 3)
+            {
+                dialogueTextGhost.text = instruction1[1];
+            }
+            
             ghostPowerUpText.text = availableGhostPowerUps.ToString();
             collision.gameObject.SetActive(false);
+            
 
         }
         else if (collision.gameObject.CompareTag("Speed"))
@@ -186,8 +224,14 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("Inside if...");
             availableSpeedPowerUps++;
             _levelInfo.SpeedCollected++;
+            if(curLevel == 3)
+            {
+                dialogueTextSpeed.text = instruction2[1];
+
+            }
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
             collision.gameObject.SetActive(false);
+
         }
         else if (collision.gameObject.CompareTag("WinCollection"))
         {
@@ -284,6 +328,7 @@ public class PlayerControls : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         speed = startSpeed;
+        
     }
 
     void GameWinPanelDisplay()
