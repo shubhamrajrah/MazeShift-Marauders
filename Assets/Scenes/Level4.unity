@@ -42877,6 +42877,10 @@ PrefabInstance:
       propertyPath: progressBarWallDestroy
       value: 
       objectReference: {fileID: 1323841133}
+    - target: {fileID: 7140168318387979398, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
+      propertyPath: intermediateGameWinPanel
+      value: 
+      objectReference: {fileID: 1966489353}
     - target: {fileID: 7140168318387979399, guid: c5c7e82cde75e404c88709677fb04bf8, type: 3}
       propertyPath: m_Name
       value: Player
@@ -48620,6 +48624,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Hold P for future sight!
       objectReference: {fileID: 0}
+    - target: {fileID: 1492869966917981524, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2049340532031635609, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_Name
       value: UserPanel
@@ -48720,6 +48728,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8453441744840597398, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
 --- !u!114 &1966489351 stripped
@@ -48736,6 +48748,11 @@ MonoBehaviour:
 --- !u!224 &1966489352 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2049340532031635613, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+  m_PrefabInstance: {fileID: 1966489350}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1966489353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8606514333257165525, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
   m_PrefabInstance: {fileID: 1966489350}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1980212715

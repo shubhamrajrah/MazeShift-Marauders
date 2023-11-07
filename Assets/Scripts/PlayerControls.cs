@@ -323,10 +323,33 @@ public class PlayerControls : MonoBehaviour
         Time.timeScale = 0;
         gameWinPanel.SetActive(true);
     }
-    void IntermediateGameWinPanelDisplay(){
+    void IntermediateGameWinPanelDisplay()
+    {
         Time.timeScale = 0;
         intermediateGameWinPanel.SetActive(true);
+
+        Transform goldStarsTransform = intermediateGameWinPanel.transform.Find("Stars/GoldStars");
+
+        foreach (Transform child in goldStarsTransform)
+        {
+            child.gameObject.SetActive(false);
+        }
+
+        for (int i = 1; i <= _keyGet; i++)
+        {
+            string goldStarName = "GoldStar" + i;
+            Transform goldStarChild = goldStarsTransform.Find(goldStarName);
+            if (goldStarChild != null)
+            {
+                goldStarChild.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.LogWarning("GoldStar child with name " + goldStarName + " not found!");
+            }
+        }
     }
+
     
 
     private IEnumerator DoorDescend()
