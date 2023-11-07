@@ -7,6 +7,9 @@ public class PortalTeleporter : MonoBehaviour
     public Transform linkedPortal;
     public Vector3 exitDirection; // Add this line to your script
 
+    public GameObject portalhint;
+    public GameObject futurehint;
+    public GameObject tutorialpanel;
     public static bool recentlyTeleported = false;  // Add this
 
     void OnCollisionEnter(Collision collision)
@@ -18,6 +21,15 @@ public class PortalTeleporter : MonoBehaviour
             collision.gameObject.transform.position = new Vector3(linkedPortal.position.x + exitDirection.x, collision.gameObject.transform.position.y, linkedPortal.position.z + exitDirection.z);
 
             // StartCoroutine(ResetTeleportation());
+        }
+        portalhint = GameObject.FindWithTag("PortalHint");
+        futurehint = GameObject.FindWithTag("FutureHint");
+        tutorialpanel = GameObject.FindWithTag("TutorialPanel");
+        if(portalhint){
+            portalhint.SetActive(false);
+            if(!futurehint){
+                tutorialpanel.SetActive(false);
+            }
         }
     }
     // private IEnumerator ResetTeleportation()

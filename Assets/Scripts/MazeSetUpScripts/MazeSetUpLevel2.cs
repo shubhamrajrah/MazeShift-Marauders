@@ -37,6 +37,9 @@ namespace MazeSetUpScripts
         private PlayerControls _pc;
         private float _playerSpeed;
         public GameObject dimmingPanel;
+        public GameObject portalhint;
+        public GameObject futurehint;
+        public GameObject tutorialpanel;
         
         [SerializeField]
         private float switchTime = 5.0f; //
@@ -72,6 +75,16 @@ namespace MazeSetUpScripts
                 _playerObjectRb.isKinematic = true;
                 _pc.speed = 0;
                 dimmingPanel.SetActive(true);
+
+                portalhint = GameObject.FindWithTag("PortalHint");
+                futurehint = GameObject.FindWithTag("FutureHint");
+                tutorialpanel = GameObject.FindWithTag("TutorialPanel");
+                if(futurehint){
+                    futurehint.SetActive(false);
+                    if(!portalhint){
+                        tutorialpanel.SetActive(false);
+                    }
+                }
             }
             else if (_isPreviewing)
             {
