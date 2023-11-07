@@ -39,7 +39,7 @@ public class PlayerControllerTutorial : MonoBehaviour
         "Press S to increase Speed",
         "Collect Ghost Power up to walk through walls",
         "Press G to walk through wall",
-        "Press P to view the Future Maze",
+        "Press F to view the Future Maze",
         "Now you can view the Future Maze anytime",
         "Collect button to buy more time",
         "Now reach the win Tile in time"
@@ -98,7 +98,7 @@ public class PlayerControllerTutorial : MonoBehaviour
 
             
         }
-        if (Input.GetKeyDown(KeyCode.P)) 
+        if (Input.GetKeyDown(KeyCode.F)) 
         {
             //StartCoroutine(WaitForFunction());
         }
