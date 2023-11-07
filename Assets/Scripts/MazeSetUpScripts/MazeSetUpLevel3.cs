@@ -15,6 +15,11 @@ namespace MazeSetUpScripts
         public GameObject[] walls;
         public Material noWallMaterial;
         public Material WallMaterial;
+        public Boolean ghostOn = false;
+        public GameObject TutorialPanel;
+        public GameObject ghostImg;
+
+
 
         public MazeSetupUtils MazeSetup;
         int[][,] mazesLevel3 = MazeSetupUtils.mazes_level3;
@@ -168,6 +173,9 @@ namespace MazeSetUpScripts
                 wall.GetComponent<Collider>().isTrigger = false;
                 wall.GetComponent<Renderer>().material = WallMaterial;
             }
+            
+
+
         }
 
         void Update()
@@ -209,11 +217,18 @@ namespace MazeSetUpScripts
             }
             if (Input.GetKeyDown(KeyCode.G) && playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
             {
+                ghostOn = true;
                 Debug.Log("Inside iff");
                 GhostAbilty(_maze);
                 progressBarGhost.StartProgress(5f);
                 // DeactivateGhostPowerUp();
                 //GhostPowerUp();
+                _pc.dialogueTextGhost.gameObject.SetActive(false);
+                ghostImg.gameObject.SetActive(false);
+            }
+            if (ghostOn == true && _pc.speedOn == true)
+            {
+                TutorialPanel.gameObject.SetActive(false);
             }
         }
 
