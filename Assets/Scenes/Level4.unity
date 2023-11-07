@@ -25859,8 +25859,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.012, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -106, y: 68.9485}
-  m_SizeDelta: {x: -241.9422, y: 64.0824}
+  m_AnchoredPosition: {x: -99.63677, y: 68.9485}
+  m_SizeDelta: {x: -229.2158, y: 64.0824}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &931600595
 MonoBehaviour:
@@ -25875,14 +25875,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9622642, g: 0.33134568, b: 0.33134568, a: 1}
+  m_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1532b4c75d50244d3aaadd8a2b910932, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -29204,6 +29204,7 @@ MonoBehaviour:
   walls: []
   noWallMaterial: {fileID: 2100000, guid: e5e4b53ffe7034451a2a0cdb6f67b575, type: 2}
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
+  isGhostPower: 0
   noWallMaterialDestruct: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   dimmingPanel: {fileID: 1506337163}
   progressBarWallDestruction: {fileID: 1323841133}

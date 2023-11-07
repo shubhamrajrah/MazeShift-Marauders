@@ -25,7 +25,6 @@ public class PlayerControls : MonoBehaviour
 
     public Text dialogueTextGhost;
     public Text dialogueTextSpeed;
-    public GameObject tutorialPanel;
 
     public Boolean speedOn = false;
     public GameObject speedImg;
@@ -110,9 +109,10 @@ public class PlayerControls : MonoBehaviour
         keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
 
        //Level 4 - Tutorial
-       if (curLevel == 4)
+        if (curLevel == 4)
         {
             dialougeText.text = instructions[0];
+        }
         if (curLevel == 3)
         {
             dialogueTextGhost.text = instruction1[0];
@@ -142,19 +142,9 @@ public class PlayerControls : MonoBehaviour
             transform.position += Vector3.back * speed * Time.deltaTime;
         }
 
-        //Ghost Power up
-        //if (Input.GetKeyDown(KeyCode.G) && availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
-        //{
-        //    UseGhostPowerUp();
-        //    availableGhostPowerUps--;// decrement the power-up count
-        //    _levelInfo.GhostUsed++;
-        //    ghostPowerUpText.text = availableGhostPowerUps.ToString();
-        //}
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             speedOn = true;
-
-
             UseSpeedPowerUp();
             availableSpeedPowerUps--; // decrement the power-up count
             _levelInfo.SpeedUsed++;
@@ -169,14 +159,11 @@ public class PlayerControls : MonoBehaviour
     }
     public void HandleFreezeEffect(int freezeTime)
     {
-
         StartCoroutine(FreezePlayerRoutine(freezeTime));
     }
 
     private IEnumerator FreezePlayerRoutine(int freezeTime)
     {
-        // canMove = false; 
-
         Image panelImage = timePanel.GetComponent<Image>();
         plusFiveSecondsText.gameObject.SetActive(true);
         Time.timeScale = 0;
@@ -186,8 +173,6 @@ public class PlayerControls : MonoBehaviour
         timePanel.SetActive(false);
         Time.timeScale = 1;
         plusFiveSecondsText.gameObject.SetActive(false);
-
-        // canMove = true; 
     }
 
 
@@ -337,7 +322,7 @@ public class PlayerControls : MonoBehaviour
         gameWinPanel.SetActive(true);
     }
 
-    private IEnumerator DoorDescend()
+    public IEnumerator DoorDescend()
     {
         _isDescending = true;
         Transform doorTransform = winDoor.transform;
