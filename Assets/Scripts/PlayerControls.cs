@@ -23,6 +23,22 @@ public class PlayerControls : MonoBehaviour
         "Press S to increase Speed"
     };
 
+    private string[] instructionTimer = {
+        "Collect button to buy more time"
+    };
+
+    private string[] instructionKeys = {
+        "Collect Keys to unlock the Door"
+    };
+
+    public Text InstructionsTimer;
+     public Text InstructionsKeys;
+     private Boolean isTimer; 
+     private Boolean isKey; 
+     public Text InstructionFinal;
+     public GameObject Timer_Img;
+     public GameObject Key_Img;
+
     public Text dialogueTextGhost;
     public Text dialogueTextSpeed;
 
@@ -84,6 +100,11 @@ public class PlayerControls : MonoBehaviour
 
     void Start()
     {
+        if(curLevel == 1){
+            InstructionsTimer.text = instructionTimer[0];
+            InstructionsKeys.text = instructionKeys[0];
+        }
+        
         respawnPosition = transform.position;
         plusFiveSecondsText.gameObject.SetActive(false);
         if (curLevel > 2)
@@ -156,9 +177,17 @@ public class PlayerControls : MonoBehaviour
             }
            
         }
+        if(isKey && isTimer && curLevel == 1){
+            InstructionFinal.gameObject.SetActive(true);
+        }
     }
     public void HandleFreezeEffect(int freezeTime)
     {
+        if(curLevel == 1){
+            InstructionsTimer.gameObject.SetActive(false);
+            Timer_Img.gameObject.SetActive(false);
+            isTimer = true;
+        }
         StartCoroutine(FreezePlayerRoutine(freezeTime));
     }
 
@@ -187,6 +216,12 @@ public class PlayerControls : MonoBehaviour
             {
                 endBlock.GetComponent<Renderer>().material.color = targetFinish;
                 StartCoroutine(DoorDescend());
+                if(curLevel == 1){
+                    InstructionsKeys.gameObject.SetActive(false);
+                    Key_Img.gameObject.SetActive(false);
+                    isKey = true; 
+                }
+                
             }
         }
         else if (collision.gameObject.CompareTag("Ghost"))
