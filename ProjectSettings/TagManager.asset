@@ -19,6 +19,9 @@ TagManager:
   - Key
   - Portal
   - WallDestroyer
+  - FutureHint
+  - PortalHint
+  - TutorialPanel
   layers:
   - Default
   - TransparentFX
