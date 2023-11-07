@@ -322,7 +322,7 @@ public class PlayerControls : MonoBehaviour
         gameWinPanel.SetActive(true);
     }
 
-    public IEnumerator DoorDescend()
+    private IEnumerator DoorDescend()
     {
         _isDescending = true;
         Transform doorTransform = winDoor.transform;
