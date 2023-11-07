@@ -35,6 +35,7 @@ public class PlayerControls : MonoBehaviour
     public string nextLevel;
     public int curLevel;
     public GameObject gameWinPanel;
+    public GameObject intermediateGameWinPanel;
     public GameObject timePanel;
 
 
@@ -229,8 +230,9 @@ public class PlayerControls : MonoBehaviour
             }
             else
             {
-                _loadLevel.LoadScene(nextLevel);
-                _loadLevel.SendResult(true);
+                IntermediateGameWinPanelDisplay();
+                // _loadLevel.LoadScene(nextLevel);
+                // _loadLevel.SendResult(true);
             }
         }
         else if (collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("Wall"))
@@ -321,6 +323,11 @@ public class PlayerControls : MonoBehaviour
         Time.timeScale = 0;
         gameWinPanel.SetActive(true);
     }
+    void IntermediateGameWinPanelDisplay(){
+        Time.timeScale = 0;
+        intermediateGameWinPanel.SetActive(true);
+    }
+    
 
     private IEnumerator DoorDescend()
     {
