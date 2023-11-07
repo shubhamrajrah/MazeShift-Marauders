@@ -18,12 +18,14 @@ public class TimerController : MonoBehaviour
     public TextMeshProUGUI timerText;  // Reference to your TextMeshPro text object
     public GameObject gameOverPanel;
     // Start is called before the first frame update
-
+    public GameObject tutorialpanel;
 
     void Start()
     {
         _timer = countdownTime;
         _state = TimerState.Normal;
+        tutorialpanel = GameObject.FindWithTag("TutorialPanel");
+        
     }
 
     // Update is called once per frame
@@ -106,6 +108,11 @@ public class TimerController : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         Time.timeScale = 0;
+        if (tutorialpanel)
+        {
+            tutorialpanel.SetActive(false);
+        }
+
     }
 
     public void FreezeTimer(float time)
