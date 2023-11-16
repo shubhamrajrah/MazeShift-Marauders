@@ -206,7 +206,7 @@ public class PlayerControls : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Key") && !_isDescending)
+        if (collision.gameObject.CompareTag("Key"))
         {
             _keyGet++;
             collision.gameObject.SetActive(false);
