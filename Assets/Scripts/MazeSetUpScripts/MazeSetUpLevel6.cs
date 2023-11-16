@@ -224,6 +224,7 @@ namespace MazeSetUpScripts
             {
                 isGhostPower = true;
                 Debug.Log("Inside iff");
+                GlobalVariables.LevelInfo.GhostUsed++;
                 GhostAbilty(_maze);
                 progressBarGhost.StartProgress(5f);
                 // DeactivateGhostPowerUp();
