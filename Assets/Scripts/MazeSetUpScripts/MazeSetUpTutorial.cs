@@ -41,8 +41,7 @@ namespace MazeSetUpScripts
             { 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0 }, //10
             { 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3 } //11
         };
-        
-        
+
 
         [SerializeField] private float switchTime = 5.0f;
 

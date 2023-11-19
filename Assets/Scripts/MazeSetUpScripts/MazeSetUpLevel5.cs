@@ -19,6 +19,7 @@ namespace MazeSetUpScripts
         public Boolean isGhostPower = false;
         int[][,] mazesLevel5 = MazeSetupUtils.mazes_level5;
         private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
+
         private int index;
         // int[,] _mazeOgLevel5 =
         // {
@@ -58,7 +59,6 @@ namespace MazeSetUpScripts
 
         [SerializeField] private float switchTime = 10.0f; //
         private float _lastSwitch = 0.0f; //
-        private LevelInfo _levelInfo;
 
         void Start()
         {
@@ -72,7 +72,6 @@ namespace MazeSetUpScripts
 
         void GhostAbilty(int[,] _maze)
         {
-
             List<(int, int)> wallCoordinates = new List<(int, int)>();
             Debug.Log("maze lenght cols " + _maze.GetLength(0));
             Debug.Log("maze lenght row " + _maze.GetLength(1));
@@ -93,16 +92,17 @@ namespace MazeSetUpScripts
                             {
                                 renderer.material = WallMaterial;
                             }
+
                             Debug.Log("Inside if" + i + " " + j);
 
                             Debug.Log(" YO  Inside if" + i + " " + j);
                             wallCoordinates.Add((i, j));
                             wallGameObject.GetComponent<Collider>().isTrigger = true;
-
                         }
                     }
                 }
             }
+
             _redWalls.Clear();
             // Select 4 unique wall blocks randomly if there are at least 4 walls
             if (wallCoordinates.Count >= 4)
@@ -116,13 +116,15 @@ namespace MazeSetUpScripts
                     wallCoordinates.RemoveAt(randomIndex);
                     _redWalls.Add(randomWall);
                 }
+
                 Debug.Log("RedWalls " + _redWalls);
                 ChangeColorToRed(_redWalls);
-
             }
+
             walls = GameObject.FindGameObjectsWithTag("Wall");
             StartCoroutine(TurnOffGhostPowerUp(5f));
         }
+
         void ChangeColorToRed(List<(int, int)> coordinates)
         {
             foreach (var (row, col) in coordinates)
@@ -138,6 +140,7 @@ namespace MazeSetUpScripts
                         //renderer.material.color = Color.red;
                         renderer.material = noWallMaterial;
                     }
+
                     block.GetComponent<Collider>().isTrigger = false;
                 }
             }
@@ -159,6 +162,7 @@ namespace MazeSetUpScripts
                 }
             }
         }
+
         GameObject GetBlockGameObjectAt(int row, int col)
         {
             string blockName = $"block_{row}_{col}";
@@ -166,6 +170,7 @@ namespace MazeSetUpScripts
             GameObject block = GameObject.Find(blockName);
             return block;
         }
+
         IEnumerator TurnOffGhostPowerUp(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -216,10 +221,13 @@ namespace MazeSetUpScripts
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
-            if (Input.GetKeyDown(KeyCode.G) && playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
+
+            if (Input.GetKeyDown(KeyCode.G) &&
+                playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
             {
                 isGhostPower = true;
                 Debug.Log("Inside iff");
+                GlobalVariables.LevelInfo.GhostUsed++;
                 GhostAbilty(_maze);
                 progressBarGhost.StartProgress(5f);
                 // DeactivateGhostPowerUp();
@@ -258,12 +266,12 @@ namespace MazeSetUpScripts
                     }
                 }
             }
+
             int trapX = 3;
             int trapY = 17;
             GameObject trapBlock = GameObject.Find($"block_{trapX}_{trapY}");
             if (trapBlock)
             {
-
                 trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
 
 
@@ -287,15 +295,15 @@ namespace MazeSetUpScripts
             //         _previewMaze[i, j] = Random.Range(0, 2);
             //     }
             // }
-            if(mazeshiftmode==0){
-            _previewMaze = mazesLevel5[UnityEngine.Random.Range(0, 10)];
+            if (mazeshiftmode == 0)
+            {
+                _previewMaze = mazesLevel5[UnityEngine.Random.Range(0, 10)];
             }
             else
             {
-                index=(index+1)%10;
+                index = (index + 1) % 10;
                 _previewMaze = mazesLevel5[index];
             }
         }
-
     }
 }

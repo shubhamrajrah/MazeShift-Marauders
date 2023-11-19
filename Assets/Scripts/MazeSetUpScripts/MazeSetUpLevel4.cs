@@ -4,6 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
 using System.Collections;
+
 namespace MazeSetUpScripts
 
 {
@@ -20,6 +21,7 @@ namespace MazeSetUpScripts
         int[][,] mazesLevel4 = MazeSetupUtils.mazes_level4;
         private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
         private int index;
+
         // public static int[,] _mazeOgLevel4 =
         // {
         //     { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3 }, //1
@@ -44,7 +46,7 @@ namespace MazeSetUpScripts
 
         // };
         public static int[,] _maze;
-        
+
         // Flag to ensure we initialize the maze only once
         private bool _mazeInitialized = false;
         int[,] _previewMaze;
@@ -57,7 +59,6 @@ namespace MazeSetUpScripts
         public ProgressBarScript progressBarWallDestruction;
         [SerializeField] private float switchTime = 10.0f; //
         private float _lastSwitch = 0.0f; //
-        private LevelInfo _levelInfo;
 
         void Start()
         {
@@ -72,7 +73,6 @@ namespace MazeSetUpScripts
 
         void GhostAbilty(int[,] _maze)
         {
-            
             List<(int, int)> wallCoordinates = new List<(int, int)>();
             Debug.Log("maze lenght cols " + _maze.GetLength(0));
             Debug.Log("maze lenght row " + _maze.GetLength(1));
@@ -93,16 +93,17 @@ namespace MazeSetUpScripts
                             {
                                 renderer.material = WallMaterial;
                             }
+
                             Debug.Log("Inside if" + i + " " + j);
 
                             Debug.Log(" YO  Inside if" + i + " " + j);
                             wallCoordinates.Add((i, j));
                             wallGameObject.GetComponent<Collider>().isTrigger = true;
-
                         }
                     }
                 }
             }
+
             _redWalls.Clear();
             // Select 4 unique wall blocks randomly if there are at least 4 walls
             if (wallCoordinates.Count >= 4)
@@ -116,13 +117,15 @@ namespace MazeSetUpScripts
                     wallCoordinates.RemoveAt(randomIndex);
                     _redWalls.Add(randomWall);
                 }
+
                 Debug.Log("RedWalls " + _redWalls);
                 ChangeColorToRed(_redWalls);
-
             }
+
             walls = GameObject.FindGameObjectsWithTag("Wall");
             StartCoroutine(TurnOffGhostPowerUp(5f));
         }
+
         void ChangeColorToRed(List<(int, int)> coordinates)
         {
             foreach (var (row, col) in coordinates)
@@ -138,6 +141,7 @@ namespace MazeSetUpScripts
                         //renderer.material.color = Color.red;
                         renderer.material = noWallMaterial;
                     }
+
                     block.GetComponent<Collider>().isTrigger = false;
                 }
             }
@@ -159,6 +163,7 @@ namespace MazeSetUpScripts
                 }
             }
         }
+
         GameObject GetBlockGameObjectAt(int row, int col)
         {
             string blockName = $"block_{row}_{col}";
@@ -166,6 +171,7 @@ namespace MazeSetUpScripts
             GameObject block = GameObject.Find(blockName);
             return block;
         }
+
         IEnumerator TurnOffGhostPowerUp(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -215,23 +221,28 @@ namespace MazeSetUpScripts
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
-            if (Input.GetKeyDown(KeyCode.G) && playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
+
+            if (Input.GetKeyDown(KeyCode.G) &&
+                playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
             {
                 isGhostPower = true;
                 Debug.Log("Inside iff");
                 GhostAbilty(_maze);
                 progressBarGhost.StartProgress(5f);
+                GlobalVariables.LevelInfo.GhostUsed++;
                 // DeactivateGhostPowerUp();
                 //GhostPowerUp();
             }
-            if (_pc.WallDestroyerTouched) 
+
+            if (_pc.WallDestroyerTouched)
             {
                 Debug.Log("Inside iff");
                 WallDestructionMode(_maze);
                 progressBarWallDestruction.StartProgress(5f);
                 // DeactivateGhostPowerUp();
                 //GhostPowerUp();
-            }else if(!isGhostPower)
+            }
+            else if (!isGhostPower)
             {
                 walls = GameObject.FindGameObjectsWithTag("Wall");
                 foreach (GameObject wall in walls)
@@ -240,6 +251,7 @@ namespace MazeSetUpScripts
                 }
             }
         }
+
         void WallDestructionMode(int[,] _maze)
         {
             Debug.Log("maze lenght cols " + _maze.GetLength(0));
@@ -263,10 +275,11 @@ namespace MazeSetUpScripts
                     }
                 }
             }
-            
+
             walls = GameObject.FindGameObjectsWithTag("Wall");
             StartCoroutine(TurnOffWallDestructionMode(5f));
         }
+
         IEnumerator TurnOffWallDestructionMode(float delay)
         {
             yield return new WaitForSeconds(delay);
@@ -275,6 +288,7 @@ namespace MazeSetUpScripts
             {
                 wall.GetComponent<Renderer>().material = WallMaterial;
             }
+
             _pc.WallDestroyerTouched = false;
         }
 
@@ -298,7 +312,7 @@ namespace MazeSetUpScripts
                 {
                     // Fetch the block based on its name
                     GameObject block = GameObject.Find($"block_{j}_{i}");
-                    Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + mazeToDisplay[j-1, i-1]);
+                    Debug.Log($"Processing block_{j}_{i}" + "Maze VAlue - " + mazeToDisplay[j - 1, i - 1]);
                     if (block)
                     {
                         BlockController controller = block.GetComponent<BlockController>();
@@ -309,12 +323,12 @@ namespace MazeSetUpScripts
                     }
                 }
             }
+
             int trapX = 5;
             int trapY = 13;
             GameObject trapBlock = GameObject.Find($"block_{trapX}_{trapY}");
             if (trapBlock)
             {
-
                 trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
 
 
@@ -339,15 +353,15 @@ namespace MazeSetUpScripts
             //     }
             // }
 
-            if(mazeshiftmode==0){
-            _previewMaze = mazesLevel4[UnityEngine.Random.Range(0, 10)];
+            if (mazeshiftmode == 0)
+            {
+                _previewMaze = mazesLevel4[UnityEngine.Random.Range(0, 10)];
             }
             else
             {
-                index=(index+1)%10;
+                index = (index + 1) % 10;
                 _previewMaze = mazesLevel4[index];
             }
         }
-
     }
 }
