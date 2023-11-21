@@ -17,6 +17,7 @@ namespace MazeSetUpScripts
         public GameObject[] walls;
         public Material noWallMaterial;
         public Material WallMaterial;
+        public Material blue;
         public Boolean isGhostPower = false;
         int[][,] mazesLevel4 = MazeSetupUtils.mazes_level4;
         private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
@@ -99,6 +100,7 @@ namespace MazeSetUpScripts
                             Debug.Log(" YO  Inside if" + i + " " + j);
                             wallCoordinates.Add((i, j));
                             wallGameObject.GetComponent<Collider>().isTrigger = true;
+                            ChangeColorToBlue(wallGameObject);
                         }
                     }
                 }
@@ -118,7 +120,7 @@ namespace MazeSetUpScripts
                     _redWalls.Add(randomWall);
                 }
 
-                Debug.Log("RedWalls " + _redWalls);
+                // Debug.Log("RedWalls " + _redWalls);
                 ChangeColorToRed(_redWalls);
             }
 
@@ -126,6 +128,16 @@ namespace MazeSetUpScripts
             StartCoroutine(TurnOffGhostPowerUp(5f));
         }
 
+void ChangeColorToBlue(GameObject wallGameObject)
+{
+    Renderer renderer = wallGameObject.GetComponent<Renderer>();
+    if (renderer != null)
+    {
+       // renderer.material.color = new Color(0.68f, 0.85f, 0.9f, 1.0f);
+        renderer.material = blue;
+
+    }
+}
         void ChangeColorToRed(List<(int, int)> coordinates)
         {
             foreach (var (row, col) in coordinates)
@@ -139,7 +151,7 @@ namespace MazeSetUpScripts
                     {
                         Debug.Log("Inside renderer");
                         //renderer.material.color = Color.red;
-                        renderer.material = noWallMaterial;
+                        renderer.material = WallMaterial;
                     }
 
                     block.GetComponent<Collider>().isTrigger = false;

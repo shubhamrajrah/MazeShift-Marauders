@@ -15767,6 +15767,7 @@ MonoBehaviour:
   walls: []
   noWallMaterial: {fileID: 2100000, guid: e5e4b53ffe7034451a2a0cdb6f67b575, type: 2}
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
+  blue: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   ghostOn: 0
   TutorialPanel: {fileID: 1885655961}
   ghostImg: {fileID: 1402258060}
