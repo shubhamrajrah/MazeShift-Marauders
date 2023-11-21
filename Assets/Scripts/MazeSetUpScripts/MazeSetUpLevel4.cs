@@ -61,8 +61,14 @@ namespace MazeSetUpScripts
         [SerializeField] private float switchTime = 10.0f; //
         private float _lastSwitch = 0.0f; //
 
+        public Boolean ghostPressed = false;
+        private DateTime mazeShiftTime;
+        private DateTime gPressTime;
+        public float ghostAbilityDuration = 5f;
         void Start()
         {
+            mazeShiftTime = DateTime.Now;
+            gPressTime =  new DateTime(3023, 11, 18, 12, 30, 0);;
             _maze = mazesLevel4[0];
             // mazeChangeTimer = mazeChangeInterval; // initialize maze change timer
             GeneratePreviewMaze(); // generate future maze
@@ -72,12 +78,15 @@ namespace MazeSetUpScripts
         }
 
 
-        void GhostAbilty(int[,] _maze)
+        void GhostAbilty(int[,] _maze, Boolean calledByUser)
         {
             List<(int, int)> wallCoordinates = new List<(int, int)>();
             Debug.Log("maze lenght cols " + _maze.GetLength(0));
             Debug.Log("maze lenght row " + _maze.GetLength(1));
-            playercontrols.availableGhostPowerUps--;
+            if(calledByUser){
+                playercontrols.availableGhostPowerUps--;
+            }
+            
             playercontrols.ghostPowerUpText.text = playercontrols.availableGhostPowerUps.ToString();
             for (int i = 1; i <= _maze.GetLength(0); i++)
             {
@@ -125,7 +134,7 @@ namespace MazeSetUpScripts
             }
 
             walls = GameObject.FindGameObjectsWithTag("Wall");
-            StartCoroutine(TurnOffGhostPowerUp(5f));
+            StartCoroutine(TurnOffGhostPowerUp(ghostAbilityDuration));
         }
 
 void ChangeColorToBlue(GameObject wallGameObject)
@@ -198,6 +207,13 @@ void ChangeColorToBlue(GameObject wallGameObject)
 
         void Update()
         {
+            if((gPressTime - mazeShiftTime).TotalSeconds < ghostAbilityDuration && ghostPressed){
+                Debug.Log("gPressTime" + gPressTime);
+                Debug.Log("mazeShifTime" + mazeShiftTime);
+                Debug.Log("delta time" + (gPressTime - mazeShiftTime).TotalSeconds);
+                GhostAbilty(_maze, false);
+                ghostPressed = false;
+            }
             // if (Input.GetKeyDown(KeyCode.Space) && !mazeInitialized)
             if (!_mazeInitialized && (Input.GetKey(KeyCode.UpArrow) ||
                                       Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) ||
@@ -237,9 +253,11 @@ void ChangeColorToBlue(GameObject wallGameObject)
             if (Input.GetKeyDown(KeyCode.G) &&
                 playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
             {
+                gPressTime = DateTime.Now;
+                ghostPressed = true;
                 isGhostPower = true;
                 Debug.Log("Inside iff");
-                GhostAbilty(_maze);
+                GhostAbilty(_maze, true);
                 progressBarGhost.StartProgress(5f);
                 GlobalVariables.LevelInfo.GhostUsed++;
                 // DeactivateGhostPowerUp();
@@ -318,6 +336,7 @@ void ChangeColorToBlue(GameObject wallGameObject)
 
         void DisplayMaze(int[,] mazeToDisplay)
         {
+            mazeShiftTime = DateTime.Now;
             for (int j = 1; j <= mazeToDisplay.GetLength(0); j++)
             {
                 for (int i = 1; i <= mazeToDisplay.GetLength(1); i++)
