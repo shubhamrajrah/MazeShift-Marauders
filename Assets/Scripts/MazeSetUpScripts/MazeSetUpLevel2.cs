@@ -4,6 +4,7 @@ namespace MazeSetUpScripts
 {
     public class MazeSetUpLevel2 : MonoBehaviour
     {
+        public MazeProgressBarLevel2 mazeProgressBar;
         // int[,] _mazeOgLevel2 =
         // {
         //     //maze 1 [alternate switching] - source - block_11_1 
@@ -53,6 +54,7 @@ namespace MazeSetUpScripts
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
             _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
             _playerSpeed = _pc.speed;
+            mazeProgressBar.StartProgressBarSequence(switchTime);
         }
 
         void Update()
@@ -100,6 +102,8 @@ namespace MazeSetUpScripts
                 SetMazeToPreview();
                 _previewMaze = null;
                 GeneratePreviewMaze();
+                mazeProgressBar.StartProgressBarSequence(switchTime);
+
             }
         }
 
