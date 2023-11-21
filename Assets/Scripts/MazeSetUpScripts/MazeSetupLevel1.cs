@@ -7,6 +7,9 @@ namespace MazeSetUpScripts
     {
         List<int[,]> _maze = new List<int[,]>();
         int _curIdx;
+         [SerializeField] private MazeProgressBar progressBar; // Reference to the MazeProgressBar
+        [SerializeField] private float progressBarDuration = 5.0f; // Duration for the progress bar sequence
+
 
         int[,] _mazeLeve1Alt1 =
         {
@@ -55,6 +58,8 @@ namespace MazeSetUpScripts
         {
             _maze.Add(_mazeLeve1Alt1);
             _maze.Add(_mazeLevelAlt2);
+            progressBar.StartProgressBarSequence(progressBarDuration);
+
         }
 
         void Update()
@@ -73,6 +78,7 @@ namespace MazeSetUpScripts
             {
                 ToggleMaze();
                 _lastSwitch = Time.time;
+                progressBar.StartProgressBarSequence(progressBarDuration);
             }
         }
 
