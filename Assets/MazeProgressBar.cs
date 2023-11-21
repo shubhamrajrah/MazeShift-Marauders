@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MazeProgressBar : MonoBehaviour
 {
-   public GameObject[] boundaryObjects; // Array of game objects placed at the boundaries
+   public GameObject[] boundaryObjects; 
     private int currentObjectIndex = 0;
     private float timeLeft;
     private float totalTime;
@@ -24,7 +24,6 @@ public class MazeProgressBar : MonoBehaviour
         currentObjectIndex = 0;
         isActive = true;
 
-        // Make all boundary objects visible at the start
         foreach (var obj in boundaryObjects)
         {
             obj.SetActive(true);
@@ -43,7 +42,7 @@ public class MazeProgressBar : MonoBehaviour
         {
             if (currentObjectIndex < boundaryObjects.Length)
             {
-                boundaryObjects[currentObjectIndex].SetActive(false); // Hide the current object
+                boundaryObjects[currentObjectIndex].SetActive(false); 
                 Debug.Log($"Hiding object {currentObjectIndex}");
                 currentObjectIndex++;
                 timeLeft = totalTime;
@@ -52,7 +51,6 @@ public class MazeProgressBar : MonoBehaviour
             {
                 isActive = false;
                 Debug.Log("All objects processed. Sequence complete.");
-                // Optional: Reset for the next iteration if needed
                 ResetBoundaryObjects();
             }
         }
@@ -64,7 +62,6 @@ public class MazeProgressBar : MonoBehaviour
         {
             obj.SetActive(true);
         }
-        // Reset other parameters if the progress bar needs to restart
     }
 
     
