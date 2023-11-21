@@ -1432,7 +1432,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -65, y: -101}
+  m_AnchoredPosition: {x: -65, y: -120}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7072696847374053831
@@ -2320,6 +2320,7 @@ MonoBehaviour:
   countdownTime: 60
   timerText: {fileID: 2049340531480692695}
   gameOverPanel: {fileID: 2049340533231273286}
+  tutorialpanel: {fileID: 0}
 --- !u!1 &2049340531655184803
 GameObject:
   m_ObjectHideFlags: 0
@@ -3926,7 +3927,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -3}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4681824300578843450
@@ -4534,7 +4535,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -79, y: -38}
+  m_AnchoredPosition: {x: -79, y: -69}
   m_SizeDelta: {x: 75.690704, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1750005790465712191
@@ -4643,6 +4644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bccbc19b6b7566e4b9d7686ef182bbe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialpanel: {fileID: 0}
   PausePanel: {fileID: 819856408833800514}
   PowerUpText: {fileID: 694284162}
 --- !u!1 &3851631722332657456
