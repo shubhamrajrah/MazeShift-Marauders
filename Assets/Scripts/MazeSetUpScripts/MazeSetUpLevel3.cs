@@ -15,6 +15,7 @@ namespace MazeSetUpScripts
         public GameObject[] walls;
         public Material noWallMaterial;
         public Material WallMaterial;
+        public Material blue;
         public Boolean ghostOn = false;
         public GameObject TutorialPanel;
         public GameObject ghostImg;
@@ -98,6 +99,7 @@ namespace MazeSetUpScripts
                             Debug.Log(" YO  Inside if" + i + " " + j);
                             wallCoordinates.Add((i, j));
                             wallGameObject.GetComponent<Collider>().isTrigger = true;
+                            ChangeColorToBlue(wallGameObject); 
                         }
                     }
                 }
@@ -124,6 +126,16 @@ namespace MazeSetUpScripts
             StartCoroutine(TurnOffGhostPowerUp(5f));
         }
 
+void ChangeColorToBlue(GameObject wallGameObject)
+{
+    Renderer renderer = wallGameObject.GetComponent<Renderer>();
+    if (renderer != null)
+    {
+       // renderer.material.color = new Color(0.68f, 0.85f, 0.9f, 1.0f);
+        renderer.material = blue;
+
+    }
+}
         void ChangeColorToRed(List<(int, int)> coordinates)
         {
             foreach (var (row, col) in coordinates)
@@ -136,7 +148,7 @@ namespace MazeSetUpScripts
                     if (renderer != null)
                     {
                         //renderer.material.color = Color.red;
-                        renderer.material = noWallMaterial;
+                        renderer.material = WallMaterial;
                     }
 
                     block.GetComponent<Collider>().isTrigger = false;

@@ -27646,6 +27646,8 @@ MonoBehaviour:
   walls: []
   noWallMaterial: {fileID: 2100000, guid: a874fb1cf556a4b61a97ac69ea77c824, type: 2}
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
+  blue: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
+  blue_ghostwall: {fileID: 0}
   isGhostPower: 0
   dimmingPanel: {fileID: 1506337163}
   switchTime: 10
@@ -27666,6 +27668,7 @@ MonoBehaviour:
   walls: []
   noWallMaterial: {fileID: 2100000, guid: e5e4b53ffe7034451a2a0cdb6f67b575, type: 2}
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
+  blue: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   isGhostPower: 0
   dimmingPanel: {fileID: 1506337163}
   switchTime: 10
