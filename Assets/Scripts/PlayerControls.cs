@@ -46,8 +46,8 @@ public class PlayerControls : MonoBehaviour
     public GameObject speedImg;
 
 
-    public float startSpeed = 1.5f;
-    public float speed = 1.5f;
+  public float startSpeed = 2f;
+    public float speed = 2f;
     public string nextLevel;
     public int curLevel;
     public GameObject gameWinPanel;
