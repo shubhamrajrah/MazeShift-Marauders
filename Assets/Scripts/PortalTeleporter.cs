@@ -21,6 +21,7 @@ public class PortalTeleporter : MonoBehaviour
             collision.gameObject.transform.position = new Vector3(linkedPortal.position.x + exitDirection.x, collision.gameObject.transform.position.y, linkedPortal.position.z + exitDirection.z);
 
             // StartCoroutine(ResetTeleportation());
+            GlobalVariables.LevelInfo.Transported++;
         }
         portalhint = GameObject.FindWithTag("PortalHint");
         futurehint = GameObject.FindWithTag("FutureHint");

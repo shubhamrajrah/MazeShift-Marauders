@@ -38,7 +38,12 @@ namespace Analytic.DTO
             GhostUsed = 0;
             GhostCollected = 0;
             FutureSightUsedTime = 0;
-            
+            KeyCollected = 0;
+            DestructionCollected = 0;
+            DestructionUsed = 0;
+            TrapStepped = 0;
+            Transported = 0;
+
             // mock up data
             // DeadByChaser = random.Next(0, 10);
             // DestroyedWalls = random.Next(0, 3);
