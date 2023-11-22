@@ -46,13 +46,14 @@ public class PlayerControls : MonoBehaviour
     public GameObject speedImg;
 
 
-  public float startSpeed = 2f;
-    public float speed = 2f;
+  public float startSpeed = 4f;
+    public float speed = 4f;
     public string nextLevel;
     public int curLevel;
     public GameObject gameWinPanel;
     public GameObject intermediateGameWinPanel;
     public GameObject timePanel;
+    private Rigidbody rb;
 
 
     private LevelInfo _levelInfo;
@@ -100,6 +101,7 @@ public class PlayerControls : MonoBehaviour
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         if(curLevel == 1){
             InstructionsTimer.text = instructionTimer[0];
             InstructionsKeys.text = instructionKeys[0];
@@ -142,25 +144,19 @@ public class PlayerControls : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.position += Vector3.left * speed * Time.deltaTime;
-        }
 
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.position += Vector3.right * speed * Time.deltaTime;
-        }
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.position += Vector3.forward * speed * Time.deltaTime;
-        }
+        // Alternatively, you can use specific keys
+        // float horizontalInput = Input.GetKey(KeyCode.RightArrow) ? 1f : (Input.GetKey(KeyCode.LeftArrow) ? -1f : 0f);
+        // float verticalInput = Input.GetKey(KeyCode.UpArrow) ? 1f : (Input.GetKey(KeyCode.DownArrow) ? -1f : 0f);
 
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.position += Vector3.back * speed * Time.deltaTime;
-        }
+        // Calculate movement direction
+        Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput);
+
+        // Set the velocity of the Rigidbody based on input
+        rb.velocity = movement * speed;
 
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
