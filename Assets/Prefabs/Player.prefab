@@ -97,7 +97,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7140168318387979417
 Rigidbody:
@@ -127,11 +127,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f48979f9e104bbfa59dbf005a4c9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InstructionsTimer: {fileID: 0}
+  InstructionsKeys: {fileID: 0}
+  InstructionFinal: {fileID: 0}
+  Timer_Img: {fileID: 0}
+  Key_Img: {fileID: 0}
+  dialogueTextGhost: {fileID: 0}
+  dialogueTextSpeed: {fileID: 0}
+  speedOn: 0
+  speedImg: {fileID: 0}
+  startSpeed: 4
   speed: 1.5
-  score: 0
-  coinPrefab: {fileID: 5420048002135346800, guid: 24c03cffba3d640a2855da83a6cd4cdf, type: 3}
-  scoreText: {fileID: 0}
-  mazeSetup: {fileID: 0}
+  nextLevel: 
+  curLevel: 0
   gameWinPanel: {fileID: 0}
+  intermediateGameWinPanel: {fileID: 0}
+  timePanel: {fileID: 0}
+  winDoor: {fileID: 0}
+  descentSpeed: 1
+  descentDistance: 2
+  keyNum: 3
+  endBlock: {fileID: 0}
+  targetUnfinish: {r: 1, g: 0, b: 0, a: 1}
+  targetFinish: {r: 0, g: 1, b: 0, a: 1}
+  keyText: {fileID: 0}
   walls: []
-  powerUpText: {fileID: 0}
+  availableGhostPowerUps: 0
+  ghostPowerUpText: {fileID: 0}
+  speedPowerUpText: {fileID: 0}
+  plusFiveSecondsText: {fileID: 0}
+  canMove: 1
+  WallDestroyerTouched: 0
+  timerController: {fileID: 0}
+  timerHighlight: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  progressBarGhost: {fileID: 0}
+  progressBarSpeed: {fileID: 0}
+  progressBarWallDestroy: {fileID: 0}
+  trapBlock: {fileID: 0}
+  respawnPosition: {x: 0, y: 0, z: 0}
+  dialougeText: {fileID: 0}
+  tutorialPanel: {fileID: 0}

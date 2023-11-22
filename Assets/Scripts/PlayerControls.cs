@@ -102,6 +102,7 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.drag = 0f;
         if(curLevel == 1){
             InstructionsTimer.text = instructionTimer[0];
             InstructionsKeys.text = instructionKeys[0];
@@ -142,7 +143,7 @@ public class PlayerControls : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
 
         float horizontalInput = Input.GetAxis("Horizontal");
