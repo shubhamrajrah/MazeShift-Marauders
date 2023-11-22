@@ -10,8 +10,6 @@ namespace Analytic.DTO
         public long Interval;
         public bool IsSuccess;
         public int DeadTimesUp;
-        public int DeadByChaser;
-        public int DestroyedWalls;
         
         public int SpeedCollected;
         public int SpeedUsed;
@@ -21,6 +19,11 @@ namespace Analytic.DTO
         public int GhostUsed;
         public int GhostCollected;
         public float FutureSightUsedTime;
+        public int KeyCollected;
+        public int DestructionCollected;
+        public int DestructionUsed;
+        public int TrapStepped;
+        public int Transported;
 
         public LevelInfo(int levelNum, DateTime start)
         {
@@ -35,6 +38,7 @@ namespace Analytic.DTO
             GhostUsed = 0;
             GhostCollected = 0;
             FutureSightUsedTime = 0;
+            
             // mock up data
             // DeadByChaser = random.Next(0, 10);
             // DestroyedWalls = random.Next(0, 3);
@@ -51,7 +55,7 @@ namespace Analytic.DTO
         public void SendData()
         {
             // send data to firebase
-            HttpSender.RecordData(this.GetType().Name, this);
+            HttpSender.RecordData(this.GetType().Name + "-GOLD", this);
         }
     }
     
