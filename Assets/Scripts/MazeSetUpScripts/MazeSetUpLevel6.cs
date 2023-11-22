@@ -21,6 +21,7 @@ namespace MazeSetUpScripts
         int[][,] mazesLevel6 = MazeSetupUtils.mazes_level6;
         private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
         private int index;
+        public Material skull;
         // int[,] _mazeOgLevel6 =
         // {
         //     { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 1, 3, 0 }, //1
@@ -302,8 +303,8 @@ void ChangeColorToBlue(GameObject wallGameObject)
             if (trapBlock)
             {
 
-                trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
-
+                //trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
+                trapBlock.GetComponent<Renderer>().material= skull;
 
                 _pc.trapBlock = trapBlock;
             }

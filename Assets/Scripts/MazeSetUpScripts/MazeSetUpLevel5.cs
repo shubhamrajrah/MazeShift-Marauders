@@ -21,6 +21,7 @@ namespace MazeSetUpScripts
         public Boolean isGhostPower = false;
         int[][,] mazesLevel5 = MazeSetupUtils.mazes_level5;
         private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
+        public Material skull;
 
         private int index;
         // int[,] _mazeOgLevel5 =
@@ -307,7 +308,8 @@ void ChangeColorToBlue(GameObject wallGameObject)
             GameObject trapBlock = GameObject.Find($"block_{trapX}_{trapY}");
             if (trapBlock)
             {
-                trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
+                //trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
+                trapBlock.GetComponent<Renderer>().material= skull;
 
 
                 _pc.trapBlock = trapBlock;
