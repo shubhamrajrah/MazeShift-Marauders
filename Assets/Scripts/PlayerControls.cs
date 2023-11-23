@@ -207,6 +207,7 @@ public class PlayerControls : MonoBehaviour
         {
             _keyGet++;
             collision.gameObject.SetActive(false);
+            _levelInfo.KeyCollected++;
             keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
             if (_keyGet == keyNum && !_isDescending)
             {
@@ -272,6 +273,7 @@ public class PlayerControls : MonoBehaviour
             WallDestroyerTouched = true;
             collision.gameObject.SetActive(false);
             dialougeText.text = instructions[1];
+            _levelInfo.DestructionCollected++;
         }
         if (collision.gameObject.CompareTag("Wall") && WallDestroyerTouched)
         {

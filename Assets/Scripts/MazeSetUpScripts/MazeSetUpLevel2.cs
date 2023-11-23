@@ -26,6 +26,7 @@ namespace MazeSetUpScripts
         int[][,] mazesLevel2 = MazeSetupUtils.mazes_level2;
         private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
         private int index;
+        public Material skull;
         
         int[,] _maze;
         // Flag to ensure we initialize the maze only once
@@ -141,8 +142,8 @@ namespace MazeSetUpScripts
             if (trapBlock)
             {
                 
-                trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f); 
-
+                //trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f); 
+                trapBlock.GetComponent<Renderer>().material= skull;
                
                 _pc.trapBlock = trapBlock;
             }

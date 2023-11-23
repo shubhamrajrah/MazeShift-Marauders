@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.332744, g: 0.43589878, b: 0.5797736, a: 1}
+  m_IndirectSpecularColor: {r: 0.332719, g: 0.43587962, b: 0.5797444, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16000,6 +16000,7 @@ MonoBehaviour:
   ghostPressed: 0
   TutorialPanel: {fileID: 1885655961}
   ghostImg: {fileID: 1402258060}
+  skull: {fileID: 2100000, guid: fe61030fa8b26ac479159f808324c172, type: 2}
   ghostAbilityDuration: 5
   MazeSetup: {fileID: 0}
   dimmingPanel: {fileID: 193846711}

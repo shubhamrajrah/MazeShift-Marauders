@@ -15,7 +15,7 @@ namespace Analytic.DTO
         public void SendTrack()
         {
             // send data to firebase
-            HttpSender.RecordData(this.GetType().Name, this);
+            HttpSender.RecordData(this.GetType().Name + "-GOLD", this);
         }
     }
     
