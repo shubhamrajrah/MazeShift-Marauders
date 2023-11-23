@@ -102,6 +102,7 @@ public class PlayerControls : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = false;
         rb.drag = 0f;
         if(curLevel == 1){
             InstructionsTimer.text = instructionTimer[0];

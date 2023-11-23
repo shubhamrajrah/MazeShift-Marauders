@@ -26,6 +26,7 @@ public class SpeedTutorialControls : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = false;
 
     }
 

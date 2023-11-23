@@ -33,6 +33,7 @@ public class GhostTutorialControls : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = false;
         walls = GameObject.FindGameObjectsWithTag("Wall");
         //rb.drag = 5f;
     }
