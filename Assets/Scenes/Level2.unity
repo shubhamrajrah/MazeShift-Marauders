@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.332744, g: 0.43589878, b: 0.5797736, a: 1}
+  m_IndirectSpecularColor: {r: 0.332719, g: 0.43587962, b: 0.5797444, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12441,6 +12441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1b258ce85ac4fd59b037afce8336fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skull: {fileID: 2100000, guid: fe61030fa8b26ac479159f808324c172, type: 2}
   dimmingPanel: {fileID: 273416258}
   portalhint: {fileID: 0}
   futurehint: {fileID: 0}
