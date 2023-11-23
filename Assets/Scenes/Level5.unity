@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.332744, g: 0.43589878, b: 0.5797736, a: 1}
+  m_IndirectSpecularColor: {r: 0.332719, g: 0.43587962, b: 0.5797444, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23110,6 +23110,7 @@ MonoBehaviour:
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
   blue: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   isGhostPower: 0
+  skull: {fileID: 0}
   noWallMaterialDestruct: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   dimmingPanel: {fileID: 1506337163}
   progressBarWallDestruction: {fileID: 1855427412}
@@ -23136,6 +23137,7 @@ MonoBehaviour:
   blue: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   blue_ghostwall: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   isGhostPower: 0
+  skull: {fileID: 2100000, guid: fe61030fa8b26ac479159f808324c172, type: 2}
   dimmingPanel: {fileID: 1506337163}
   switchTime: 10
   ghostPressed: 0

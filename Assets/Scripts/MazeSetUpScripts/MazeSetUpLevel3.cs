@@ -20,6 +20,7 @@ namespace MazeSetUpScripts
         public Boolean ghostPressed = false;
         public GameObject TutorialPanel;
         public GameObject ghostImg;
+        public Material skull;
 
         public float ghostAbilityDuration = 5f;
 
@@ -306,8 +307,8 @@ void ChangeColorToBlue(GameObject wallGameObject)
             GameObject trapBlock = GameObject.Find($"block_{trapX}_{trapY}");
             if (trapBlock)
             {
-                trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
-
+                // trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
+                    trapBlock.GetComponent<Renderer>().material= skull;
 
                 _pc.trapBlock = trapBlock;
             }
