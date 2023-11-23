@@ -46,8 +46,9 @@ namespace MazeSetUpScripts
         private float switchTime = 5.0f; //
         private float _lastSwitch = 0.0f; //
 
+        //Audio before Maze Change
         [SerializeField]
-        private AudioSource tickingSoundSource; //Audio before Maze Change
+        private AudioSource tickingSoundSource; 
 
         [SerializeField]
         private AudioClip tickingSoundClip; 
