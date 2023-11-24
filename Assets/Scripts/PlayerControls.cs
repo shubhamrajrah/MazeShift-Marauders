@@ -98,6 +98,8 @@ public class PlayerControls : MonoBehaviour
     };
     public GameObject tutorialPanel;
 
+    public bool GameIsWon { get; private set; } = false;
+
 
     void Start()
     {
@@ -254,6 +256,7 @@ public class PlayerControls : MonoBehaviour
         else if (collision.gameObject.CompareTag("WinCollection"))
         {
             Debug.Log("Inside Win Col");
+            GameIsWon = true; 
             _levelInfo.CalculateInterval(DateTime.Now);
             collision.gameObject.SetActive(false);
             if (nextLevel == "Menu")
@@ -395,5 +398,10 @@ public class PlayerControls : MonoBehaviour
             yield return null;
         }
         _isDescending = false;
+    }
+
+    public bool IsGameOver()
+    {
+        return gameWinPanel.activeSelf;
     }
 }

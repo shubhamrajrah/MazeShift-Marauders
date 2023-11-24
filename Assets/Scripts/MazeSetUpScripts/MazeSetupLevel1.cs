@@ -51,10 +51,18 @@ namespace MazeSetUpScripts
 
         private float _lastSwitch = 0.0f;
 
+        //Audio before Maze Change
+        [SerializeField]
+        private AudioSource tickingSoundSource; 
+
+        [SerializeField]
+        private AudioClip tickingSoundClip; 
+
         void Start()
         {
             _maze.Add(_mazeLeve1Alt1);
             _maze.Add(_mazeLevelAlt2);
+            tickingSoundSource.clip = tickingSoundClip;
         }
 
         void Update()
@@ -74,6 +82,15 @@ namespace MazeSetUpScripts
                 ToggleMaze();
                 _lastSwitch = Time.time;
             }
+            // if (Time.time - _lastSwitch > switchTime - 2.4f && !tickingSoundSource.isPlaying)
+            // {
+            //     //tickingSoundSource.loop = true;
+            //     tickingSoundSource.Play();
+            // }
+            // else if (Time.time - _lastSwitch <= switchTime - 2.4f && tickingSoundSource.isPlaying)
+            // {
+            //     tickingSoundSource.Stop();
+            // }
         }
 
         void ToggleMaze()

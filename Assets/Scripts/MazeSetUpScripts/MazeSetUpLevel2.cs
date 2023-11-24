@@ -53,6 +53,9 @@ namespace MazeSetUpScripts
         [SerializeField]
         private AudioClip tickingSoundClip; 
 
+        private TimerController _timerController;
+
+
         void Start()
         {
             _maze = mazesLevel2[0];
@@ -63,6 +66,8 @@ namespace MazeSetUpScripts
             _playerSpeed = _pc.speed;
 
             tickingSoundSource.clip = tickingSoundClip;
+            _timerController = FindObjectOfType<TimerController>();
+
 
         }
 
@@ -112,12 +117,30 @@ namespace MazeSetUpScripts
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
-            if (Time.time - _lastSwitch > switchTime - 1.4f && !tickingSoundSource.isPlaying)
+            if (_pc != null && _pc.GameIsWon)
             {
-                tickingSoundSource.loop = true;
+                if (tickingSoundSource.isPlaying)
+                {
+                    tickingSoundSource.Stop();
+                }
+                return; // Stop further updates if the game is won
+            }
+
+            if (_timerController != null && _timerController.IsTimeUp())
+            {
+                if (tickingSoundSource.isPlaying)
+                {
+                    tickingSoundSource.Stop();
+                }
+                return; 
+            }
+
+            if (Time.time - _lastSwitch > switchTime - 2.4f && !tickingSoundSource.isPlaying)
+            {
+                //tickingSoundSource.loop = true;
                 tickingSoundSource.Play();
             }
-            else if (Time.time - _lastSwitch <= switchTime - 1.4f && tickingSoundSource.isPlaying)
+            else if (Time.time - _lastSwitch <= switchTime - 2.4f && tickingSoundSource.isPlaying)
             {
                 tickingSoundSource.Stop();
             }

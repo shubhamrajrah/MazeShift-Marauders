@@ -16006,7 +16006,7 @@ MonoBehaviour:
   dimmingPanel: {fileID: 193846711}
   switchTime: 10
   tickingSoundSource: {fileID: 1544089269}
-  tickingSoundClip: {fileID: 8300000, guid: 25675f8572f8c4fc7aa53b3b4416f986, type: 3}
+  tickingSoundClip: {fileID: 8300000, guid: 65b87ef3c8e3d432bb6c89ba4235589d, type: 3}
 --- !u!114 &1153610907 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 694284164, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
