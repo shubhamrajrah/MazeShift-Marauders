@@ -256,16 +256,16 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
-            if (Time.time - _lastSwitch > switchTime - 1.4f && !tickingSoundSource.isPlaying)
+            if (Time.time - _lastSwitch > switchTime - 2.4f && !tickingSoundSource.isPlaying)
             {
                 tickingSoundSource.loop = true;
                 tickingSoundSource.Play();
             }
-            else if (Time.time - _lastSwitch <= switchTime - 1.4f && tickingSoundSource.isPlaying)
+            else if (Time.time - _lastSwitch <= switchTime - 2.4f && tickingSoundSource.isPlaying)
             {
                 tickingSoundSource.Stop();
             }
-            
+
 
             if (Input.GetKeyDown(KeyCode.G) &&
                 playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available

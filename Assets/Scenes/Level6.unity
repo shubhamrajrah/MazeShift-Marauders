@@ -27975,7 +27975,7 @@ MonoBehaviour:
   ghostPressed: 0
   ghostAbilityDuration: 5
   tickingSoundSource: {fileID: 1194955227}
-  tickingSoundClip: {fileID: 8300000, guid: 25675f8572f8c4fc7aa53b3b4416f986, type: 3}
+  tickingSoundClip: {fileID: 8300000, guid: 65b87ef3c8e3d432bb6c89ba4235589d, type: 3}
 --- !u!1001 &1153625058
 PrefabInstance:
   m_ObjectHideFlags: 0
