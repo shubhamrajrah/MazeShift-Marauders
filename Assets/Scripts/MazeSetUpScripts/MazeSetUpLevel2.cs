@@ -46,6 +46,13 @@ namespace MazeSetUpScripts
         private float switchTime = 5.0f; //
         private float _lastSwitch = 0.0f; //
 
+        //Audio before Maze Change
+        [SerializeField]
+        private AudioSource tickingSoundSource; 
+
+        [SerializeField]
+        private AudioClip tickingSoundClip; 
+
         void Start()
         {
             _maze = mazesLevel2[0];
@@ -54,6 +61,9 @@ namespace MazeSetUpScripts
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
             _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
             _playerSpeed = _pc.speed;
+
+            tickingSoundSource.clip = tickingSoundClip;
+
         }
 
         void Update()
@@ -102,6 +112,16 @@ namespace MazeSetUpScripts
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
+            if (Time.time - _lastSwitch > switchTime - 1.4f && !tickingSoundSource.isPlaying)
+            {
+                tickingSoundSource.loop = true;
+                tickingSoundSource.Play();
+            }
+            else if (Time.time - _lastSwitch <= switchTime - 1.4f && tickingSoundSource.isPlaying)
+            {
+                tickingSoundSource.Stop();
+            }
+
         }
 
         void PreviewNextMaze()

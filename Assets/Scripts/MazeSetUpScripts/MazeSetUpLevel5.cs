@@ -68,6 +68,14 @@ namespace MazeSetUpScripts
         private DateTime gPressTime;
         public float ghostAbilityDuration = 5f;
 
+        //Audio before Maze Change
+        [SerializeField]
+        private AudioSource tickingSoundSource; 
+
+        [SerializeField]
+        private AudioClip tickingSoundClip;
+
+
         void Start()
         {
             mazeShiftTime = DateTime.Now;
@@ -78,6 +86,7 @@ namespace MazeSetUpScripts
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
             _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
             _playerSpeed = _pc.speed;
+            tickingSoundSource.clip = tickingSoundClip;
         }
 
         void GhostAbilty(int[,] _maze, Boolean calledByUser)
@@ -253,6 +262,17 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
+
+            if (Time.time - _lastSwitch > switchTime - 1.4f && !tickingSoundSource.isPlaying)
+            {
+                tickingSoundSource.loop = true;
+                tickingSoundSource.Play();
+            }
+            else if (Time.time - _lastSwitch <= switchTime - 1.4f && tickingSoundSource.isPlaying)
+            {
+                tickingSoundSource.Stop();
+            }
+            
 
             if (Input.GetKeyDown(KeyCode.G) &&
                 playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
