@@ -75,6 +75,8 @@ namespace MazeSetUpScripts
         [SerializeField]
         private AudioClip tickingSoundClip;
 
+        private TimerController _timerController;
+
 
         void Start()
         {
@@ -87,6 +89,8 @@ namespace MazeSetUpScripts
             _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
             _playerSpeed = _pc.speed;
             tickingSoundSource.clip = tickingSoundClip;
+            _timerController = FindObjectOfType<TimerController>();
+
         }
 
         void GhostAbilty(int[,] _maze, Boolean calledByUser)
@@ -263,9 +267,27 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 GeneratePreviewMaze();
             }
 
+            if (_pc != null && _pc.GameIsWon)
+            {
+                if (tickingSoundSource.isPlaying)
+                {
+                    tickingSoundSource.Stop();
+                }
+                return; // Stop further updates if the game is won
+            }
+
+            if (_timerController != null && _timerController.IsTimeUp())
+            {
+                if (tickingSoundSource.isPlaying)
+                {
+                    tickingSoundSource.Stop();
+                }
+                return; 
+            }
+
             if (Time.time - _lastSwitch > switchTime - 2.4f && !tickingSoundSource.isPlaying)
             {
-                tickingSoundSource.loop = true;
+                //tickingSoundSource.loop = true;
                 tickingSoundSource.Play();
             }
             else if (Time.time - _lastSwitch <= switchTime - 2.4f && tickingSoundSource.isPlaying)

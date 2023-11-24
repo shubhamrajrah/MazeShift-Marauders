@@ -125,4 +125,8 @@ public class TimerController : MonoBehaviour
     {
         Normal, Freeze, TimeIsUp, Hold
     }
+    public bool IsTimeUp()
+    {
+        return _state == TimerState.TimeIsUp;
+    }
 }
