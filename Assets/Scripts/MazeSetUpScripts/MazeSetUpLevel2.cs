@@ -41,6 +41,8 @@ namespace MazeSetUpScripts
         public GameObject portalhint;
         public GameObject futurehint;
         public GameObject tutorialpanel;
+        private int flag;
+        private Vector3 originalPosition;
         
         [SerializeField]
         private float switchTime = 5.0f; //
@@ -187,6 +189,22 @@ namespace MazeSetUpScripts
                 
                 //trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f); 
                 trapBlock.GetComponent<Renderer>().material= skull;
+                if(flag==1)
+                {
+                    originalPosition = trapBlock.transform.position;
+
+
+                    // Offset the Y position by a certain amount (e.g., 1 unit)
+                    float yOffset = 10.0f;
+                    Vector3 newPosition = new Vector3(originalPosition.x, originalPosition.y + yOffset, originalPosition.z);
+
+                    // Set the new position
+                    trapBlock.transform.position = newPosition;
+
+                    // Now, if you want to freeze the Y position again, you can use constraints
+                    // Freeze Y position
+                    trapBlock.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+                }
                
                 _pc.trapBlock = trapBlock;
             }
