@@ -150,4 +150,3 @@ private IEnumerator MoveCamera(Transform cameraTransform, Vector3 newPosition, Q
         borderObject.SetActive(false);
     }
 }
-
