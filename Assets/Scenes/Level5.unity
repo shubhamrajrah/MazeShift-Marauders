@@ -23648,6 +23648,7 @@ MonoBehaviour:
   ghostAbilityDuration: 5
   tickingSoundSource: {fileID: 0}
   tickingSoundClip: {fileID: 0}
+  pausePanel: {fileID: 0}
 --- !u!114 &1147698195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23678,6 +23679,7 @@ MonoBehaviour:
   progressBarWallDestruction: {fileID: 1998417155}
   noWallMaterialDestruct: {fileID: 2100000, guid: 70b5429dea4f344e9b8ee69372386082, type: 2}
   wallImage: {fileID: 809705241}
+  pausePanel: {fileID: 1966489354}
 --- !u!1001 &1153625058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42195,6 +42197,11 @@ RectTransform:
 --- !u!224 &1966489353 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1492869966917981524, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+  m_PrefabInstance: {fileID: 1966489350}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1966489354 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 819856408833800514, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
   m_PrefabInstance: {fileID: 1966489350}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1978542442 stripped

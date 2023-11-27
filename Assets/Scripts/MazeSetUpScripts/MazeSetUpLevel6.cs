@@ -82,6 +82,8 @@ namespace MazeSetUpScripts
 
          public ProgressBarScript progressBarWallDestruction;
         public Material noWallMaterialDestruct;
+                public GameObject pausePanel;
+
 
         void Start()
         {
@@ -267,7 +269,7 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 GeneratePreviewMaze();
             }
 
-            if (_pc != null && _pc.GameIsWon)
+            if ((_pc != null && _pc.GameIsWon) || (pausePanel.activeSelf))
             {
                 if (tickingSoundSource.isPlaying)
                 {

@@ -57,6 +57,8 @@ namespace MazeSetUpScripts
 
         private TimerController _timerController;
 
+        public GameObject pausePanel;
+
 
         void Start()
         {
@@ -119,7 +121,7 @@ namespace MazeSetUpScripts
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
-            if (_pc != null && _pc.GameIsWon)
+            if ((_pc != null && _pc.GameIsWon) || (pausePanel.activeSelf))
             {
                 if (tickingSoundSource.isPlaying)
                 {
