@@ -2057,10 +2057,14 @@ MonoBehaviour:
   keyUI: {fileID: 43046325}
   timerText: {fileID: 1479991010}
   powerUpUI: {fileID: 39646515}
+  timer: 60
+  hasKey: 0
+  canMove: 1
   keyCountUI: {fileID: 264020169}
   borderImage: {fileID: 802058151}
   globalTimerUI: {fileID: 1180455013}
   globalTimerBorder: {fileID: 1602933309}
+  hasFlashedGlobalTimerBorder: 0
   newCameraPosition: {fileID: 1524700548}
 --- !u!1001 &280463889
 PrefabInstance:
@@ -4465,6 +4469,7 @@ MonoBehaviour:
   - {fileID: 562268016}
   - {fileID: 1524700548}
   - {fileID: 1479955090}
+  currentPosIndex: 0
 --- !u!1001 &717212223
 PrefabInstance:
   m_ObjectHideFlags: 0
