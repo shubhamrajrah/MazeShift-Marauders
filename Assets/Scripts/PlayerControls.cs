@@ -89,6 +89,7 @@ public class PlayerControls : MonoBehaviour
     public ProgressBarScript progressBarWallDestroy;
     public GameObject trapBlock; 
     public Vector3 respawnPosition; 
+    public Image wallDestroyer;
 
     //Level 4 - Tutorial
     public Text dialougeText;
@@ -118,9 +119,10 @@ public class PlayerControls : MonoBehaviour
             progressBarGhost.gameObject.SetActive(false);
             progressBarSpeed.gameObject.SetActive(false);
         }
-        if (curLevel == 4)
+        if (curLevel == 4 || curLevel == 5 || curLevel == 6)
         {
             progressBarWallDestroy.gameObject.SetActive(false);
+             wallDestroyer.gameObject.SetActive(false);
         }
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
@@ -278,7 +280,10 @@ public class PlayerControls : MonoBehaviour
         {
             WallDestroyerTouched = true;
             collision.gameObject.SetActive(false);
-            dialougeText.text = instructions[1];
+            wallDestroyer.gameObject.SetActive(true);
+            if(curLevel == 4){
+                dialougeText.text = instructions[1];
+            }
             _levelInfo.DestructionCollected++;
         }
         if (collision.gameObject.CompareTag("Wall") && WallDestroyerTouched)
@@ -293,6 +298,7 @@ public class PlayerControls : MonoBehaviour
                 collision.gameObject.transform.position = newPosition;
                 collision.gameObject.SetActive(false);
                 WallDestroyerTouched = false;
+                 wallDestroyer.gameObject.SetActive(false);
                 progressBarWallDestroy.gameObject.SetActive(false);
                 
                 if (curLevel == 4){
