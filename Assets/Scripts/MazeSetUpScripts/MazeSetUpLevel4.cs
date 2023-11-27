@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
 using System.Collections;
-
+using UnityEngine.UI;
 namespace MazeSetUpScripts
 
 {
@@ -23,6 +23,7 @@ namespace MazeSetUpScripts
         private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
         private int index;
         public Material skull;
+        public Image wallImage;
 
         // public static int[,] _mazeOgLevel4 =
         // {
@@ -77,7 +78,6 @@ namespace MazeSetUpScripts
         private TimerController _timerController;
 
 
-
         void Start()
         {
             mazeShiftTime = DateTime.Now;
@@ -92,7 +92,6 @@ namespace MazeSetUpScripts
             _timerController = FindObjectOfType<TimerController>();
 
         }
-
 
         void GhostAbilty(int[,] _maze, Boolean calledByUser)
         {
@@ -293,7 +292,6 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 tickingSoundSource.Stop();
             }
 
-
             if (Input.GetKeyDown(KeyCode.G) &&
                 playercontrols.availableGhostPowerUps > 0) // Check for 'G' press and if power-ups are available
             {
@@ -364,6 +362,7 @@ void ChangeColorToBlue(GameObject wallGameObject)
             }
 
             _pc.WallDestroyerTouched = false;
+            wallImage.gameObject.SetActive(false);
         }
 
         void PreviewNextMaze()
@@ -406,7 +405,6 @@ void ChangeColorToBlue(GameObject wallGameObject)
             {
                 //trapBlock.GetComponent<Renderer>().material.color = new Color(0.6f, 0.3f, 0.0f, 1.0f);
                 trapBlock.GetComponent<Renderer>().material= skull;
-
 
                 _pc.trapBlock = trapBlock;
             }
