@@ -42,11 +42,16 @@ public class SpeedTutorialControls : MonoBehaviour
         // float horizontalInput = Input.GetKey(KeyCode.RightArrow) ? 1f : (Input.GetKey(KeyCode.LeftArrow) ? -1f : 0f);
         // float verticalInput = Input.GetKey(KeyCode.UpArrow) ? 1f : (Input.GetKey(KeyCode.DownArrow) ? -1f : 0f);
 
-        // Calculate movement direction
         Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput);
+        movement.Normalize();
+        // Calculate movement direction
+        float yVelocity = rb.velocity.y;
 
-        // Set the velocity of the Rigidbody based on input
-        rb.velocity = movement * speed;
+        // Set the modified x and z components to the movement vector
+        Vector3 modifiedMovement = new Vector3(movement.x * speed, yVelocity, movement.z * speed);
+
+        // Set the complete modified velocity to the Rigidbody
+        rb.velocity = modifiedMovement;
 
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
@@ -78,7 +83,7 @@ public class SpeedTutorialControls : MonoBehaviour
     }
     void UseSpeedPowerUp()
     {
-        speed = 3f;
+        speed = 4f;
         progressBarSpeed.StartProgress(5f);
         StartCoroutine(TurnOffSpeedPowerUp(5f));
     }
