@@ -23007,6 +23007,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveHeight: 0.5
+--- !u!1 &673041624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 819856408833800514, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+  m_PrefabInstance: {fileID: 1966489350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &674722363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30127,6 +30132,7 @@ MonoBehaviour:
   ghostAbilityDuration: 5
   tickingSoundSource: {fileID: 276195582}
   tickingSoundClip: {fileID: 8300000, guid: 65b87ef3c8e3d432bb6c89ba4235589d, type: 3}
+  pausePanel: {fileID: 673041624}
 --- !u!1001 &1153625058
 PrefabInstance:
   m_ObjectHideFlags: 0

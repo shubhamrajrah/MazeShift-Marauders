@@ -11645,6 +11645,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveHeight: 0.5
+--- !u!1 &1051915445 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 819856408833800514, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+  m_PrefabInstance: {fileID: 1006658424}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1061747293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12647,6 +12652,7 @@ MonoBehaviour:
   switchTime: 10
   tickingSoundSource: {fileID: 1041995185}
   tickingSoundClip: {fileID: 8300000, guid: 65b87ef3c8e3d432bb6c89ba4235589d, type: 3}
+  pausePanel: {fileID: 1051915445}
 --- !u!1001 &1149738991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13820,7 +13826,7 @@ Transform:
   m_Children:
   - {fileID: 676760701}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1230031102
 PrefabInstance:

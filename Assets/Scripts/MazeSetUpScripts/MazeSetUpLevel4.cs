@@ -76,6 +76,7 @@ namespace MazeSetUpScripts
         private AudioClip tickingSoundClip; 
 
         private TimerController _timerController;
+        public GameObject pausePanel;
 
 
         void Start()
@@ -264,7 +265,7 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 _previewMaze = null;
                 GeneratePreviewMaze();
             }
-            if (_pc != null && _pc.GameIsWon)
+             if ((_pc != null && _pc.GameIsWon) || (pausePanel.activeSelf))
             {
                 if (tickingSoundSource.isPlaying)
                 {
