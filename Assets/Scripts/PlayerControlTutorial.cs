@@ -30,7 +30,7 @@ public class PlayerControlTutorial : MonoBehaviour
     private string[] instructionKeys = {
         "Collect Keys to unlock the Door"
     };
-
+    public TextMeshProUGUI mazeShiftPowerUpText;
     public Text InstructionsTimer;
      public Text InstructionsKeys;
      private Boolean isTimer; 
@@ -54,7 +54,6 @@ public class PlayerControlTutorial : MonoBehaviour
     public GameObject intermediateGameWinPanel;
     public GameObject timePanel;
     private Rigidbody rb;
-
 
     private LevelInfo _levelInfo;
 
@@ -87,6 +86,8 @@ public class PlayerControlTutorial : MonoBehaviour
     public ProgressBarScript progressBarWallDestroy;
     public GameObject trapBlock; 
     public Vector3 respawnPosition; 
+    public Image wallDestroyer;
+    public int availableMazeShiftPowerUp = 0;
 
     //Level 4 - Tutorial
     public Text dialougeText;
@@ -128,6 +129,17 @@ public class PlayerControlTutorial : MonoBehaviour
 
         // Set the velocity of the Rigidbody based on input
         rb.velocity = movement * speed;
+       if(Input.GetKeyDown(KeyCode.D) && availableMazeShiftPowerUp > 0)
+        {
+            availableMazeShiftPowerUp--;
+            mazeShiftPowerUpText.text = availableMazeShiftPowerUp.ToString();
+            walls = GameObject.FindGameObjectsWithTag("WallShift");
+            foreach (GameObject wall in walls)
+            {
+                // Move each wall down by 'descentDistance'
+                wall.transform.position -= new Vector3(0, descentDistance, 0);
+            }
+        }
     }
 
 
@@ -155,8 +167,13 @@ public class PlayerControlTutorial : MonoBehaviour
         {
             WallDestroyerTouched = true;
             collision.gameObject.SetActive(false);
-            // dialougeText.text = instructions[1];
             _levelInfo.DestructionCollected++;
+        }else if (collision.gameObject.CompareTag(("ShiftPower")))
+        {
+            collision.gameObject.SetActive(false);
+            availableMazeShiftPowerUp++;
+            _levelInfo.MazeShiftCollected++;
+            mazeShiftPowerUpText.text = availableMazeShiftPowerUp.ToString();
         }
         if (collision.gameObject.CompareTag("Wall") && WallDestroyerTouched)
         {
