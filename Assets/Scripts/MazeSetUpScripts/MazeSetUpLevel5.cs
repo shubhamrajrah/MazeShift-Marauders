@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
 using System.Collections;
-
+using UnityEngine.UI;
 namespace MazeSetUpScripts
 {
     public class MazeSetUpLevel5 : MonoBehaviour
@@ -77,6 +77,10 @@ namespace MazeSetUpScripts
 
         private TimerController _timerController;
 
+        public ProgressBarScript progressBarWallDestruction;
+        public Material noWallMaterialDestruct;
+
+        public Image wallImage;
 
         void Start()
         {
@@ -310,7 +314,66 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 // DeactivateGhostPowerUp();
                 //GhostPowerUp();
             }
+            if (_pc.WallDestroyerTouched)
+            {
+                Debug.Log("Inside iff");
+                WallDestructionMode(_maze);
+                progressBarWallDestruction.StartProgress(5f);
+                // DeactivateGhostPowerUp();
+                //GhostPowerUp();
+            }
+            else if (!isGhostPower)
+            {
+                walls = GameObject.FindGameObjectsWithTag("Wall");
+                foreach (GameObject wall in walls)
+                {
+                    wall.GetComponent<Renderer>().material = WallMaterial;
+                }
+            }
         }
+
+        void WallDestructionMode(int[,] _maze)
+        {
+            Debug.Log("maze lenght cols " + _maze.GetLength(0));
+            Debug.Log("maze lenght row " + _maze.GetLength(1));
+            for (int i = 1; i <= _maze.GetLength(0); i++)
+            {
+                for (int j = 1; j <= _maze.GetLength(1); j++)
+                {
+                    if (_maze[i - 1, j - 1] == 1)
+                    {
+                        Debug.Log("current block one- " + $"block_{i}_{j}");
+                        GameObject wallGameObject = GameObject.Find($"block_{i}_{j}");
+                        if (wallGameObject != null && wallGameObject.CompareTag("Wall"))
+                        {
+                            Renderer renderer = wallGameObject.GetComponent<Renderer>();
+                            if (renderer != null)
+                            {
+                                renderer.material = noWallMaterialDestruct;
+                            }
+                        }
+                    }
+                }
+            }
+
+            walls = GameObject.FindGameObjectsWithTag("Wall");
+            StartCoroutine(TurnOffWallDestructionMode(5f));
+        }
+
+        IEnumerator TurnOffWallDestructionMode(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            // Now, set isTrigger back to false for all walls
+            foreach (GameObject wall in walls)
+            {
+                wall.GetComponent<Renderer>().material = WallMaterial;
+            }
+
+            _pc.WallDestroyerTouched = false;
+            wallImage.gameObject.SetActive(false);
+        }
+
+
 
         void PreviewNextMaze()
         {

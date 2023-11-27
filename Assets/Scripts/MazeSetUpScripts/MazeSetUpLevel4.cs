@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
 using System.Collections;
-
+using UnityEngine.UI;
 namespace MazeSetUpScripts
 
 {
@@ -23,6 +23,7 @@ namespace MazeSetUpScripts
         private int mazeshiftmode = MazeSetupUtils.mazeshiftmode;
         private int index;
         public Material skull;
+        public Image wallImage;
 
         // public static int[,] _mazeOgLevel4 =
         // {
@@ -364,6 +365,7 @@ void ChangeColorToBlue(GameObject wallGameObject)
             }
 
             _pc.WallDestroyerTouched = false;
+            wallImage.gameObject.SetActive(false);
         }
 
         void PreviewNextMaze()
