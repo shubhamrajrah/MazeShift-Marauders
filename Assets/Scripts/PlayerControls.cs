@@ -67,7 +67,7 @@ public class PlayerControls : MonoBehaviour
     public Color targetUnfinish = Color.red;
     public Color targetFinish = Color.green;
     public TextMeshProUGUI keyText;
-    private string _keyTextFormat = "Keys: {0}/{1}";
+    private string _keyTextFormat = "Stars: {0}/{1}";
     private int _keyGet = 0;
     private bool _isDescending = false;
 
@@ -258,6 +258,8 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("Inside Win Col");
             GameIsWon = true; 
             _levelInfo.CalculateInterval(DateTime.Now);
+            // update star number
+            GlobalVariables.LevelStars[curLevel] = Math.Max(GlobalVariables.LevelStars[curLevel], _keyGet);
             collision.gameObject.SetActive(false);
             if (nextLevel == "Menu")
             {
