@@ -24,6 +24,8 @@ namespace Analytic.DTO
         public int DestructionUsed;
         public int TrapStepped;
         public int Transported;
+        public int MazeShiftCollected;
+        public int MazeShiftUsed;
 
         public LevelInfo(int levelNum, DateTime start)
         {
@@ -43,6 +45,8 @@ namespace Analytic.DTO
             DestructionUsed = 0;
             TrapStepped = 0;
             Transported = 0;
+            MazeShiftCollected = 0;
+            MazeShiftUsed = 0;
 
             // mock up data
             // DeadByChaser = random.Next(0, 10);

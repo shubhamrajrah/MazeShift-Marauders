@@ -24,29 +24,6 @@ namespace MazeSetUpScripts
         public Material skull;
 
         private int index;
-        // int[,] _mazeOgLevel5 =
-        // {
-        //     { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3 }, //1
-        //     { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 1, 1, 0, 3, 0, 0 }, //2
-        //     { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 0, 3, 1, 3 }, //3
-        //     { 1, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 1, 3, 0, 0 }, //4
-        //     { 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 1, 3, 1, 3, 0, 3, 1, 3 }, //5
-        //     { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 3, 0, 0, 1, 3, 1, 1 }, //6
-        //     { 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 0, 1, 3, 0, 3, 0, 3 }, //7
-        //     { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 3, 3, 0, 0 }, //8
-        //     { 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 0, 3 }, //9
-        //     { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 1, 0 }, //10
-        //     { 3, 0, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 3, 0, 3, 3, 3, 1, 3 }, //11
-        //     { 3, 1, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 0, 0, 0, 3, 3, 0, 1 }, //12
-        //     { 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 3, 0, 3, 3, 3, 0, 3 }, //13
-        //     { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 1, 0, 3, 1, 0 }, //14
-        //     { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 3, 3, 3, 0, 3 }, //15
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 1 }, //16
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 1, 3 }, //17
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 0 }, //18
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 3 }, //19
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 3 } //20
-        // };
 
         int[,] _maze;
 
@@ -269,6 +246,17 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 SetMazeToPreview();
                 _previewMaze = null;
                 GeneratePreviewMaze();
+            } else if(Input.GetKeyDown(KeyCode.D) && playercontrols.availableMazeShiftPowerUp > 0)
+
+            {
+                _lastSwitch = Time.time;
+                SetMazeToPreview();
+                _previewMaze = null;
+                GeneratePreviewMaze();
+                // update number and analytics
+                playercontrols.availableMazeShiftPowerUp--;
+                playercontrols.mazeShiftPowerUpText.text = playercontrols.availableMazeShiftPowerUp.ToString();
+                GlobalVariables.LevelInfo.MazeShiftUsed++;
             }
 
             if ((_pc != null && _pc.GameIsWon) || (pausePanel.activeSelf))

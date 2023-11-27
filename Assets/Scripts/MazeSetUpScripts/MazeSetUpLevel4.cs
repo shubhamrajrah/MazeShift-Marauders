@@ -48,6 +48,9 @@ namespace MazeSetUpScripts
         //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 0, 3 }  //19
 
         // };
+        
+        
+        
         public static int[,] _maze;
 
         // Flag to ensure we initialize the maze only once
@@ -264,6 +267,17 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 SetMazeToPreview();
                 _previewMaze = null;
                 GeneratePreviewMaze();
+            } else if(Input.GetKeyDown(KeyCode.D) && playercontrols.availableMazeShiftPowerUp > 0)
+
+            {
+                _lastSwitch = Time.time;
+                SetMazeToPreview();
+                _previewMaze = null;
+                GeneratePreviewMaze();
+                // update number and analytics
+                playercontrols.availableMazeShiftPowerUp--;
+                playercontrols.mazeShiftPowerUpText.text = playercontrols.availableMazeShiftPowerUp.ToString();
+                GlobalVariables.LevelInfo.MazeShiftUsed++;
             }
              if ((_pc != null && _pc.GameIsWon) || (pausePanel.activeSelf))
             {
@@ -299,13 +313,14 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 gPressTime = DateTime.Now;
                 ghostPressed = true;
                 isGhostPower = true;
-                Debug.Log("Inside iff");
+                Debug.Log("Inside if");
                 GhostAbilty(_maze, true);
                 progressBarGhost.StartProgress(5f);
                 GlobalVariables.LevelInfo.GhostUsed++;
                 // DeactivateGhostPowerUp();
                 //GhostPowerUp();
             }
+            
 
             if (_pc.WallDestroyerTouched)
             {
@@ -387,7 +402,7 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 {
                     // Fetch the block based on its name
                     GameObject block = GameObject.Find($"block_{j}_{i}");
-                    Debug.Log($"Processing block_{j}_{i}" + "Maze VAlue - " + mazeToDisplay[j - 1, i - 1]);
+                    // Debug.Log($"Processing block_{j}_{i}" + "Maze VAlue - " + mazeToDisplay[j - 1, i - 1]);
                     if (block)
                     {
                         BlockController controller = block.GetComponent<BlockController>();
