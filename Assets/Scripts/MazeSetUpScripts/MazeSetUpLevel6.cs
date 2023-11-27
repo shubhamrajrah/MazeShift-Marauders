@@ -24,31 +24,6 @@ namespace MazeSetUpScripts
         private int index;
         public Material skull;
         public Image wallImage;
-        // int[,] _mazeOgLevel6 =
-        // {
-        //     { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3, 1, 3, 1, 3, 0 }, //1
-        //     { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 1, 1, 0, 1, 3, 1, 3 }, //2
-        //     { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 0, 3, 1, 3, 0 }, //3
-        //     { 1, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 1, 1, 3, 1, 3 }, //4
-        //     { 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3, 1, 3, 1, 3, 0, 3, 1, 3, 0 }, //5
-        //     { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 3, 0, 0, 1, 1, 3, 1, 3 }, //6
-        //     { 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 0, 1, 3, 0, 3, 1, 3, 0 }, //7
-        //     { 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 3, 1, 3, 1, 3 }, //8
-        //     { 3, 0, 3, 0, 3, 1, 3, 1, 3, 1, 3, 3, 0, 3, 1, 3, 0, 3, 0, 3 }, //9
-        //     { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 3, 1, 3, 0 }, //10
-        //     { 3, 0, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 3, 0, 3, 3, 3, 1, 3, 0 }, //11
-        //     { 3, 1, 3, 0, 3, 1, 1, 3, 1, 3, 0, 3, 1, 0, 0, 0, 3, 1, 3, 1 }, //12
-        //     { 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 3, 0, 3, 3, 3, 1, 3, 0 }, //13
-        //     { 3, 0, 3, 1, 3, 1, 3, 1, 3, 1, 3, 0, 3, 1, 1, 0, 3, 1, 3, 0 }, //14
-        //     { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 3, 3, 3, 1, 3, 0 }, //15
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 1, 3, 0 }, //16
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 1, 3, 1, 3 }, //17
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 1, 3, 1, 3 }, //18
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 3, 1, 3, 0 }, //19
-        //     { 3, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 3, 0, 1, 1, 1, 3, 1, 3 }, //20
-        //     { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 3, 1, 3 } //21
-            
-        // };
 
         int[,] _maze;
 
@@ -267,6 +242,17 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 SetMazeToPreview();
                 _previewMaze = null;
                 GeneratePreviewMaze();
+            } else if(Input.GetKeyDown(KeyCode.D) && playercontrols.availableMazeShiftPowerUp > 0)
+
+            {
+                _lastSwitch = Time.time;
+                SetMazeToPreview();
+                _previewMaze = null;
+                GeneratePreviewMaze();
+                // update number and analytics
+                playercontrols.availableMazeShiftPowerUp--;
+                playercontrols.mazeShiftPowerUpText.text = playercontrols.availableMazeShiftPowerUp.ToString();
+                GlobalVariables.LevelInfo.MazeShiftUsed++;
             }
 
             if ((_pc != null && _pc.GameIsWon) || (pausePanel.activeSelf))

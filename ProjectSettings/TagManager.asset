@@ -22,6 +22,7 @@ TagManager:
   - FutureHint
   - PortalHint
   - TutorialPanel
+  - ShiftPower
   layers:
   - Default
   - TransparentFX

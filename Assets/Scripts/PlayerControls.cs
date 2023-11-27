@@ -98,6 +98,10 @@ public class PlayerControls : MonoBehaviour
         "Run into a wall to destroy it permenantly"
     };
     public GameObject tutorialPanel;
+    
+    // MazeShiftPowerUp
+    public int availableMazeShiftPowerUp = 0;
+    public TextMeshProUGUI mazeShiftPowerUpText;
 
     public bool GameIsWon { get; private set; } = false;
 
@@ -285,11 +289,16 @@ public class PlayerControls : MonoBehaviour
                 dialougeText.text = instructions[1];
             }
             _levelInfo.DestructionCollected++;
+        } else if (collision.gameObject.CompareTag(("ShiftPower")))
+        {
+            collision.gameObject.SetActive(false);
+            availableMazeShiftPowerUp++;
+            _levelInfo.MazeShiftCollected++;
+            mazeShiftPowerUpText.text = availableMazeShiftPowerUp.ToString();
         }
         if (collision.gameObject.CompareTag("Wall") && WallDestroyerTouched)
         {
             Vector3 wallPosition = collision.gameObject.transform.position;
-            Debug.Log("trying to dstroy the wall---"+wallPosition);
             if (wallPosition.y >= 0.5f)
             {
                 Debug.Log("destroying high wall---"+wallPosition);
