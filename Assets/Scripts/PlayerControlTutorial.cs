@@ -88,6 +88,8 @@ public class PlayerControlTutorial : MonoBehaviour
     public Vector3 respawnPosition; 
     public Image wallDestroyer;
     public int availableMazeShiftPowerUp = 0;
+    public Material noWallMaterialDestruct;
+    public Material WallMaterial;
 
     //Level 4 - Tutorial
     public Text dialougeText;
@@ -140,6 +142,24 @@ public class PlayerControlTutorial : MonoBehaviour
                 wall.transform.position -= new Vector3(0, descentDistance, 0);
             }
         }
+        if(!WallDestroyerTouched){
+            List<GameObject> walls = new List<GameObject>();
+            foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>())
+            {
+                if (obj.CompareTag("WallShift") || obj.CompareTag("Wall"))
+                {
+                    walls.Add(obj);
+                }
+            }
+            foreach (GameObject wall in walls)
+            {
+                Renderer renderer = wall.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.material = WallMaterial;
+                }
+            }
+        }
     }
 
 
@@ -168,6 +188,22 @@ public class PlayerControlTutorial : MonoBehaviour
             WallDestroyerTouched = true;
             collision.gameObject.SetActive(false);
             _levelInfo.DestructionCollected++;
+            List<GameObject> walls = new List<GameObject>();
+            foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>())
+            {
+                if (obj.CompareTag("WallShift") || obj.CompareTag("Wall"))
+                {
+                    walls.Add(obj);
+                }
+            }
+            foreach (GameObject wall in walls)
+            {
+                Renderer renderer = wall.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.material = noWallMaterialDestruct;
+                }
+            }
         }else if (collision.gameObject.CompareTag(("ShiftPower")))
         {
             collision.gameObject.SetActive(false);
