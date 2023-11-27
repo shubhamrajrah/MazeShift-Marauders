@@ -3174,10 +3174,20 @@ MonoBehaviour:
   keyUI: {fileID: 43046325}
   timerText: {fileID: 1479991010}
   powerUpUI: {fileID: 39646515}
+<<<<<<< Updated upstream
+=======
+  timer: 60
+  hasKey: 0
+  canMove: 1
+>>>>>>> Stashed changes
   keyCountUI: {fileID: 264020169}
   borderImage: {fileID: 802058151}
   globalTimerUI: {fileID: 1180455013}
   globalTimerBorder: {fileID: 1602933309}
+<<<<<<< Updated upstream
+=======
+  hasFlashedGlobalTimerBorder: 0
+>>>>>>> Stashed changes
   newCameraPosition: {fileID: 1524700548}
 --- !u!1001 &280463889
 PrefabInstance:
@@ -7371,6 +7381,10 @@ MonoBehaviour:
   - {fileID: 562268016}
   - {fileID: 1524700548}
   - {fileID: 1479955090}
+<<<<<<< Updated upstream
+=======
+  currentPosIndex: 0
+>>>>>>> Stashed changes
 --- !u!1001 &692707026
 PrefabInstance:
   m_ObjectHideFlags: 0
