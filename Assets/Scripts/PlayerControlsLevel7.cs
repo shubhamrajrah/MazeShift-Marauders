@@ -276,7 +276,7 @@ public class PlayerControlsLevel7 : MonoBehaviour
             GameIsWon = true; 
             _levelInfo.CalculateInterval(DateTime.Now);
             // update star number
-            GlobalVariables.LevelStars[curLevel] = Math.Max(GlobalVariables.LevelStars[curLevel], _keyGet);
+            //lobalVariables.LevelStars[curLevel] = Math.Max(GlobalVariables.LevelStars[curLevel], _keyGet);
             collision.gameObject.SetActive(false);
             if (nextLevel == "Menu")
             {
@@ -349,7 +349,7 @@ public class PlayerControlsLevel7 : MonoBehaviour
     }
     void UseSpeedPowerUp()
     {
-        speed = 3f;
+        speed = 5f;
         progressBarSpeed.StartProgress(5f);
         StartCoroutine(TurnOffSpeedPowerUp(5f));
     }
