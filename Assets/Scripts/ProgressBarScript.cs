@@ -23,6 +23,7 @@ public class ProgressBarScript : MonoBehaviour
             fillerImage.fillAmount = 1;
             StartCoroutine(ProgressRoutine(timeInSeconds));
         }
+        
     }
 
     private IEnumerator ProgressRoutine(float timeInSeconds)
