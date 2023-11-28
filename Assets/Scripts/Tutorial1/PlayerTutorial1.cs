@@ -37,7 +37,7 @@ public GameObject FreezeImage;
 public GameObject KeyImage;
 public GameObject ArrowImage;
 public GameObject fLetterImage;
-
+private Rigidbody rb;
 public GameObject PortalImage;
 public GameObject playerForMaze1; // Assign the player GameObject for maze1 in the inspector
 public GameObject playerForMaze2; // Assign the player GameObject for maze2 in the inspector
@@ -56,28 +56,18 @@ private GameObject keyObject;
 
     void Start()
     {   
-        canMove = false;
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = false;
+        rb.drag = 0f;
+        // canMove = false;
         instructionText.text = "This is a shifting maze game";
-        // keyCountUI.SetActive(false);
         globalTimerUI.SetActive(false);
         globalTimerBorder.SetActive(false);
-         StartCoroutine(DisplayInstructionAfterDelay1());
+        StartCoroutine(DisplayInstructionAfterDelay1());
         portal1.gameObject.SetActive(false);
         portal2.gameObject.SetActive(false);
         freeze.gameObject.SetActive(false);
-
-            keyObject = GameObject.FindWithTag("Key"); // Find the Key GameObject by its tag
-            //winCollection.gameObject.setActive(false);
-
-        // GlobalVariables.LevelInfo ??= new LevelInfo(curLevel, DateTime.Now);
-        // // initialize level track
-        // GlobalVariables.LevelTrack ??= new LevelTrack(curLevel);
-        // // track level
-        // GlobalVariables.Level = curLevel;
-        // _levelInfo = GlobalVariables.LevelInfo;
-
-
-
+        keyObject = GameObject.FindWithTag("Key"); // Find the Key GameObject by its tag
     }
 
    
@@ -86,23 +76,20 @@ private GameObject keyObject;
     {
         if (canMove)
         {
+            
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
-
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+            // transform.Translate(movement * speed * Time.deltaTime);
+            rb.velocity = movement * speed;
             if ((moveHorizontal != 0 || moveVertical != 0) && !hasDisplayedInstruction)
             {
-                //  instructionText.text = "Use arrow keys to move";
-
-                // arrowUI.SetActive(false);
-                // instructionText.text = "Collect the key"; // Update text to instruct player to collect the key
-
                 StartCoroutine(DisplayInstructionAfterDelay());
-                            hasDisplayedInstruction = true; // Set the flag to true after displaying the instruction
+                            hasDisplayedInstruction = true;
 
             }
 
-            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-            transform.Translate(movement * speed * Time.deltaTime);
+            
         }
 
         timer -= Time.deltaTime;
@@ -157,7 +144,7 @@ private IEnumerator DisplayInstructionAfterDelay()
     private void CollectKey()
     {
         hasKey = true;
-        canMove = false;
+        // canMove = false;
         instructionText.text = "Stars will unlock the levels";
 
         // keyCountUI.SetActive(true);
