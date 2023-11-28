@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerTutorial1 : MonoBehaviour
 {
     public float speed = 5.0f;
-    public GameObject arrowUI;
+    // public GameObject arrowUI;
     public Text instructionText;
     public GameObject keyUI;
     public Text timerText;
@@ -17,8 +17,8 @@ public class PlayerTutorial1 : MonoBehaviour
     private bool canMove = true;
 
     // for Key Counter animation
-    public GameObject keyCountUI; // Assign the KeyCount UI GameObject in the inspector
-    public GameObject borderImage; // Assign the border GameObject in the inspector
+    // public GameObject keyCountUI; // Assign the KeyCount UI GameObject in the inspector
+    // public GameObject borderImage; // Assign the border GameObject in the inspector
 
     // for Global Timer Animation
     public GameObject globalTimerUI; // Assign the GlobalTimer UI GameObject in the inspector
@@ -28,29 +28,46 @@ public class PlayerTutorial1 : MonoBehaviour
 
     public bool futureFlag = false;
 
+    private bool hasDisplayedInstruction = false;
+public GameObject instructionPanel; 
+
 public GameObject portal1;
 public GameObject portal2;
 public GameObject FreezeImage;
 public GameObject KeyImage;
+public GameObject ArrowImage;
+public GameObject fLetterImage;
 
+public GameObject PortalImage;
 public GameObject playerForMaze1; // Assign the player GameObject for maze1 in the inspector
 public GameObject playerForMaze2; // Assign the player GameObject for maze2 in the inspector
 public Transform startOfMaze2;
 public GameObject freeze;
 
+private GameObject keyObject;
+
+    public GameObject winCollection; 
+
+    public GameObject IntermediateWinPanel;
+
+
 //  private LevelInfo _levelInfo;
 //  public int curLevel;
 
     void Start()
-    {
+    {   
+        canMove = false;
         instructionText.text = "This is a shifting maze game";
-        keyCountUI.SetActive(false);
+        // keyCountUI.SetActive(false);
         globalTimerUI.SetActive(false);
         globalTimerBorder.SetActive(false);
          StartCoroutine(DisplayInstructionAfterDelay1());
         portal1.gameObject.SetActive(false);
         portal2.gameObject.SetActive(false);
         freeze.gameObject.SetActive(false);
+
+            keyObject = GameObject.FindWithTag("Key"); // Find the Key GameObject by its tag
+            //winCollection.gameObject.setActive(false);
 
         // GlobalVariables.LevelInfo ??= new LevelInfo(curLevel, DateTime.Now);
         // // initialize level track
@@ -72,7 +89,7 @@ public GameObject freeze;
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
 
-            if ((moveHorizontal != 0 || moveVertical != 0) && arrowUI.activeSelf)
+            if ((moveHorizontal != 0 || moveVertical != 0) && !hasDisplayedInstruction)
             {
                 //  instructionText.text = "Use arrow keys to move";
 
@@ -80,6 +97,7 @@ public GameObject freeze;
                 // instructionText.text = "Collect the key"; // Update text to instruct player to collect the key
 
                 StartCoroutine(DisplayInstructionAfterDelay());
+                            hasDisplayedInstruction = true; // Set the flag to true after displaying the instruction
 
             }
 
@@ -92,9 +110,12 @@ public GameObject freeze;
     }
 
     private IEnumerator DisplayInstructionAfterDelay1()
-    {        
+    {       
         yield return new WaitForSeconds(1); // Wait for 2 seconds
+        ArrowImage.gameObject.SetActive(true);  
         instructionText.text = "Use arrow keys to move";
+        yield return new WaitForSeconds(1);
+        canMove = true;
         // instructionText.text = "Collect the key"; // Update text after 2 seconds
         // arrowUI.SetActive(false); // Deactivate arrowUI after showing the instruction
     }
@@ -103,9 +124,10 @@ public GameObject freeze;
 private IEnumerator DisplayInstructionAfterDelay()
     {
         yield return new WaitForSeconds(2); // Wait for 2 seconds
+        ArrowImage.gameObject.SetActive(false);
         KeyImage.gameObject.SetActive(true);
         instructionText.text = "Collect the star"; // Update text after 2 seconds
-        arrowUI.SetActive(false); // Deactivate arrowUI after showing the instruction
+        // arrowUI.SetActive(false); // Deactivate arrowUI after showing the instruction
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -113,12 +135,23 @@ private IEnumerator DisplayInstructionAfterDelay()
         {
             CollectKey();
             Destroy(other.gameObject); // Assuming the key is the object to be destroyed
+            keyObject = null; 
         }
-        else if (other.CompareTag("FreezeCollection"))
+        if (other.CompareTag("FreezeCollection"))
         {
             CollectPowerUp();
             Destroy(other.gameObject); // Assuming the power-up is the object to be destroyed
         }
+
+        if (other.CompareTag("WinCollection"))
+        {
+           IntermediateWinPanel.SetActive(true); 
+           Destroy(other.gameObject);
+            instructionPanel.SetActive(false);
+
+        }
+
+
     }
 
     private void CollectKey()
@@ -127,38 +160,50 @@ private IEnumerator DisplayInstructionAfterDelay()
         canMove = false;
         instructionText.text = "Stars will unlock the levels";
 
-        keyCountUI.SetActive(true);
-        StartCoroutine(FlashBorderForSeconds(2, borderImage));
+        // keyCountUI.SetActive(true);
+        // StartCoroutine(FlashBorderForSeconds(2, borderImage));
         StartCoroutine(ProceedAfterKeyCollection());
     }
 
     private IEnumerator ProceedAfterKeyCollection()
-    {
-        // yield return new WaitForSeconds(2); // Wait for the border to flash
-        // instructionText.text = "Reach the destination on time";
-        globalTimerUI.SetActive(true);
-        StartCoroutine(FlashBorderForSeconds(2, globalTimerBorder));
-        yield return new WaitForSeconds(2); // Wait for the global timer border to flash
-        canMove = true; // Allow the player to move again
-                        freeze.gameObject.SetActive(true);
-        KeyImage.gameObject.SetActive(false);
-        FreezeImage.gameObject.SetActive(true);
-        instructionText.text = "Collect to get 5 seconds more";
-    }
-
-  private void CollectPowerUp()
 {
+    instructionText.text = "Stars will unlock the levels";
+    yield return new WaitForSeconds(2); // Duration for displaying the first instruction
 
+    // Now show the global timer UI and border
+    globalTimerUI.SetActive(true);
+    StartCoroutine(FlashBorderForSeconds(2, globalTimerBorder));
+    yield return new WaitForSeconds(2); // Wait for the global timer border to flash
+
+    canMove = true; // Allow the player to move again
+    freeze.gameObject.SetActive(true);
+    KeyImage.gameObject.SetActive(false);
+    FreezeImage.gameObject.SetActive(true);
+    instructionText.text = "Collect to get 5 seconds more";
+}
+
+
+private void CollectPowerUp()
+{
     FreezeImage.gameObject.SetActive(false);
     timer += 5.0f; // Add 5 seconds to the timer
+    fLetterImage.gameObject.SetActive(true);
     instructionText.text = "Press F to view the Future Maze"; 
-   // StartCoroutine(WaitAndAddPortal(2)); // Wait for 2 seconds and then move the camera
+
     futureFlag = true;
+
+    // Deactivate the timer UI and border here if needed
+    globalTimerUI.SetActive(false);
+    globalTimerBorder.SetActive(false);
 }
+
 
 private IEnumerator WaitAndAddPortal(float waitTime)
 {
     yield return new WaitForSeconds(4);
+    PortalImage.gameObject.SetActive(true);
+        fLetterImage.gameObject.SetActive(false);
+
     instructionText.text = "Use Portal to Teleport"; 
 portal1.gameObject.SetActive(true);
 portal2.gameObject.SetActive(true);

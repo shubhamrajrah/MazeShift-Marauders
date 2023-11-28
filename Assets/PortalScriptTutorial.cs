@@ -11,30 +11,30 @@ public class PortalScriptTutorial : MonoBehaviour
     public GameObject futurehint;
     public GameObject tutorialpanel;
     public static bool recentlyTeleported = false;  // Add this
-    private PlayerTutorial1 _pc;
+    public PlayerTutorial1 _pc;
+    public GameObject winCollection; 
+    public GameObject trophyImage;
+
+     
 
     void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.CompareTag("Player") && !recentlyTeleported)
     {
-        if (collision.gameObject.CompareTag("Player") && !recentlyTeleported)
+        Vector3 newPosition = linkedPortal.position + exitDirection; // Calculate the new position
+
+        // Check if the newPosition is not overlapping with the maze geometry
+        if (!Physics.CheckSphere(newPosition, 0.5f)) // Adjust the radius as needed
         {
             recentlyTeleported = true;
-            // collision.gameObject.transform.position = new Vector3(linkedPortal.position.x, collision.gameObject.transform.position.y,linkedPortal.position.z-0.5f);
-            collision.gameObject.transform.position = new Vector3(linkedPortal.position.x + exitDirection.x, collision.gameObject.transform.position.y, linkedPortal.position.z + exitDirection.z);
-           
+            collision.gameObject.transform.position = newPosition;
+
             StartCoroutine(ResetTeleportation());
             StartCoroutine(FinishRemarks());
-            //GlobalVariables.LevelInfo.Transported++;
         }
-        // portalhint = GameObject.FindWithTag("PortalHint");
-        // futurehint = GameObject.FindWithTag("FutureHint");
-        // tutorialpanel = GameObject.FindWithTag("TutorialPanel");
-        // if(portalhint){
-        //     portalhint.SetActive(false);
-        //     if(!futurehint){
-        //         tutorialpanel.SetActive(false);
-        //     }
-        // }
     }
+}
+
     private IEnumerator ResetTeleportation()
     {
         yield return new WaitForSeconds(1f); //1sec wait
@@ -43,8 +43,11 @@ public class PortalScriptTutorial : MonoBehaviour
 
      private IEnumerator FinishRemarks()
     {
-        yield return new WaitForSeconds(2f); //1sec wait
-        _pc.instructionText.text = "Onward to Glory!!";
+        yield return new WaitForSeconds(1f); //1sec wait
+        _pc.PortalImage.gameObject.SetActive(false);
+        _pc.instructionText.text = "Collect to complete tutorial!";
+        trophyImage.gameObject.SetActive(true);
+        winCollection.gameObject.SetActive(true);
        // StartCoroutine(DisablePanel());
     }
 

@@ -102,6 +102,8 @@ private bool _firstFKeyPressed = false;
         private IEnumerator FirstTimeTeleportFeature()
         {
             yield return new WaitForSeconds(1); 
+            _pc.fLetterImage.gameObject.SetActive(false);
+            _pc.PortalImage.gameObject.SetActive(true);
             _pc.instructionText.text = "Use Portal to Teleport";
             _pc.portal1.gameObject.SetActive(true);
             _pc.portal2.gameObject.SetActive(true);
