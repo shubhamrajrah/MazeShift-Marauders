@@ -7755,10 +7755,13 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 34748205115824687, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 41421551629482673, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_text
-      value: Tutorial 3 Complete! You are now a certified wall destroyer and maze
-        shifter!
+      value: Tutorial 3 Complete!
       objectReference: {fileID: 0}
     - target: {fileID: 41421551629482673, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_fontSize
@@ -7775,6 +7778,10 @@ PrefabInstance:
     - target: {fileID: 1492869966917981524, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_RootOrder
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036848779811710049, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 2049340531480692693, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_AnchorMin.x
