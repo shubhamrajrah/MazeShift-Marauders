@@ -64,6 +64,7 @@ public class SpeedTutorialControls : MonoBehaviour
         SpeedPromptImage.enabled = false;
         SpeedPromptText.enabled = false;
         initialScale = GhostPrompt.rectTransform.localScale;
+        Time.timeScale = 1;
 
     }
 
