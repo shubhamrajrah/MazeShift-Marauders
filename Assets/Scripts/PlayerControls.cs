@@ -218,6 +218,28 @@ public class PlayerControls : MonoBehaviour
             collision.gameObject.SetActive(false);
             _levelInfo.KeyCollected++;
             keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
+            // New code to activate the gold star in game screen
+            Transform starsInGamePlayTransform = GameObject.Find("StarsInGamePlay").transform;
+            Transform goldStarsTransform = starsInGamePlayTransform.Find("GoldStarsInGamePlay");
+
+            if (goldStarsTransform != null)
+            {
+                string goldStarName = "GoldStarGP" + _keyGet;
+                Transform goldStarChild = goldStarsTransform.Find(goldStarName);
+                if (goldStarChild != null)
+                {
+                    goldStarChild.gameObject.SetActive(true);
+                }
+                else
+                {
+                    Debug.LogWarning("GoldStar child with name " + goldStarName + " not found in starsInGamePlay!");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("goldStarsInGamePlay not found in starsInGamePlay!");
+            }
+
             if (_keyGet == keyNum && !_isDescending)
             {
                 endBlock.GetComponent<Renderer>().material.color = targetFinish;
@@ -273,6 +295,8 @@ public class PlayerControls : MonoBehaviour
             }
             else
             {
+                GameObject starsingameplay = GameObject.Find("StarsInGamePlay");
+                starsingameplay.SetActive(false);
                 IntermediateGameWinPanelDisplay();
             }
         }
