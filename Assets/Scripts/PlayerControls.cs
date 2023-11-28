@@ -12,41 +12,10 @@ using UnityEngine.Serialization;
 
 public class PlayerControls : MonoBehaviour
 {
-    //Instructions -
-    private string[] instruction1 = {
-        "Collect Ghost Power up to walk through walls",
-        "Press G to walk through wall"
-    };
-
-    private string[] instruction2 = {
-        "Collect Speed Power up to increase speed",
-        "Press S to increase Speed"
-    };
-
-    private string[] instructionTimer = {
-        "Collect button to buy more time"
-    };
-
-    private string[] instructionKeys = {
-        "Collect Keys to unlock the Door"
-    };
-
-    public Text InstructionsTimer;
-     public Text InstructionsKeys;
-     private Boolean isTimer; 
-     private Boolean isKey; 
-     public Text InstructionFinal;
-     public GameObject Timer_Img;
-     public GameObject Key_Img;
-
-    public Text dialogueTextGhost;
-    public Text dialogueTextSpeed;
-
     public Boolean speedOn = false;
-    public GameObject speedImg;
 
 
-  public float startSpeed = 4f;
+    public float startSpeed = 4f;
     public float speed = 4f;
     public string nextLevel;
     public int curLevel;
@@ -92,12 +61,6 @@ public class PlayerControls : MonoBehaviour
     public Image wallDestroyer;
 
     //Level 4 - Tutorial
-    public Text dialougeText;
-    private string[] instructions = {
-        "Grab to activate destruction mode",
-        "Run into a wall to destroy it permenantly"
-    };
-    public GameObject tutorialPanel;
     
     // MazeShiftPowerUp
     public int availableMazeShiftPowerUp = 0;
@@ -111,10 +74,6 @@ public class PlayerControls : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = false;
         rb.drag = 0f;
-        if(curLevel == 1){
-            InstructionsTimer.text = instructionTimer[0];
-            InstructionsKeys.text = instructionKeys[0];
-        }
         
         respawnPosition = transform.position;
         plusFiveSecondsText.gameObject.SetActive(false);
@@ -139,17 +98,6 @@ public class PlayerControls : MonoBehaviour
         _levelInfo = GlobalVariables.LevelInfo;
         endBlock.GetComponent<Renderer>().material.color = targetUnfinish;
         keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
-
-       //Level 4 - Tutorial
-        if (curLevel == 4)
-        {
-            dialougeText.text = instructions[0];
-        }
-        if (curLevel == 3)
-        {
-            dialogueTextGhost.text = instruction1[0];
-            dialogueTextSpeed.text = instruction2[0];
-        }
     }
 
     void Update()
@@ -175,24 +123,10 @@ public class PlayerControls : MonoBehaviour
             availableSpeedPowerUps--; // decrement the power-up count
             _levelInfo.SpeedUsed++;
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
-            if(curLevel == 3)
-            {
-                dialogueTextSpeed.gameObject.SetActive(false);
-                speedImg.gameObject.SetActive(false);
-            }
-           
-        }
-        if(isKey && isTimer && curLevel == 1){
-            InstructionFinal.gameObject.SetActive(true);
         }
     }
     public void HandleFreezeEffect(int freezeTime)
     {
-        if(curLevel == 1){
-            InstructionsTimer.gameObject.SetActive(false);
-            Timer_Img.gameObject.SetActive(false);
-            isTimer = true;
-        }
         StartCoroutine(FreezePlayerRoutine(freezeTime));
     }
 
@@ -244,12 +178,6 @@ public class PlayerControls : MonoBehaviour
             {
                 endBlock.GetComponent<Renderer>().material.color = targetFinish;
                 StartCoroutine(DoorDescend());
-                if(curLevel == 1){
-                    InstructionsKeys.gameObject.SetActive(false);
-                    Key_Img.gameObject.SetActive(false);
-                    isKey = true; 
-                }
-                
             }
         }
         else if (collision.gameObject.CompareTag("Ghost"))
@@ -257,10 +185,6 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("Inside if...");
             availableGhostPowerUps++;
             _levelInfo.GhostCollected++;
-            if(curLevel == 3)
-            {
-                dialogueTextGhost.text = instruction1[1];
-            }
             
             ghostPowerUpText.text = availableGhostPowerUps.ToString();
             collision.gameObject.SetActive(false);
@@ -272,11 +196,6 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("Inside if...");
             availableSpeedPowerUps++;
             _levelInfo.SpeedCollected++;
-            if(curLevel == 3)
-            {
-                dialogueTextSpeed.text = instruction2[1];
-
-            }
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
             collision.gameObject.SetActive(false);
 
@@ -309,9 +228,6 @@ public class PlayerControls : MonoBehaviour
             WallDestroyerTouched = true;
             collision.gameObject.SetActive(false);
             wallDestroyer.gameObject.SetActive(true);
-            if(curLevel == 4){
-                dialougeText.text = instructions[1];
-            }
             _levelInfo.DestructionCollected++;
         } else if (collision.gameObject.CompareTag(("ShiftPower")))
         {
@@ -334,10 +250,6 @@ public class PlayerControls : MonoBehaviour
                  wallDestroyer.gameObject.SetActive(false);
                 progressBarWallDestroy.gameObject.SetActive(false);
                 
-                if (curLevel == 4){
-                    tutorialPanel.SetActive(false);
-                }
-                
             }
             
         }
@@ -347,44 +259,15 @@ public class PlayerControls : MonoBehaviour
             transform.position = respawnPosition; 
         }
     }
-
-    void UseGhostPowerUp()
-    {
-        GhostPowerUp();
-        progressBarGhost.StartProgress(5f);
-
-    }
+    
     void UseSpeedPowerUp()
     {
         speed = 3f;
         progressBarSpeed.StartProgress(5f);
         StartCoroutine(TurnOffSpeedPowerUp(5f));
     }
-
-    void GhostPowerUp()
-    {
-        Debug.Log("Inside GhostPowerUp");
-        walls = GameObject.FindGameObjectsWithTag("Wall");
-        Debug.Log("Fine got walls");
-        foreach (GameObject wall in walls)
-        {
-            Debug.Log("Inside FOR");
-            wall.GetComponent<Collider>().isTrigger = true;
-        }
-
-        StartCoroutine(TurnOffGhostPowerUp(5f));
-    }
-
-    IEnumerator TurnOffGhostPowerUp(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        // Now, set isTrigger back to false for all walls
-        foreach (GameObject wall in walls)
-        {
-            wall.GetComponent<Collider>().isTrigger = false;
-        }
-    }
+    
+    
     IEnumerator TurnOffSpeedPowerUp(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -440,9 +323,5 @@ public class PlayerControls : MonoBehaviour
         }
         _isDescending = false;
     }
-
-    public bool IsGameOver()
-    {
-        return gameWinPanel.activeSelf;
-    }
+    
 }
