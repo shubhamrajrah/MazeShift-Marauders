@@ -26,14 +26,44 @@ public class PlayerTutorial1 : MonoBehaviour
     private bool hasFlashedGlobalTimerBorder = false;
     public Transform newCameraPosition; // Assign this in the inspector with the new position and rotation for the camera
 
+    public bool futureFlag = false;
+
+public GameObject portal1;
+public GameObject portal2;
+public GameObject FreezeImage;
+public GameObject KeyImage;
+
+public GameObject playerForMaze1; // Assign the player GameObject for maze1 in the inspector
+public GameObject playerForMaze2; // Assign the player GameObject for maze2 in the inspector
+public Transform startOfMaze2;
+public GameObject freeze;
+
+//  private LevelInfo _levelInfo;
+//  public int curLevel;
 
     void Start()
     {
-        instructionText.text = "Use arrow keys to move";
+        instructionText.text = "This is a shifting maze game";
         keyCountUI.SetActive(false);
         globalTimerUI.SetActive(false);
         globalTimerBorder.SetActive(false);
+         StartCoroutine(DisplayInstructionAfterDelay1());
+        portal1.gameObject.SetActive(false);
+        portal2.gameObject.SetActive(false);
+        freeze.gameObject.SetActive(false);
+
+        // GlobalVariables.LevelInfo ??= new LevelInfo(curLevel, DateTime.Now);
+        // // initialize level track
+        // GlobalVariables.LevelTrack ??= new LevelTrack(curLevel);
+        // // track level
+        // GlobalVariables.Level = curLevel;
+        // _levelInfo = GlobalVariables.LevelInfo;
+
+
+
     }
+
+   
 
     void Update()
     {
@@ -44,8 +74,13 @@ public class PlayerTutorial1 : MonoBehaviour
 
             if ((moveHorizontal != 0 || moveVertical != 0) && arrowUI.activeSelf)
             {
-                arrowUI.SetActive(false);
-                instructionText.text = "Collect the key"; // Update text to instruct player to collect the key
+                //  instructionText.text = "Use arrow keys to move";
+
+                // arrowUI.SetActive(false);
+                // instructionText.text = "Collect the key"; // Update text to instruct player to collect the key
+
+                StartCoroutine(DisplayInstructionAfterDelay());
+
             }
 
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
@@ -56,6 +91,22 @@ public class PlayerTutorial1 : MonoBehaviour
         timerText.text = "Time: " + Mathf.Round(timer).ToString();
     }
 
+    private IEnumerator DisplayInstructionAfterDelay1()
+    {        
+        yield return new WaitForSeconds(1); // Wait for 2 seconds
+        instructionText.text = "Use arrow keys to move";
+        // instructionText.text = "Collect the key"; // Update text after 2 seconds
+        // arrowUI.SetActive(false); // Deactivate arrowUI after showing the instruction
+    }
+
+
+private IEnumerator DisplayInstructionAfterDelay()
+    {
+        yield return new WaitForSeconds(2); // Wait for 2 seconds
+        KeyImage.gameObject.SetActive(true);
+        instructionText.text = "Collect the star"; // Update text after 2 seconds
+        arrowUI.SetActive(false); // Deactivate arrowUI after showing the instruction
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Key"))
@@ -74,7 +125,8 @@ public class PlayerTutorial1 : MonoBehaviour
     {
         hasKey = true;
         canMove = false;
-        instructionText.text = "Key Collected! Keys will unlock the door";
+        instructionText.text = "Stars will unlock the levels";
+
         keyCountUI.SetActive(true);
         StartCoroutine(FlashBorderForSeconds(2, borderImage));
         StartCoroutine(ProceedAfterKeyCollection());
@@ -82,30 +134,36 @@ public class PlayerTutorial1 : MonoBehaviour
 
     private IEnumerator ProceedAfterKeyCollection()
     {
-        yield return new WaitForSeconds(2); // Wait for the border to flash
-        instructionText.text = "Reach the destination on time";
+        // yield return new WaitForSeconds(2); // Wait for the border to flash
+        // instructionText.text = "Reach the destination on time";
         globalTimerUI.SetActive(true);
         StartCoroutine(FlashBorderForSeconds(2, globalTimerBorder));
         yield return new WaitForSeconds(2); // Wait for the global timer border to flash
         canMove = true; // Allow the player to move again
-        instructionText.text = "Out of time? Get 5 seconds more";
+                        freeze.gameObject.SetActive(true);
+        KeyImage.gameObject.SetActive(false);
+        FreezeImage.gameObject.SetActive(true);
+        instructionText.text = "Collect to get 5 seconds more";
     }
 
   private void CollectPowerUp()
 {
+
+    FreezeImage.gameObject.SetActive(false);
     timer += 5.0f; // Add 5 seconds to the timer
-    instructionText.text = "Let's go!"; // Change instruction text to "Let's go!"
-    StartCoroutine(WaitAndMoveCamera(2)); // Wait for 2 seconds and then move the camera
+    instructionText.text = "Press F to view the Future Maze"; 
+   // StartCoroutine(WaitAndAddPortal(2)); // Wait for 2 seconds and then move the camera
+    futureFlag = true;
 }
 
-private IEnumerator WaitAndMoveCamera(float waitTime)
+private IEnumerator WaitAndAddPortal(float waitTime)
 {
-    yield return new WaitForSeconds(waitTime);
-    CameraMover cameraMover = Camera.main.GetComponent<CameraMover>(); // Assuming CameraMover is attached to the main camera
-    if (cameraMover != null)
-    {
-        cameraMover.MoveToNextPosition(); // Call method to move camera to next position
-    }
+    yield return new WaitForSeconds(4);
+    instructionText.text = "Use Portal to Teleport"; 
+portal1.gameObject.SetActive(true);
+portal2.gameObject.SetActive(true);
+
+   
 }
 
 
@@ -117,6 +175,9 @@ private IEnumerator WaitAndMoveCamera(float waitTime)
         timerText.text = "Let's go ahead"; // Change the timer text to display the message
         yield return new WaitForSeconds(3);
         MoveCameraToNextLocation(); // Call the method to move the camera
+
+        yield return new WaitForSeconds(3);
+    TransitionToNextMaze();
     }
 
   private void MoveCameraToNextLocation()
@@ -149,4 +210,18 @@ private IEnumerator MoveCamera(Transform cameraTransform, Vector3 newPosition, Q
         yield return new WaitForSeconds(seconds);
         borderObject.SetActive(false);
     }
+
+    private void TransitionToNextMaze()
+{
+    // Disable player for maze 1
+    playerForMaze1.SetActive(false);
+
+    // Enable player for maze 2 and position it at the start
+    playerForMaze2.SetActive(true);
+    playerForMaze2.transform.position = startOfMaze2.position;
+    playerForMaze2.transform.rotation = startOfMaze2.rotation;
+
+    // Assuming you have a method to initialize or reset the player's state for maze 2
+    playerForMaze2.GetComponent<Player2>().InitializeForMaze2();
+}
 }

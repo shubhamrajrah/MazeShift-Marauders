@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Collections;
 
 namespace MazeSetUpScripts
 {
-    public class MazeSetUpTutorial : MonoBehaviour
+    public class Maze2Setup : MonoBehaviour
     {
         int[,] _mazeOgLevel2 =
         {
@@ -28,14 +29,17 @@ namespace MazeSetUpScripts
         bool _isPreviewing;
         private Rigidbody _playerObjectRb;
 
-        private Player2 _pc;
+        private PlayerTutorial1 _pc;
         private float _playerSpeed;
         
         [SerializeField]
         private float switchTime = 5.0f; //
-        private float _lastSwitch = 0.0f; //
                 public GameObject dimmingPanel;
 
+        private float _lastSwitch = 0.0f; //
+
+private bool _firstFKeyPressed = false;
+        private bool _fKeyReleased = false;     
 
         void Start()
         {
@@ -43,9 +47,11 @@ namespace MazeSetUpScripts
             // mazeChangeTimer = mazeChangeInterval; // initialize maze change timer
             GeneratePreviewMaze(); // generate future maze
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
-            _pc = GameObject.FindWithTag("Player1").GetComponent<Player2>();
+            _pc = GameObject.FindWithTag("Player").GetComponent<PlayerTutorial1>();
             _playerSpeed = _pc.speed;
             //targetBlock.GetComponent<Renderer>().material.color = Color.green;
+             _pc.portal1.gameObject.SetActive(false);
+          _pc.portal2.gameObject.SetActive(false);
         }
 
         void Update()
@@ -60,22 +66,29 @@ namespace MazeSetUpScripts
             }
             // Initalize the maze
             
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKey(KeyCode.F)  && _pc.futureFlag )
             {
                 PreviewNextMaze();
                 _playerObjectRb.velocity = Vector3.zero;
                 _playerObjectRb.angularVelocity = Vector3.zero;
                 _playerObjectRb.isKinematic = true;
                 _pc.speed = 0;
-                 dimmingPanel.SetActive(true);
+                dimmingPanel.SetActive(true);
+                if (!_firstFKeyPressed)
+                {
+                    _firstFKeyPressed = true; // Indicate that 'F' has been pressed for the first time
+                    StartCoroutine(FirstTimeTeleportFeature()); // Start the teleport feature with delay
+                }
+                // GlobalVariables.LevelInfo.FutureSightUsedTime += Time.deltaTime;
             }
             else if (_isPreviewing)
             {
                 RevertToCurrentMaze();
                 _pc.speed = _playerSpeed;
                 _playerObjectRb.isKinematic = false;
-                 dimmingPanel.SetActive(false);
+                dimmingPanel.SetActive(false);
             }
+
 
             if (Time.time - _lastSwitch > switchTime)
             {
@@ -86,6 +99,14 @@ namespace MazeSetUpScripts
             }
         }
 
+        private IEnumerator FirstTimeTeleportFeature()
+        {
+            yield return new WaitForSeconds(1); 
+            _pc.instructionText.text = "Use Portal to Teleport";
+            _pc.portal1.gameObject.SetActive(true);
+            _pc.portal2.gameObject.SetActive(true);
+        }
+        
         void PreviewNextMaze()
         {
             _isPreviewing = true;
@@ -107,7 +128,7 @@ namespace MazeSetUpScripts
                 {
                     // Fetch the block based on its name
                     GameObject block = GameObject.Find($"block_{j}_{i}");
-                    Debug.Log("block-----"+i+"_"+j);
+                    //Debug.Log("block-----"+i+"_"+j);
                     // Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
                     if (block)
                     {

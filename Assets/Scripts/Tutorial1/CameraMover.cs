@@ -43,5 +43,8 @@ public class CameraMover : MonoBehaviour
         StartCoroutine(MoveToPosition(cameraPositions[currentPosIndex]));
     }
 }
-
+public int GetCurrentPosIndex()
+    {
+        return currentPosIndex;
+    }
 }

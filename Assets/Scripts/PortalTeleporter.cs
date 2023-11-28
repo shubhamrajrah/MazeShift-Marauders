@@ -19,7 +19,7 @@ public class PortalTeleporter : MonoBehaviour
             recentlyTeleported = true;
             // collision.gameObject.transform.position = new Vector3(linkedPortal.position.x, collision.gameObject.transform.position.y,linkedPortal.position.z-0.5f);
             collision.gameObject.transform.position = new Vector3(linkedPortal.position.x + exitDirection.x, collision.gameObject.transform.position.y, linkedPortal.position.z + exitDirection.z);
-
+           
             // StartCoroutine(ResetTeleportation());
             GlobalVariables.LevelInfo.Transported++;
         }
