@@ -126,7 +126,7 @@ public class PlayerControls : MonoBehaviour
         if (curLevel == 4 || curLevel == 5 || curLevel == 6)
         {
             progressBarWallDestroy.gameObject.SetActive(false);
-             wallDestroyer.gameObject.SetActive(false);
+            wallDestroyer.gameObject.SetActive(false);
         }
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
@@ -171,7 +171,7 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             speedOn = true;
-            UseSpeedPowerUp();
+                
             availableSpeedPowerUps--; // decrement the power-up count
             _levelInfo.SpeedUsed++;
             speedPowerUpText.text = availableSpeedPowerUps.ToString();

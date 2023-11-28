@@ -13,38 +13,30 @@ using UnityEngine.Serialization;
 public class PlayerControlTutorial : MonoBehaviour
 {
     //Instructions -
-    private string[] instruction1 = {
-        "Collect Ghost Power up to walk through walls",
-        "Press G to walk through wall"
+    private string[] instructions = {
+        "Tutorial 3",
+        "Wall destruction mode activated. You can now destroy one wall of your choice by colliding with it",
+        "Woah! you did some damage to the maze. Sike!",
+        "Collect the mazeshift powerup to change the maze at your command",
+        "Press D to shift the maze to upcoming maze, beware, it could be good or bad!",
+        "You are now a certified wall destroyer and maze shifter"
     };
 
-    private string[] instruction2 = {
-        "Collect Speed Power up to increase speed",
-        "Press S to increase Speed"
-    };
-
-    private string[] instructionTimer = {
-        "Collect button to buy more time"
-    };
-
-    private string[] instructionKeys = {
-        "Collect Keys to unlock the Door"
-    };
     public TextMeshProUGUI mazeShiftPowerUpText;
     public Text InstructionsTimer;
-     public Text InstructionsKeys;
-     private Boolean isTimer; 
-     private Boolean isKey; 
-     public Text InstructionFinal;
-     public GameObject Timer_Img;
-     public GameObject Key_Img;
+    public Text InstructionsKeys;
+    private Boolean isTimer; 
+    private Boolean isKey; 
+    public Text InstructionFinal;
+    public GameObject Timer_Img;
 
     public Text dialogueTextGhost;
     public Text dialogueTextSpeed;
 
     public Boolean speedOn = false;
     public GameObject speedImg;
-
+    public GameObject dialogBoxHighlighter;
+    public GameObject mazeshiftHighlighter;
 
     public float startSpeed = 4f;
     public float speed = 4f;
@@ -65,24 +57,18 @@ public class PlayerControlTutorial : MonoBehaviour
     public GameObject endBlock;
     public Color targetUnfinish = Color.red;
     public Color targetFinish = Color.green;
-    public TextMeshProUGUI keyText;
-    // private string _keyTextFormat = "Stars: {0}/{1}";
-    private int _keyGet = 0;
+
 
     //Ghost Power up
     public GameObject[] walls;
     public int availableGhostPowerUps = 0;
-    public TextMeshProUGUI ghostPowerUpText;
-    public TextMeshProUGUI speedPowerUpText;
-    public TextMeshProUGUI plusFiveSecondsText;
     public bool canMove = true;
     public bool WallDestroyerTouched = false;
     public TimerController timerController;
 
     public Color timerHighlight = Color.yellow;
 
-    public ProgressBarScript progressBarGhost;
-    public ProgressBarScript progressBarSpeed;
+
     public ProgressBarScript progressBarWallDestroy;
     public GameObject trapBlock; 
     public Vector3 respawnPosition; 
@@ -93,21 +79,23 @@ public class PlayerControlTutorial : MonoBehaviour
 
     //Level 4 - Tutorial
     public Text dialougeText;
-    private string[] instructions = {
-        "Grab to activate destruction mode",
-        "Run into a wall to destroy it permenantly"
-    };
+
     public GameObject tutorialPanel;
 
     public bool GameIsWon { get; private set; } = false;
 
+    public Text instructionForTutorial;
+    public Image imageForTutorial;
+    public int WallsDestroyed = 0;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = false;
         rb.drag = 0f;
-      
+        instructionForTutorial.text = instructions[0];
+        // Sprite newSprite = Resources.Load<Sprite>("wallD");
+        // imageForTutorial.sprite = newSprite;
         // set time scale to 1 in case time scale was mistakenly set to 0
         Time.timeScale = 1;
         // initialize level info
@@ -118,7 +106,6 @@ public class PlayerControlTutorial : MonoBehaviour
         GlobalVariables.Level = curLevel;
         _levelInfo = GlobalVariables.LevelInfo;
         // endBlock.GetComponent<Renderer>().material.color = targetUnfinish;
-        // keyText.text = string.Format(_keyTextFormat, _keyGet, keyNum);
     }
     void Update()
     {
@@ -131,8 +118,9 @@ public class PlayerControlTutorial : MonoBehaviour
 
         // Set the velocity of the Rigidbody based on input
         rb.velocity = movement * speed;
-       if(Input.GetKeyDown(KeyCode.D) && availableMazeShiftPowerUp > 0)
+        if(Input.GetKeyDown(KeyCode.D) && availableMazeShiftPowerUp > 0)
         {
+            StartCoroutine(mazeshiftHighlightInfo(2f));
             availableMazeShiftPowerUp--;
             mazeShiftPowerUpText.text = availableMazeShiftPowerUp.ToString();
             walls = GameObject.FindGameObjectsWithTag("WallShift");
@@ -171,21 +159,32 @@ public class PlayerControlTutorial : MonoBehaviour
             GameIsWon = true; 
             _levelInfo.CalculateInterval(DateTime.Now);
             // update star number
-            GlobalVariables.LevelStars[curLevel] = Math.Max(GlobalVariables.LevelStars[curLevel], _keyGet);
             collision.gameObject.SetActive(false);
-            if (nextLevel == "Menu")
-            {
-                GameWinPanelDisplay();
-            }
-            
-        }
-        else if (collision.gameObject.CompareTag("Tile") || collision.gameObject.CompareTag("Wall"))
-        {
-            PortalTeleporter.recentlyTeleported = false;  
+            IntermediateGameWinPanelDisplay();  
         }
         else if (collision.gameObject.CompareTag("WallDestroyer"))
         {
+            GameObject image2 = GameObject.Find("Image2");
+            if(image2!=null)
+            {
+                image2.SetActive(false);
+            }
             WallDestroyerTouched = true;
+            // progressBarWallDestroy.gameObject.SetActive(true);
+            // progressBarWallDestroy.StartProgress(3f);
+            WallsDestroyed++;
+
+            if(WallsDestroyed < 3){
+                Sprite newSprite = Resources.Load<Sprite>("wallD");
+                imageForTutorial.sprite = newSprite;
+                instructionForTutorial.text = instructions[1];
+                StartCoroutine(HighlightInfo(1f));
+            }else{
+                instructionForTutorial.text = instructions[2];
+                StartCoroutine(HighlightInfo(1f));
+            }
+            
+            
             collision.gameObject.SetActive(false);
             _levelInfo.DestructionCollected++;
             List<GameObject> walls = new List<GameObject>();
@@ -204,13 +203,20 @@ public class PlayerControlTutorial : MonoBehaviour
                     renderer.material = noWallMaterialDestruct;
                 }
             }
+            // StartCoroutine(TurnOffWallDestructionMode(3f, walls));
         }else if (collision.gameObject.CompareTag(("ShiftPower")))
-        {
+        {   
+            Sprite newSprite = Resources.Load<Sprite>("maze_shift");
+            imageForTutorial.sprite = newSprite;
+            instructionForTutorial.text = instructions[4];
+            StartCoroutine(mazeshiftHighlightInfo(2f));
             collision.gameObject.SetActive(false);
             availableMazeShiftPowerUp++;
             _levelInfo.MazeShiftCollected++;
             mazeShiftPowerUpText.text = availableMazeShiftPowerUp.ToString();
         }
+
+        
         if (collision.gameObject.CompareTag("Wall") && WallDestroyerTouched)
         {
             Vector3 wallPosition = collision.gameObject.transform.position;
@@ -223,28 +229,62 @@ public class PlayerControlTutorial : MonoBehaviour
                 collision.gameObject.transform.position = newPosition;
                 collision.gameObject.SetActive(false);
                 WallDestroyerTouched = false;
-                progressBarWallDestroy.gameObject.SetActive(false);
-                
-                if (curLevel == 4){
-                    tutorialPanel.SetActive(false);
+                List<GameObject> walls = new List<GameObject>();
+                foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>())
+                {
+                    if (obj.CompareTag("WallShift") || obj.CompareTag("Wall"))
+                    {
+                        walls.Add(obj);
+                    }
                 }
-                
+                foreach (GameObject wall in walls)
+                {
+                    Renderer renderer = wall.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        renderer.material = WallMaterial;
+                    }
+                }
+            
+                // progressBarWallDestroy.gameObject.SetActive(false);
             }
             
         }
 
-        if (collision.gameObject == trapBlock) 
-        {
-            transform.position = respawnPosition; 
-        }
+    }
+    IEnumerator TurnOffWallDestructionMode(float delay, List<GameObject> walls)
+    {
+            yield return new WaitForSeconds(delay);
+            WallDestroyerTouched = false;
+            foreach (GameObject wall in walls)
+            {
+                wall.GetComponent<Renderer>().material = WallMaterial;
+            }
     }
 
+    IEnumerator HighlightInfo(float delay)
+    {
+        dialogBoxHighlighter.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        dialogBoxHighlighter.SetActive(false);
+    }
 
+    IEnumerator mazeshiftHighlightInfo(float delay)
+    {
+        mazeshiftHighlighter.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        mazeshiftHighlighter.SetActive(false);
+    }
 
     void GameWinPanelDisplay()
     {
         Time.timeScale = 0;
         gameWinPanel.SetActive(true);
+    }
+    void IntermediateGameWinPanelDisplay()
+    {
+        Time.timeScale = 0;
+        intermediateGameWinPanel.SetActive(true);
     }
  
 }
