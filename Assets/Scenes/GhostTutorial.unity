@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2562,7 +2562,6 @@ MonoBehaviour:
   progressBarGhost: {fileID: 1643880781}
   WallMaterial: {fileID: 2100000, guid: 944c03cd7aecb47f185da758dc4f965b, type: 2}
   nextLevel: Level3
-  intermediateGameWinPanel: {fileID: 2055028334}
   GhostPrompt: {fileID: 1217196347}
   GhostPromptText: {fileID: 2034883035}
 --- !u!1001 &750142672
@@ -6262,6 +6261,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1855105531 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2049340532466151199, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+  m_PrefabInstance: {fileID: 2055028333}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848a412b47151464cbe8eefde1cf0d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1868048247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6727,6 +6737,42 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1855105531}
+    - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 102900000, guid: 6d77551aae877eb4386109dd71ec7aec, type: 3}
+    - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LoadLevel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340531655184805, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: LoadLevel, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2049340532031635609, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_Name
       value: UserPanel
@@ -6815,17 +6861,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2049340533447693577, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2049340533447693577, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 3057054283072688504, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
---- !u!1 &2055028334 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8606514333257165525, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
-  m_PrefabInstance: {fileID: 2055028333}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2057127356
 PrefabInstance:
   m_ObjectHideFlags: 0
