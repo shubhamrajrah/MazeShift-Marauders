@@ -4578,13 +4578,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 172779485988788929, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 819856408833800514, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1492869966917981524, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1550013331335861178, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: tutorialpanel

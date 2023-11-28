@@ -10686,6 +10686,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Congratulations! Tutorial Complete
       objectReference: {fileID: 0}
+    - target: {fileID: 172779485988788929, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2049340532031635609, guid: 6f2d14266bb834b4a8ed5249949249d5, type: 3}
       propertyPath: m_Name
       value: UserPanel
