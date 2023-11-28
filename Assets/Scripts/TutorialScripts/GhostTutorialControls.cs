@@ -69,7 +69,7 @@ public class GhostTutorialControls : MonoBehaviour
             collision.gameObject.SetActive(false);
             //IntermediateGameWinPanelDisplay();
 
-            // TODO: Load Next Level
+            SceneManager.LoadScene("SpeedTutorial 1"); 
         }
     }
     void ChangeColorToBlue(GameObject wallGameObject)
@@ -114,6 +114,18 @@ public class GhostTutorialControls : MonoBehaviour
             wall.GetComponent<Collider>().isTrigger = false;
             wall.GetComponent<Renderer>().material = WallMaterial;
         }
+    }
+
+    public void RestartGame()
+    {
+       
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void LoadMenu()
+    {
+        
+        SceneManager.LoadScene("Menu");
     }
 
 

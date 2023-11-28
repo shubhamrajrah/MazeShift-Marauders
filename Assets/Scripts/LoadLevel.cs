@@ -101,5 +101,17 @@ public class LoadLevel : MonoBehaviour
         Debug.Log("调用了");
         LoadScene("Menu");
     }
-    
+
+    public void RestartGame()
+    {
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void LoadMenu()
+    {
+        
+        SceneManager.LoadScene("Menu");
+    }
+
 }
