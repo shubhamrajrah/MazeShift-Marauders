@@ -11,7 +11,7 @@ namespace MazeSetUpScripts
     public class MazeSetUpLevel7 : MonoBehaviour
     {
         //Ghost
-        public PlayerControls playercontrols;
+        public PlayerControlsLevel7 playercontrols;
         public ProgressBarScript progressBarGhost;
         private List<(int, int)> _redWalls = new List<(int, int)>();
         public GameObject[] walls;
@@ -59,7 +59,7 @@ namespace MazeSetUpScripts
         bool _isPreviewing;
         private Rigidbody _playerObjectRb;
         public Material noWallMaterialDestruct;
-        private PlayerControls _pc;
+        private PlayerControlsLevel7 _pc;
         private float _playerSpeed;
         public GameObject dimmingPanel;
         public ProgressBarScript progressBarWallDestruction;
@@ -90,7 +90,7 @@ namespace MazeSetUpScripts
             // mazeChangeTimer = mazeChangeInterval; // initialize maze change timer
             GeneratePreviewMaze(); // generate future maze
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
-            _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
+            _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControlsLevel7>();
             _playerSpeed = _pc.speed;
             tickingSoundSource.clip = tickingSoundClip;
             _timerController = FindObjectOfType<TimerController>();
