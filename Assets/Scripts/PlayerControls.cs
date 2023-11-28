@@ -171,7 +171,7 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && availableSpeedPowerUps > 0) // Check for 'G' press and if power-ups are available
         {
             speedOn = true;
-                
+            UseSpeedPowerUp();    
             availableSpeedPowerUps--; // decrement the power-up count
             _levelInfo.SpeedUsed++;
             speedPowerUpText.text = availableSpeedPowerUps.ToString();
