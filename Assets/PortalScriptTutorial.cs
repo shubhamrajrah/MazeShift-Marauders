@@ -18,23 +18,27 @@ public class PortalScriptTutorial : MonoBehaviour
      
 
     void OnCollisionEnter(Collision collision)
-{
-    if (collision.gameObject.CompareTag("Player") && !recentlyTeleported)
     {
-        Vector3 newPosition = linkedPortal.position + exitDirection; // Calculate the new position
-
-        // Check if the newPosition is not overlapping with the maze geometry
-        if (!Physics.CheckSphere(newPosition, 0.5f)) // Adjust the radius as needed
+        if (collision.gameObject.CompareTag("Player") && !recentlyTeleported)
         {
             recentlyTeleported = true;
-            collision.gameObject.transform.position = newPosition;
-
+            // collision.gameObject.transform.position = new Vector3(linkedPortal.position.x, collision.gameObject.transform.position.y,linkedPortal.position.z-0.5f);
+            collision.gameObject.transform.position = new Vector3(linkedPortal.position.x + exitDirection.x, collision.gameObject.transform.position.y, linkedPortal.position.z + exitDirection.z);
+           
             StartCoroutine(ResetTeleportation());
             StartCoroutine(FinishRemarks());
+            //GlobalVariables.LevelInfo.Transported++;
         }
+        // portalhint = GameObject.FindWithTag("PortalHint");
+        // futurehint = GameObject.FindWithTag("FutureHint");
+        // tutorialpanel = GameObject.FindWithTag("TutorialPanel");
+        // if(portalhint){
+        //     portalhint.SetActive(false);
+        //     if(!futurehint){
+        //         tutorialpanel.SetActive(false);
+        //     }
+        // }
     }
-}
-
     private IEnumerator ResetTeleportation()
     {
         yield return new WaitForSeconds(1f); //1sec wait
