@@ -301,7 +301,6 @@ void ChangeColorToBlue(GameObject wallGameObject)
                 progressBarGhost.StartProgress(5f);
                 // DeactivateGhostPowerUp();
                 //GhostPowerUp();
-                _pc.dialogueTextGhost.gameObject.SetActive(false);
                 ghostImg.gameObject.SetActive(false);
             }
 

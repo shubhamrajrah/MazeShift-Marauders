@@ -52,11 +52,6 @@ public class GhostTutorialControls : MonoBehaviour
         {
             Debug.Log("Inside if...");
             availableGhostPowerUps++;
-            //_levelInfo.GhostCollected++;
-            // if(curLevel == 3)
-            // {
-            //     dialogueTextGhost.text = instruction1[1];
-            // }
             
             //ghostPowerUpText.text = availableGhostPowerUps.ToString();
             collision.gameObject.SetActive(false);

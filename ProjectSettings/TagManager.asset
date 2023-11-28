@@ -23,6 +23,8 @@ TagManager:
   - PortalHint
   - TutorialPanel
   - ShiftPower
+  - WallShift
+  - gameplaystars
   layers:
   - Default
   - TransparentFX
