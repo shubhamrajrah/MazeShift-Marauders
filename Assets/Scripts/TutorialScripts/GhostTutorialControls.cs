@@ -29,6 +29,12 @@ public class GhostTutorialControls : MonoBehaviour
     public Material WallMaterial;
     public string nextLevel;
     public GameObject intermediateGameWinPanel;
+    public Image GhostPrompt;
+    public TextMeshProUGUI GhostPromptText;
+    private int flag = 0;
+    private float scalevalue = 1;
+    private int scaleflag=1;
+    private Vector3 initialScale;
 
     void Start()
     {
@@ -36,6 +42,9 @@ public class GhostTutorialControls : MonoBehaviour
         rb.freezeRotation = false;
         walls = GameObject.FindGameObjectsWithTag("Wall");
         //rb.drag = 5f;
+        GhostPrompt.enabled = false;
+        GhostPromptText.enabled = false;
+        initialScale = GhostPrompt.rectTransform.localScale;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -52,7 +61,11 @@ public class GhostTutorialControls : MonoBehaviour
             
             //ghostPowerUpText.text = availableGhostPowerUps.ToString();
             collision.gameObject.SetActive(false);
-            
+            if(flag ==0){
+            GhostPrompt.enabled = true;
+            GhostPromptText.enabled =true;
+        }
+            flag = 1;
 
         }
         if (collision.gameObject.CompareTag("WinCollection"))
@@ -142,6 +155,30 @@ public class GhostTutorialControls : MonoBehaviour
         // Calculate movement direction
         Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput);
 
+        if(GhostPrompt.enabled)
+        {
+            if(scaleflag==1){
+            GhostPrompt.rectTransform.localScale += new Vector3(scalevalue*Time.deltaTime,scalevalue*Time.deltaTime,scalevalue*Time.deltaTime);
+        }
+            else{
+                GhostPrompt.rectTransform.localScale -= new Vector3(scalevalue*Time.deltaTime,scalevalue*Time.deltaTime,scalevalue*Time.deltaTime);
+            }
+            //scalevalue+=0.01f*scaleflag;
+            Vector3 currentScale = GhostPrompt.rectTransform.localScale;
+            if(currentScale.x >= initialScale.x * 1.3f)
+            {
+                scaleflag = -1;
+            }
+            else if (currentScale.x <= initialScale.x)
+            {
+                // Reset to the original scale
+                GhostPrompt.rectTransform.localScale = initialScale;
+
+                // Reverse the scaling direction
+                scaleflag = 1;
+            }
+        }
+
         // Set the velocity of the Rigidbody based on input
         rb.velocity = movement * speed;
 
@@ -149,6 +186,9 @@ public class GhostTutorialControls : MonoBehaviour
             {
                 availableGhostPowerUps--;
                 UseGhostPowerUp();
+                GhostPrompt.enabled = false;
+                GhostPromptText.enabled = false;
+
             }
     }
 }
