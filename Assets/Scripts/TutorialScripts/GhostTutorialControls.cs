@@ -28,7 +28,6 @@ public class GhostTutorialControls : MonoBehaviour
     public ProgressBarScript progressBarGhost;
     public Material WallMaterial;
     public string nextLevel;
-    public GameObject intermediateGameWinPanel;
     public Image GhostPrompt;
     public TextMeshProUGUI GhostPromptText;
     private int flag = 0;
