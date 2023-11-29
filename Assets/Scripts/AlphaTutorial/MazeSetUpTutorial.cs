@@ -8,17 +8,17 @@ namespace MazeSetUpScripts
         {
             //maze 1 [alternate switching] - source - block_11_1 
             //target - block_7_11
-            { 3, 0, 3, 1, 3, 0, 3, 1, 3, 0, 3 }, //1
-            { 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1 }, //2
-            { 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3 }, //3
-            { 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0 }, //4
-            { 3, 0, 3, 0, 3, 0, 3, 1, 3, 1, 3 }, //5
-            { 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0 }, //6
-            { 3, 1, 3, 0, 3, 1, 3, 1, 3, 1, 3 }, //7
-            { 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1 }, //8
-            { 3, 0, 3, 0, 3, 1, 3, 0, 3, 0, 3 }, //9
-            { 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0 }, //10
-            { 3, 1, 3, 0, 3, 0, 3, 1, 3, 0, 3 } //11
+            { 3, 0, 3, 1, 3, 0, 3, 1, 3}, //1
+            { 0, 1, 0, 0, 0, 0, 1, 1, 0}, //2
+            { 3, 1, 3, 0, 3, 0, 3, 1, 3 }, //3
+            { 0, 0, 1, 0, 1, 0, 1, 1, 0 }, //4
+            { 3, 0, 3, 0, 3, 0, 3, 1, 3}, //5
+            { 0, 1, 0, 0, 1, 1, 0, 1, 0 }, //6
+            { 3, 1, 3, 0, 3, 1, 3, 1, 3}, //7
+            { 1, 0, 1, 0, 0, 1, 0, 0, 0}, //8
+            { 3, 0, 3, 0, 3, 1, 3, 0, 3 }, //9
+            { 0, 1, 0, 0, 1, 0, 1, 1, 1 }, //10
+            { 3, 1, 3, 0, 3, 0, 3, 1, 3 } //11
         };
         
         int[,] _maze;
@@ -28,13 +28,14 @@ namespace MazeSetUpScripts
         bool _isPreviewing;
         private Rigidbody _playerObjectRb;
 
-        private PlayerControls _pc;
+        private Player2 _pc;
         private float _playerSpeed;
-        public GameObject dimmingPanel;
         
         [SerializeField]
         private float switchTime = 5.0f; //
         private float _lastSwitch = 0.0f; //
+                public GameObject dimmingPanel;
+
 
         void Start()
         {
@@ -42,7 +43,7 @@ namespace MazeSetUpScripts
             // mazeChangeTimer = mazeChangeInterval; // initialize maze change timer
             GeneratePreviewMaze(); // generate future maze
             _playerObjectRb = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
-            _pc = GameObject.FindWithTag("Player").GetComponent<PlayerControls>();
+            _pc = GameObject.FindWithTag("Player1").GetComponent<Player2>();
             _playerSpeed = _pc.speed;
             //targetBlock.GetComponent<Renderer>().material.color = Color.green;
         }
@@ -66,14 +67,14 @@ namespace MazeSetUpScripts
                 _playerObjectRb.angularVelocity = Vector3.zero;
                 _playerObjectRb.isKinematic = true;
                 _pc.speed = 0;
-                dimmingPanel.SetActive(true);
+                 dimmingPanel.SetActive(true);
             }
             else if (_isPreviewing)
             {
                 RevertToCurrentMaze();
                 _pc.speed = _playerSpeed;
                 _playerObjectRb.isKinematic = false;
-                dimmingPanel.SetActive(false);
+                 dimmingPanel.SetActive(false);
             }
 
             if (Time.time - _lastSwitch > switchTime)
@@ -106,6 +107,7 @@ namespace MazeSetUpScripts
                 {
                     // Fetch the block based on its name
                     GameObject block = GameObject.Find($"block_{j}_{i}");
+                    Debug.Log("block-----"+i+"_"+j);
                     // Debug.Log($"Processing block_{j}_{i}"+"Maze VAlue - " + maze[j-1, i-1]);
                     if (block)
                     {
@@ -126,15 +128,20 @@ namespace MazeSetUpScripts
         }
 
         void GeneratePreviewMaze()
+{
+    _previewMaze = (int[,])_maze.Clone();
+    for (int i = 0; i < _previewMaze.GetLength(0); i++) // Start at 0 to include all rows
+    {
+        for (int j = 0; j < _previewMaze.GetLength(1); j++) // Start at 0 to include all columns
         {
-            _previewMaze = (int[,])_maze.Clone();
-            for (int i = 1; i < _previewMaze.GetLength(0) - 1; i++)
+            // Ensure that the edges of the maze are not randomized if that's required
+            if (i > 0 && j > 0 && i < _previewMaze.GetLength(0) - 1 && j < _previewMaze.GetLength(1) - 1)
             {
-                for (int j = 1; j < _previewMaze.GetLength(1) - 1; j++)
-                {
-                    _previewMaze[i, j] = Random.Range(0, 2);
-                }
+                _previewMaze[i, j] = Random.Range(0, 4); // Assuming 0-3 are valid block states
             }
         }
+    }
+}
+
     }
 }

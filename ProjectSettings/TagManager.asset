@@ -25,6 +25,7 @@ TagManager:
   - ShiftPower
   - WallShift
   - gameplaystars
+  - Player1
   layers:
   - Default
   - TransparentFX
