@@ -28,6 +28,7 @@ public class BlockController : MonoBehaviour
     {
         if (gameObject.CompareTag("Wall"))
         {
+            
             targetHeight = (value == 1) ? baseHeight + moveHeight : baseHeight;
         }
         // You can add further adjustments for other block types if needed.
